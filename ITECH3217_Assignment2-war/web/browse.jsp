@@ -34,6 +34,7 @@
                             <label for='showEbooks'>Show eBooks</label>
                             <input type="checkbox" name="showEquipment" checked="checked" />
                             <label for='showEquipment'>Show Equipment</label>
+                            <p></p>
                             <% Iterator itr; %>
                             <% List list = (List) request.getAttribute("list");
                             for (itr = list.iterator(); itr.hasNext();) {
