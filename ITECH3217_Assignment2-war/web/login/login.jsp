@@ -8,7 +8,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="/ITECH3217_Assignment2-war/includes/styles/login.css" rel="stylesheet" type="text/css">
+        <link href="../includes/styles/login.css" rel="stylesheet" type="text/css">
         <title>FedUni Registration</title>
     </head>
     <body>
@@ -36,8 +36,8 @@
                         <input type="password" name="password" value="" placeholder="Password" required/>
                         <input class="submit" type="submit" value="Login">
                     </form>
-                    <button class="reg" onclick="location.href = '/ITECH3217_Assignment2/login/register/register.jsp'">Registration</button>
-                    <button class="guest" onclick="location.href = '/ITECH3217_Assignment2/'">Access as a Guest</button>
+                    <button class="reg" onclick="location.href = '../login/register/register.jsp'">Registration</button>
+                    <button class="guest" onclick="location.href = '../index.jsp'">Access as a Guest</button>
                 </div>
             </div>
         </div>
