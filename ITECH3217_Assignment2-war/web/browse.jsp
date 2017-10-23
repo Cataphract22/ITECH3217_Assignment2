@@ -21,7 +21,7 @@
 
     <div class="header">
         <h1>Welcome to Federation University Library</h2>
-            <h1>Browse Books</h1>
+            <h1>Browse Items</h1>
             <div class="search-container">
                 <h2>Search</h2>
                 <table>    
@@ -103,14 +103,13 @@
                             Item item = (Item) itr.next();
                             int itemId = item.getItemid();
                     %>
-                    <jsp:include page="/CheckBookmarkServlet">
-                        <jsp:param name="item" value="<%=itemId%>"/>
-                    </jsp:include>
+                    
+                    
                     <jsp:include page="./GetItemTypeServlet">
                         <jsp:param name="item" value="<%=itemId%>"/>
                     </jsp:include>
                     <li class='item-container'>
-                        <form action="/ITECH3217_Assignment2-war/BookmarkServlet?id=<%out.println(item.getItemid());%>" method="POST">
+                        <form action="ItemDetailsServlet?id=<%out.println(item.getItemid());%>" method="POST">
                             <img class='coverImage' src='<%out.println(item.getImage());%>' width="120"</img>
                             <table>
                                 <tr><td><h3 class='title'><%out.println(item.getTitle());%></h3></td></tr>
@@ -143,7 +142,7 @@
 
                                 <!-- Buttons -->
                                 <tr><td><p> </p></td></tr>
-                                <tr><td><input class="itemButton" type="submit" value="<%out.println(request.getAttribute("bookmark"));%>"></input></td></tr>
+                                <tr><td><input class="itemButton" type="submit" value="Details"></input></td></tr>
                             </table>              
                         </form>  
                     </li> 
@@ -154,20 +153,3 @@
         </div>
     </body>
 </html>
-<%
-    /*
-            for (int i = 0; i < results.size(); i++) {
-                ItemBook item = (ItemBook) results.get(i);
-                out.println(""
-                    + "<div class='bookItem'>"
-                    + "<h2 class='title'>" + item.getTitle() + "</h2>"
-                    + "<img class='coverImage' src='" + item.getImage() + "' </img>"
-                    + "<p class='author'>" + item.getAuthor() + "</p>"
-                    + "<p class='publisher'>" + item.getPublisher() + "</p>"
-                    + "<p class='isbn'>" + item.getIsbn() + "</p>"
-                    + "<p class='description'>" + item.getDescription() + "</p>"
-                    + "</div>" 
-                );
-            }
-     */
-%>

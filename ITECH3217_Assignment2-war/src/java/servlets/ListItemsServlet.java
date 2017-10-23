@@ -106,35 +106,35 @@ public class ListItemsServlet extends HttpServlet {
             
             for (int i = results.size() - 1; i >= 0; i--) {
                 Item result = (Item) results.get(i);
-                processSearch(result, result.getTitle(), request.getParameter("searchTitle"));
+                registerSearch(result, result.getTitle(), request.getParameter("searchTitle"));
 
                 switch (result.getItemtype().getItemtype()) {
                     case "BOOK":
                         Book book = bookFacade.findByItemid(result);
-                        processSearch(result, book.getAuthor(), request.getParameter("searchAuthor"));
-                        processSearch(result, book.getPublisher(), request.getParameter("searchPublisher"));
-                        processSearch(result, Integer.toString(book.getPublishYear()), request.getParameter("searchPublishYear"));
-                        processSearch(result, book.getIsbn(), request.getParameter("searchIsbn"));
-                        processSearch(result, null, request.getParameter("searchModel"));
-                        processSearch(result, null, request.getParameter("searchSerialno"));
+                        registerSearch(result, book.getAuthor(), request.getParameter("searchAuthor"));
+                        registerSearch(result, book.getPublisher(), request.getParameter("searchPublisher"));
+                        registerSearch(result, Integer.toString(book.getPublishYear()), request.getParameter("searchPublishYear"));
+                        registerSearch(result, book.getIsbn(), request.getParameter("searchIsbn"));
+                        registerSearch(result, null, request.getParameter("searchModel"));
+                        registerSearch(result, null, request.getParameter("searchSerialno"));
                         break;
                     case "EBOOK":
                         Ebook ebook = ebookFacade.findByItemid(result);
-                        processSearch(result, ebook.getAuthor(), request.getParameter("searchAuthor"));
-                        processSearch(result, ebook.getPublisher(), request.getParameter("searchPublisher"));
-                        processSearch(result, Integer.toString(ebook.getPublishYear()), request.getParameter("searchPublishYear"));
-                        processSearch(result, ebook.getIsbn(), request.getParameter("searchIsbn"));
-                        processSearch(result, null, request.getParameter("searchModel"));
-                        processSearch(result, null, request.getParameter("searchSerialno"));
+                        registerSearch(result, ebook.getAuthor(), request.getParameter("searchAuthor"));
+                        registerSearch(result, ebook.getPublisher(), request.getParameter("searchPublisher"));
+                        registerSearch(result, Integer.toString(ebook.getPublishYear()), request.getParameter("searchPublishYear"));
+                        registerSearch(result, ebook.getIsbn(), request.getParameter("searchIsbn"));
+                        registerSearch(result, null, request.getParameter("searchModel"));
+                        registerSearch(result, null, request.getParameter("searchSerialno"));
                         break;
                     case "EQUIPMENT":
                         Equipment equipment = equipmentFacade.findByItemid(result);
-                        processSearch(result, equipment.getModel(), request.getParameter("searchModel"));
-                        processSearch(result, equipment.getSerialno(), request.getParameter("searchSerialno"));
-                        processSearch(result, null, request.getParameter("searchAuthor"));
-                        processSearch(result, null, request.getParameter("searchPublisher"));
-                        processSearch(result, null, request.getParameter("searchPublishYear"));
-                        processSearch(result, null, request.getParameter("searchIsbn"));
+                        registerSearch(result, equipment.getModel(), request.getParameter("searchModel"));
+                        registerSearch(result, equipment.getSerialno(), request.getParameter("searchSerialno"));
+                        registerSearch(result, null, request.getParameter("searchAuthor"));
+                        registerSearch(result, null, request.getParameter("searchPublisher"));
+                        registerSearch(result, null, request.getParameter("searchPublishYear"));
+                        registerSearch(result, null, request.getParameter("searchIsbn"));
                         break;
                 }
             }
@@ -157,7 +157,7 @@ public class ListItemsServlet extends HttpServlet {
         
     }
 
-    private void processSearch(Item result, String s1, String s2) {
+    private void registerSearch(Item result, String s1, String s2) {
         // Calls searchString, and processes the resultSet
         if (s2 != null && !s2.equals("")) {
             if (s1 == null || !searchString(s1, s2)) {

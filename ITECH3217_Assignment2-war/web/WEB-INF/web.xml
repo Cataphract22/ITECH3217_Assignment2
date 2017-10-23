@@ -20,6 +20,10 @@
         <servlet-name>GetItemTypeServlet</servlet-name>
         <servlet-class>servlets.GetItemTypeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ItemDetailsServlet</servlet-name>
+        <servlet-class>servlets.ItemDetailsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessLoginServlet</servlet-name>
         <url-pattern>/ProcessLoginServlet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>GetItemTypeServlet</servlet-name>
         <url-pattern>/GetItemTypeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ItemDetailsServlet</servlet-name>
+        <url-pattern>/ItemDetailsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
