@@ -45,7 +45,7 @@ public class ListItemsServlet extends HttpServlet {
 
         try {
 
-            //Get type
+            // Get types
             String[] types = request.getParameterValues("type");
             
             // Get item list
@@ -53,18 +53,24 @@ public class ListItemsServlet extends HttpServlet {
             
             // Filter list by item type (display only one type of item)
             
-            if (types.length > 0) {
+            if (types != null) {
                 List filteredResults = new ArrayList();
-
-                for(int i = 0; i < results.size(); i++) {
-                    Item result = (Item) results.get(i);
-                    for(int t = 0; t < types.length; t++) {
+                for(int t = 0; t < types.length; t++) {
+                    // Set attribute of checkbox to checked
+                    request.setAttribute(types[t], "checked='checked'");
+                    
+                    // Filter list
+                    for(int i = 0; i < results.size(); i++) {
+                        Item result = (Item) results.get(i);
                         if (result.getItemtype().getItemtype().equals(types[t])) {
                             filteredResults.add(result);
                         }
                     }
                 }
                 results = filteredResults;
+            } else {
+                // Clear results if no type is selected
+                results.clear();
             }
             
             request.setAttribute("list", results);
