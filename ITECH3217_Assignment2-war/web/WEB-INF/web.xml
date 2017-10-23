@@ -5,7 +5,7 @@
         <servlet-class>servlets.ProcessLoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ListBooksServlet</servlet-name>
+        <servlet-name>ListItemsServlet</servlet-name>
         <servlet-class>servlets.ListItemsServlet</servlet-class>
     </servlet>
     <servlet>
@@ -25,8 +25,8 @@
         <url-pattern>/ProcessLoginServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ListBooksServlet</servlet-name>
-        <url-pattern>/ListBooksServlet</url-pattern>
+        <servlet-name>ListItemsServlet</servlet-name>
+        <url-pattern>/ListItemsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BookmarkServlet</servlet-name>

@@ -72,7 +72,7 @@ public class BookmarkServlet extends HttpServlet {
             out.println(e);
         }
         
-        response.sendRedirect("/ITECH3217_Assignment2-war/ListBooksServlet");
+        response.sendRedirect("/ITECH3217_Assignment2-war/ListItemsServlet");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

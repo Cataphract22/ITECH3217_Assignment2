@@ -55,7 +55,7 @@ public class ProcessLoginServlet extends HttpServlet {
                 //request.setAttribute("failed", true);
                 
             } else if (user.getPassword().equals(request.getParameter("password"))) {
-                address = "/ListBooksServlet";
+                address = "/ListItemsServlet";
                 params = "?user=" + user;
                 request.getSession().setAttribute("email", user.getEmail());
                 request.getSession().setAttribute("password", user.getPassword());

@@ -58,14 +58,16 @@ public class GetItemTypeServlet extends HttpServlet {
             
             request.setAttribute("book", null);
             request.setAttribute("ebook", null);
-            request.setAttribute("equipment", null);
-                                    
+            request.setAttribute("equipment", null); 
+            
+            request.setAttribute("type", item.getItemtype().getItemtype());
             switch(item.getItemtype().getItemtype()) {
                 case "BOOK":        Book book = bookFacade.findByItemid(item);
                                     request.setAttribute("book", book);
                                     break;
                 case "EBOOK":       Ebook ebook = ebookFacade.findByItemid(item);
                                     request.setAttribute("ebook", ebook);
+                                    request.setAttribute("test", "yay");
                                     break;
                 case "EQUIPMENT":   Equipment equipment = equipmentFacade.findByItemid(item);
                                     request.setAttribute("equipment", equipment);
