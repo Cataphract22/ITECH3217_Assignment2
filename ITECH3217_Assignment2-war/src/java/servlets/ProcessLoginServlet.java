@@ -39,6 +39,7 @@ public class ProcessLoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
+        // Set default redirect
         String address = "login.jsp";
         String params = "";
         User user;
@@ -47,6 +48,7 @@ public class ProcessLoginServlet extends HttpServlet {
             
             response.setContentType("text/html;charset=UTF-8");
             
+            // Get user
             user = userFacade.findByEmail(request.getParameter("email"));
             
             if (user == null) {
@@ -55,8 +57,12 @@ public class ProcessLoginServlet extends HttpServlet {
                 //request.setAttribute("failed", true);
                 
             } else if (user.getPassword().equals(request.getParameter("password"))) {
+                
+                // Set address and params
                 address = "/ListItemsServlet";
-                params = "?user=" + user;
+                params = "?type=BOOK&type=EBOOK&type=EQUIPMENT";
+                
+                // Session values
                 request.getSession().setAttribute("email", user.getEmail());
                 request.getSession().setAttribute("password", user.getPassword());
                 request.getSession().setAttribute("type", user.getType().getUsertype());

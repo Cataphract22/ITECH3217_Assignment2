@@ -8,7 +8,9 @@ package servlets;
 import entities.Item;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,17 +42,39 @@ public class ListItemsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
         try {
 
-            List results = itemFacade.findAll();
-            request.setAttribute("list", results);           
+            //Get type
+            String[] types = request.getParameterValues("type");
             
+            // Get item list
+            List results = itemFacade.findAll();
+            
+            // Filter list by item type (display only one type of item)
+            
+            if (types.length > 0) {
+                List filteredResults = new ArrayList();
+
+                for(int i = 0; i < results.size(); i++) {
+                    Item result = (Item) results.get(i);
+                    for(int t = 0; t < types.length; t++) {
+                        if (result.getItemtype().getItemtype().equals(types[t])) {
+                            filteredResults.add(result);
+                        }
+                    }
+                }
+                results = filteredResults;
+            }
+            
+            request.setAttribute("list", results);
+            
+
 
         } catch (Exception e) {
             out.println(e);
         }
-        
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/browse.jsp");
         if (dispatcher != null) {
             dispatcher.forward(request, response);

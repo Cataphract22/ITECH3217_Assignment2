@@ -28,13 +28,15 @@
                     <div class="content">
                         <div class="subcontent">
                             <h1>Browse Books</h1>
-                            <input type="checkbox" name="showBooks" checked="checked" />
-                            <label for='showBooks'>Show Books</label>
-                            <input type="checkbox" name="showEbooks" checked="checked" />
-                            <label for='showEbooks'>Show eBooks</label>
-                            <input type="checkbox" name="showEquipment" checked="checked" />
-                            <label for='showEquipment'>Show Equipment</label>
-                            
+                            <div class="search-container">
+                                <form action="SearchItemsServlet" method="Post">
+                                    <input type="text" name="filter" value="showBooks" checked="checked">Show Books</input>
+                                    <input type="text" name="filter" value="showEbooks" checked="checked">Show eBooks</input>
+                                    <input type="text" name="filter" value="showEquipment" checked="checked">Show Equipment</input><br>
+                                    <input type="submit" value="Apply Filters"></input>
+                                </form>
+                            </div>
+
                             <% Iterator itr; %>
                             <% // Iterate through item list, build HTML for each item
                                 List list = (List) request.getAttribute("list");
@@ -42,52 +44,49 @@
                                     Item item = (Item) itr.next();
                                     int itemId = item.getItemid();
                             %>
-                                    <jsp:include page="/CheckBookmarkServlet">
-                                        <jsp:param name="item" value="<%=itemId%>"/>
-                                    </jsp:include>
-                                    <jsp:include page="./GetItemTypeServlet">
-                                        <jsp:param name="item" value="<%=itemId%>"/>
-                                    </jsp:include>
+                            <jsp:include page="/CheckBookmarkServlet">
+                                <jsp:param name="item" value="<%=itemId%>"/>
+                            </jsp:include>
+                            <jsp:include page="./GetItemTypeServlet">
+                                <jsp:param name="item" value="<%=itemId%>"/>
+                            </jsp:include>
 
-                                    <form action="/ITECH3217_Assignment2-war/BookmarkServlet?id=<%out.println(item.getItemid());%>" method="POST">
-                                        <div class='item-container'>
-                                            <h2 class='title'><%out.println(item.getTitle());%></h2>
-                                            <img class='coverImage' src='<%out.println(item.getImage());%>' width="120"</img>
+                            <form action="/ITECH3217_Assignment2-war/BookmarkServlet?id=<%out.println(item.getItemid());%>" method="POST">
+                                <div class='item-container'>
+                                    <h2 class='title'><%out.println(item.getTitle());%></h2>
+                                    <img class='coverImage' src='<%out.println(item.getImage());%>' width="120"</img>
 
-                                            <!-- BOOK -->
-                                            <% if (request.getAttribute("book") != null) { %>
-                                                <% Book book = (Book) request.getAttribute("book"); %>
+                                    <!-- BOOK -->
+                                    <% if (request.getAttribute("book") != null) { %>
+                                        <% Book book = (Book) request.getAttribute("book"); %>
 
-                                                <p class='author'><%out.println(book.getAuthor());%></p>
-                                                <p class='publisher'>Published by: <%out.println(book.getPublisher());%>, <%out.println(book.getPublishYear());%></p>
-                                                <p class='isbn'>ISBN-13: <%out.println(book.getIsbn());%></p>
+                                        <p class='author'><%out.println(book.getAuthor());%></p>
+                                        <p class='publisher'>Published by: <%out.println(book.getPublisher());%>, <%out.println(book.getPublishYear());%></p>
+                                        <p class='isbn'>ISBN-13: <%out.println(book.getIsbn());%></p>
+                                    <% } %>
 
-                                            <% } %>
+                                    <!-- EBOOK -->
+                                    <% if (request.getAttribute("ebook") != null) { %>
+                                        <% Ebook ebook = (Ebook) request.getAttribute("ebook"); %>
 
-                                            <!-- EBOOK -->
-                                            <% if (request.getAttribute("ebook") != null) { %>
-                                                <% Ebook ebook = (Ebook) request.getAttribute("ebook"); %>
+                                        <p class='author'><%out.println(ebook.getAuthor());%></p>
+                                        <p class='publisher'>Published by: <%out.println(ebook.getPublisher());%>, <%out.println(ebook.getPublishYear());%></p>
+                                        <p class='isbn'>ISBN-13: <%out.println(ebook.getIsbn());%></p>
+                                    <% } %>
 
-                                                <p class='author'><%out.println(ebook.getAuthor());%></p>
-                                                <p class='publisher'>Published by: <%out.println(ebook.getPublisher());%>, <%out.println(ebook.getPublishYear());%></p>
-                                                <p class='isbn'>ISBN-13: <%out.println(ebook.getIsbn());%></p>
+                                    <!-- EQUIPMENT -->
+                                    <% if (request.getAttribute("equipment") != null) { %>
+                                        <% Equipment equipment = (Equipment) request.getAttribute("equipment"); %>
 
-                                            <% } %>
+                                        <p class='model'>Model: <%out.println(equipment.getModel());%></p>    
+                                        <p class='serialno'>Serial#: <%out.println(equipment.getSerialno());%></p>
+                                    <% } %>
 
-                                            <!-- EQUIPMENT -->
-                                            <% if (request.getAttribute("equipment") != null) { %>
-                                                <% Equipment equipment = (Equipment) request.getAttribute("equipment"); %>
-
-                                                <p class='model'>Model: <%out.println(equipment.getModel());%></p>    
-                                                <p class='serialno'>Serial#: <%out.println(equipment.getSerialno());%></p>
-
-                                            <% } %>
-
-                                            <p class='description'><%out.println(item.getDescription());%></p>
-                                            <input type="submit" value="<%out.println(request.getAttribute("bookmark"));%>"></input>
-                                        </div>
-                                    </form>   
-                                <%}%><!--EndFor-->
+                                    <p class='description'><%out.println(item.getDescription());%></p>
+                                    <input type="submit" value="<%out.println(request.getAttribute("bookmark"));%>"></input>
+                                </div>
+                            </form>   
+                            <%}%><!--EndFor-->
                         </div>
                     </div>
                 </div>
@@ -96,7 +95,7 @@
     </body>
 </html>
 <%
-/*
+    /*
             for (int i = 0; i < results.size(); i++) {
                 ItemBook item = (ItemBook) results.get(i);
                 out.println(""
@@ -110,5 +109,5 @@
                     + "</div>" 
                 );
             }
-            */
+     */
 %>
