@@ -62,7 +62,7 @@ public class LoanServlet extends HttpServlet {
             Item item = (Item) itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
             Loan loan;
             
-            if (item.getIsavailable() == 1) {
+            if (item.getIsavailable() == true) {
             // If item is available for loan
                 // Set due date
                 LoanRule rule = (LoanRule) loanRuleFacade.findByRule(user, item);
@@ -80,7 +80,7 @@ public class LoanServlet extends HttpServlet {
                 loanFacade.create(loan);
 
                 // Update item availability
-                item.setIsavailable((short)0);
+                item.setIsavailable(false);
                 itemFacade.update(item); 
                 
                 
@@ -92,7 +92,7 @@ public class LoanServlet extends HttpServlet {
                     loanFacade.update(loan);
                     
                     // Update item availability
-                    item.setIsavailable((short)1);
+                    item.setIsavailable(true);
                     itemFacade.update(item);
                 }
 

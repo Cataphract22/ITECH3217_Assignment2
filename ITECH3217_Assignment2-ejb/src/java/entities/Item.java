@@ -58,7 +58,7 @@ public class Item implements Serializable {
     @Column(name = "image")
     private String image;
     @Column(name = "isavailable")
-    private Short isavailable;
+    private boolean isavailable;
     @OneToMany(mappedBy = "itemid")
     private Collection<Bookmark> bookmarkCollection;
     @JoinColumn(name = "itemtype", referencedColumnName = "itemtype")
@@ -112,11 +112,11 @@ public class Item implements Serializable {
         this.image = image;
     }
 
-    public Short getIsavailable() {
+    public boolean getIsavailable() {
         return isavailable;
     }
 
-    public void setIsavailable(Short isavailable) {
+    public void setIsavailable(boolean isavailable) {
         this.isavailable = isavailable;
     }
 
