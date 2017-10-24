@@ -98,10 +98,10 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
         }
         
         // Get only current loans
-        for (Object result : results) {
-            loan = (Loan) result;
+        for (int i = results.size()-1; i >= 0; i--) {
+            loan = (Loan) results.get(i);
             if (loan.getHistory() == true) {
-                results.remove(result);
+                results.remove(i);
             }
         }
         
