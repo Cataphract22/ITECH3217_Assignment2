@@ -60,29 +60,42 @@ public class LoanServlet extends HttpServlet {
            
             User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
             Item item = (Item) itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
-            Date loanDate = new Date();
-           
+            Loan loan;
+            
             if (item.getIsavailable() == 1) {
             // If item is available for loan
-            
-                Loan loan = loanFacade.findById(user, item);
-                if ( loan == null) {
-                    // Set due date
-                    LoanRule rule = (LoanRule) loanRuleFacade.findByRule(user, item);
-                    int loanDays = rule.getLoantime();
-                    Date dueDate = new Date(loanDate.getTime() + TimeUnit.DAYS.toMillis(loanDays));
-                    
-                    // Create loan
-                    loan = new Loan();
-                    loan.setItemid(item);
-                    loan.setUserid(user);
-                    loan.setLoandate(loanDate);
-                    loan.setDuedate(dueDate);
+                // Set due date
+                LoanRule rule = (LoanRule) loanRuleFacade.findByRule(user, item);
+                int loanDays = rule.getLoantime();
+                Date loanDate = new Date();
+                Date dueDate = new Date(loanDate.getTime() + TimeUnit.DAYS.toMillis(loanDays));
 
-                    loanFacade.create(loan);
-                } else {
-                    loanFacade.delete(loan);
+                // Create loan
+                loan = new Loan();
+                loan.setItemid(item);
+                loan.setUserid(user);
+                loan.setLoandate(loanDate);
+                loan.setDuedate(dueDate);
+
+                loanFacade.create(loan);
+
+                // Update item availability
+                item.setIsavailable((short)0);
+                itemFacade.update(item); 
+                
+                
+            } else {
+                loan = loanFacade.findById(user, item);
+                if ( loan != null) {
+                    // Update loan history
+                    loan.setHistory(true);
+                    loanFacade.update(loan);
+                    
+                    // Update item availability
+                    item.setIsavailable((short)1);
+                    itemFacade.update(item);
                 }
+
             }
            
             response.sendRedirect("ItemDetailsServlet?id=" + item.getItemid());

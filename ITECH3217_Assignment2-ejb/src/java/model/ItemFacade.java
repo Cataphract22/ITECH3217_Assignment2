@@ -32,6 +32,17 @@ public class ItemFacade extends AbstractFacade<Item> implements ItemFacadeLocal 
         super(Item.class);
     }
     
+        
+    @Override
+    public boolean update(Item item) {
+        try {
+            em.merge(item);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
     @Override
     public Item findByItemid(Integer id) {
         Query query = em.createNamedQuery("Item.findByItemid").setParameter("itemid", id);
@@ -42,5 +53,5 @@ public class ItemFacade extends AbstractFacade<Item> implements ItemFacadeLocal 
         }
         return(Item) results.get(0); 
     }
-    
+
 }

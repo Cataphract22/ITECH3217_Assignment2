@@ -36,6 +36,9 @@ public interface LoanFacadeLocal {
 
     public void delete(Loan loan);
 
-    public List findAllByUserid(User userid);
+
+    public List findAllByUserid(User userid, boolean history);
+
+    public boolean update(Loan loan);
     
 }

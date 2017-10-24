@@ -31,5 +31,7 @@ public interface ItemFacadeLocal {
     List<Item> findRange(int[] range);
 
     int count();
+
+    public boolean update(Item item);
     
 }

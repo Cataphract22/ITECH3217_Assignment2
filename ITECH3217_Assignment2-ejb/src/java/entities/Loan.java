@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Loan.findAll", query = "SELECT l FROM Loan l")
     , @NamedQuery(name = "Loan.findByLoanid", query = "SELECT l FROM Loan l WHERE l.loanid = :loanid")
     , @NamedQuery(name = "Loan.findByLoandate", query = "SELECT l FROM Loan l WHERE l.loandate = :loandate")
-    , @NamedQuery(name = "Loan.findByDuedate", query = "SELECT l FROM Loan l WHERE l.duedate = :duedate")})
+    , @NamedQuery(name = "Loan.findByDuedate", query = "SELECT l FROM Loan l WHERE l.duedate = :duedate")
+    , @NamedQuery(name = "Loan.findByHistory", query = "SELECT l FROM Loan l WHERE l.history = :history")})
 public class Loan implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,6 +49,8 @@ public class Loan implements Serializable {
     @Column(name = "duedate")
     @Temporal(TemporalType.DATE)
     private Date duedate;
+    @Column(name = "history")
+    private Boolean history;
     @JoinColumn(name = "userid", referencedColumnName = "userid")
     @ManyToOne
     private User userid;
@@ -84,6 +87,14 @@ public class Loan implements Serializable {
 
     public void setDuedate(Date duedate) {
         this.duedate = duedate;
+    }
+
+    public Boolean getHistory() {
+        return history;
+    }
+
+    public void setHistory(Boolean history) {
+        this.history = history;
     }
 
     public User getUserid() {

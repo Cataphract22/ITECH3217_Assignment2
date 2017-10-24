@@ -53,24 +53,25 @@ public class CheckLoanServlet extends HttpServlet {
         try {
             User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
             Item item = itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
-            List list = loanFacade.findAllByUserid(user);
+            List list = loanFacade.findAllByUserid(user, false);
             
             request.setAttribute("loan", "Request Loan");
             
-            if (item.getIsavailable() == 0) { // If item unavailable
+            // If user has already made a loan request                                            
+            Iterator itr;
+            for (itr = list.iterator(); itr.hasNext();) {
+                Loan loan = (Loan) itr.next();
+
+                // If already loaned
+                if (Objects.equals(loan.getItemid().getItemid(), item.getItemid())) {
+                    request.setAttribute("loan", "Return Item");
+                    break;
+                }
+            }
+             
+            if (request.getAttribute("loan") != "Return Item" && item.getIsavailable() == 0) { // If item unavailable
                 request.setAttribute("loan", "Unavailable");
                 
-            } else { // If user has already made a loan request                                            
-                Iterator itr;
-                for (itr = list.iterator(); itr.hasNext();) {
-                    Loan loan = (Loan) itr.next();
-                    
-                    // If already loaned
-                    if (Objects.equals(loan.getItemid().getItemid(), item.getItemid())) {
-                        request.setAttribute("loan", "Return Item");
-                        break;
-                    }
-                }
             }
   
         } catch (Exception e) {

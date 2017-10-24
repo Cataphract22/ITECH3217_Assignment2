@@ -36,6 +36,7 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
     
     @Override
     public void create(Loan loan) {
+        loan.setHistory(false);
         em.persist(loan);
     }
     
@@ -43,22 +44,46 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
     public void delete(Loan loan) {
         em.remove(em.merge(loan));
     }
+    
+    @Override
+    public boolean update(Loan loan) {
+        try {
+            em.merge(loan);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     @Override
-    public List findAllByUserid(User userid) {
+    public List findAllByUserid(User userid, boolean history) {
         Query query = em.createNamedQuery("Loan.findAll");
         List results = query.getResultList();
+        Loan loan;
         
         if (results.isEmpty()) {
             return null;
         }
         
-        for (int i = 0; i < results.size(); i++) {
-            Loan loan = (Loan) results.get(i);
+        // Toggle historical results
+        if (history == false) {
+            for (int i = results.size()-1; i >= 0; i--) {
+                loan = (Loan) results.get(i);
+                if (loan.getHistory() == true) {
+                    results.remove(i);
+                }
+            }
+        }
+        
+        // Remove non-matching loans
+        for (int i = results.size()-1; i >= 0; i--) {
+            loan = (Loan) results.get(i);
             if (!Objects.equals(loan.getUserid().getUserid(), userid.getUserid())) {
                 results.remove(i);
             }
         }
+        
+        // Return result list
         return results;
     }
     
@@ -66,19 +91,31 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
     public Loan findById(User user, Item item) {
         Query query = em.createNamedQuery("Loan.findAll");
         List results = query.getResultList();
+        Loan loan;
         
         if (results.isEmpty()) {
             return null;
         }
         
-        for (int i = 0; i < results.size(); i++) {
-            Loan loan = (Loan) results.get(i);
+        // Get only current loans
+        for (Object result : results) {
+            loan = (Loan) result;
+            if (loan.getHistory() == true) {
+                results.remove(result);
+            }
+        }
+        
+        // Return matching loan
+        for (Object result : results) {
+            loan = (Loan) result;
             if (Objects.equals(loan.getUserid().getUserid(), user.getUserid())) {
                 if (Objects.equals(loan.getItemid().getItemid(), item.getItemid())) {
-                    return (Loan) results.get(i);
+                    return loan;
                 }
             }
         }
+        
+        // Otherwise return null
         return null;
     }
     
