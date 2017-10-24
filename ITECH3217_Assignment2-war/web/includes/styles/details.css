@@ -91,6 +91,11 @@ p {
     background-color: lightgreen;
 }
 
+.itemButton[value~="Unavailable"] {
+    background-color: darkgreen;
+    cursor: default;
+}
+
 .verticalContain {
     display: table;
     position: absolute;

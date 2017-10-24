@@ -5,7 +5,9 @@
  */
 package model;
 
+import entities.Item;
 import entities.Loan;
+import entities.User;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +31,11 @@ public interface LoanFacadeLocal {
     List<Loan> findRange(int[] range);
 
     int count();
+
+    public Loan findById(User user, Item item);
+
+    public void delete(Loan loan);
+
+    public List findAllByUserid(User userid);
     
 }

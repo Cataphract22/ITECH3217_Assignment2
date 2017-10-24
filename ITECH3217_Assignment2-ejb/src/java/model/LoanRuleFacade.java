@@ -5,10 +5,14 @@
  */
 package model;
 
+import entities.Item;
 import entities.LoanRule;
+import entities.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +31,24 @@ public class LoanRuleFacade extends AbstractFacade<LoanRule> implements LoanRule
 
     public LoanRuleFacade() {
         super(LoanRule.class);
+    }
+    
+    @Override
+    public LoanRule findByRule(User user, Item item) {
+        
+        // Get query parameters
+        String userType = user.getType().getUsertype();
+        String itemType = item.getItemtype().getItemtype();
+        
+        Query query = em.createNamedQuery("LoanRule.findByRule");
+        query.setParameter("itemtype", itemType);
+        query.setParameter("usertype", userType);
+        List results = query.getResultList();
+        
+        if (results.isEmpty()) {
+            return null;
+        }
+        return(LoanRule) results.get(0);
     }
     
 }

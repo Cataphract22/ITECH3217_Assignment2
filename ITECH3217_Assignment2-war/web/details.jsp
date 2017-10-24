@@ -31,10 +31,7 @@
         <h1>Welcome to Federation University Library</h2>
             <h1>Details</h1>
             <div class="search-container">
-                <jsp:include page="/CheckBookmarkServlet">
-                    <jsp:param name="item" value="<%=itemId%>"/>
-                </jsp:include>
-                <form action="/ITECH3217_Assignment2-war/BookmarkServlet?id=<%out.println(item.getItemid());%>" method="POST">
+                
                     <img class='coverImage' src='<%out.println(item.getImage());%>' width="120"</img>
                     <table>
                         <tr><td><h3 class='title'><%out.println(item.getTitle());%></h3></td></tr>
@@ -65,11 +62,24 @@
                         <tr><td><p> </p></td></tr>
                         <tr><TD class='description'><%out.println(item.getDescription());%></TD></tr>
 
-                        <!-- Buttons -->
+                        <!-- Loan -->
+                        <jsp:include page="/CheckLoanServlet">
+                            <jsp:param name="item" value="<%=itemId%>"/>
+                        </jsp:include>
                         <tr><td><p> </p></td></tr>
-                        <tr><td><input class="itemButton" type="submit" value="<%out.println(request.getAttribute("bookmark"));%>"></input></td></tr>
+                        <form action="/ITECH3217_Assignment2-war/LoanServlet?id=<%out.println(item.getItemid());%>" method="POST">
+                            <tr><td><input class="itemButton" type="submit" value="<%out.println(request.getAttribute("loan"));%>"></input></td></tr>
+                        </form> 
+                        
+                        <!-- Bookmark -->
+                        <jsp:include page="/CheckBookmarkServlet">
+                            <jsp:param name="item" value="<%=itemId%>"/>
+                        </jsp:include>
+                        <form action="/ITECH3217_Assignment2-war/BookmarkServlet?id=<%out.println(item.getItemid());%>" method="POST">
+                            <tr><td><input class="itemButton" type="submit" value="<%out.println(request.getAttribute("bookmark"));%>"></input></td></tr>
+                        </form> 
                     </table>              
-                </form>  
+                 
             </div>
     </div>
 

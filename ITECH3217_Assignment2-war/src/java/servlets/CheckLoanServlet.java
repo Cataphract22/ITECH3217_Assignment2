@@ -5,26 +5,38 @@
  */
 package servlets;
 
+import entities.Loan;
+import entities.Item;
 import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.ItemFacadeLocal;
+import model.LoanFacadeLocal;
 import model.UserFacadeLocal;
-
 
 /**
  *
  * @author drewm
  */
-public class ProcessLoginServlet extends HttpServlet {
+public class CheckLoanServlet extends HttpServlet {
+
+    @EJB
+    private LoanFacadeLocal loanFacade;
+
+    @EJB
+    private ItemFacadeLocal itemFacade;
 
     @EJB
     private UserFacadeLocal userFacade;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,49 +50,35 @@ public class ProcessLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
-        // Set default redirect
-        String address = "login.jsp";
-        String params = "";
-        User user;
-
         try {
-
-            response.setContentType("text/html;charset=UTF-8");
+            User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
+            Item item = itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
+            List list = loanFacade.findAllByUserid(user);
             
-            // Get user
-            user = userFacade.findByEmail(request.getParameter("email"));
+            request.setAttribute("loan", "Request Loan");
             
-            if (user == null) {
-                address = "/login/login.jsp";
-                params = "?failed=true";
-                //request.setAttribute("failed", true);
+            if (item.getIsavailable() == 0) { // If item unavailable
+                request.setAttribute("loan", "Unavailable");
                 
-            } else if (user.getPassword().equals(request.getParameter("password"))) {
-                
-                // Set address and params
-                address = "/ListItemsServlet";
-                params = "?type=BOOK&type=EBOOK&type=EQUIPMENT";
-                
-                // Session values
-                request.getSession().setAttribute("email", user.getEmail());
-                request.getSession().setAttribute("password", user.getPassword());
-                request.getSession().setAttribute("type", user.getType().getUsertype());
-                
-            } else {
-                address = "/login/login.jsp";
-                params = "?failed=true";
+            } else { // If user has already made a loan request                                            
+                Iterator itr;
+                for (itr = list.iterator(); itr.hasNext();) {
+                    Loan loan = (Loan) itr.next();
+                    
+                    // If already loaned
+                    if (Objects.equals(loan.getItemid().getItemid(), item.getItemid())) {
+                        request.setAttribute("loan", "Return Item");
+                        break;
+                    }
+                }
             }
-            
-            
-            response.sendRedirect(request.getContextPath() + address + params);
-            
-
+  
         } catch (Exception e) {
-            out.println(e);
+            //out.println(e);
         }
     }
 
+        
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

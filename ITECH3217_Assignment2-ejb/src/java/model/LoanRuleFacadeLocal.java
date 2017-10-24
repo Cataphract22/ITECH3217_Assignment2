@@ -5,7 +5,9 @@
  */
 package model;
 
+import entities.Item;
 import entities.LoanRule;
+import entities.User;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +31,7 @@ public interface LoanRuleFacadeLocal {
     List<LoanRule> findRange(int[] range);
 
     int count();
+
+    public LoanRule findByRule(User user, Item item);
     
 }

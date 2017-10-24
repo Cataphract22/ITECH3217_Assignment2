@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "LoanRule.findByItemtype", query = "SELECT l FROM LoanRule l WHERE l.loanRulePK.itemtype = :itemtype")
     , @NamedQuery(name = "LoanRule.findByUsertype", query = "SELECT l FROM LoanRule l WHERE l.loanRulePK.usertype = :usertype")
     , @NamedQuery(name = "LoanRule.findByLoantime", query = "SELECT l FROM LoanRule l WHERE l.loantime = :loantime")
-    , @NamedQuery(name = "LoanRule.findByRenewals", query = "SELECT l FROM LoanRule l WHERE l.renewals = :renewals")})
+    , @NamedQuery(name = "LoanRule.findByRenewals", query = "SELECT l FROM LoanRule l WHERE l.renewals = :renewals")
+    , @NamedQuery(name = "LoanRule.findByRule", query = "SELECT l FROM LoanRule l WHERE l.loanRulePK.itemtype = :itemtype AND l.loanRulePK.usertype = :usertype")})
 public class LoanRule implements Serializable {
 
     private static final long serialVersionUID = 1L;

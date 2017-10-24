@@ -5,26 +5,43 @@
  */
 package servlets;
 
+import entities.LoanRule;
+import entities.Loan;
+import entities.Item;
 import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.LoanFacadeLocal;
+import model.ItemFacadeLocal;
+import model.LoanRuleFacadeLocal;
 import model.UserFacadeLocal;
-
 
 /**
  *
  * @author drewm
  */
-public class ProcessLoginServlet extends HttpServlet {
+public class LoanServlet extends HttpServlet {
+
+    @EJB
+    private LoanRuleFacadeLocal loanRuleFacade;
 
     @EJB
     private UserFacadeLocal userFacade;
-    
+
+    @EJB
+    private LoanFacadeLocal loanFacade;
+
+    @EJB
+    private ItemFacadeLocal itemFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,51 +51,47 @@ public class ProcessLoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        // Set default redirect
-        String address = "login.jsp";
-        String params = "";
-        User user;
-
         try {
+           
+            User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
+            Item item = (Item) itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
+            Date loanDate = new Date();
+           
+            if (item.getIsavailable() == 1) {
+            // If item is available for loan
+            
+                Loan loan = loanFacade.findById(user, item);
+                if ( loan == null) {
+                    // Set due date
+                    LoanRule rule = (LoanRule) loanRuleFacade.findByRule(user, item);
+                    int loanDays = rule.getLoantime();
+                    Date dueDate = new Date(loanDate.getTime() + TimeUnit.DAYS.toMillis(loanDays));
+                    
+                    // Create loan
+                    loan = new Loan();
+                    loan.setItemid(item);
+                    loan.setUserid(user);
+                    loan.setLoandate(loanDate);
+                    loan.setDuedate(dueDate);
 
-            response.setContentType("text/html;charset=UTF-8");
-            
-            // Get user
-            user = userFacade.findByEmail(request.getParameter("email"));
-            
-            if (user == null) {
-                address = "/login/login.jsp";
-                params = "?failed=true";
-                //request.setAttribute("failed", true);
-                
-            } else if (user.getPassword().equals(request.getParameter("password"))) {
-                
-                // Set address and params
-                address = "/ListItemsServlet";
-                params = "?type=BOOK&type=EBOOK&type=EQUIPMENT";
-                
-                // Session values
-                request.getSession().setAttribute("email", user.getEmail());
-                request.getSession().setAttribute("password", user.getPassword());
-                request.getSession().setAttribute("type", user.getType().getUsertype());
-                
-            } else {
-                address = "/login/login.jsp";
-                params = "?failed=true";
+                    loanFacade.create(loan);
+                } else {
+                    loanFacade.delete(loan);
+                }
             }
+           
+            response.sendRedirect("ItemDetailsServlet?id=" + item.getItemid());
             
-            
-            response.sendRedirect(request.getContextPath() + address + params);
-            
-
         } catch (Exception e) {
             out.println(e);
         }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

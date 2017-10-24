@@ -24,6 +24,14 @@
         <servlet-name>ItemDetailsServlet</servlet-name>
         <servlet-class>servlets.ItemDetailsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CheckLoanServlet</servlet-name>
+        <servlet-class>servlets.CheckLoanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoanServlet</servlet-name>
+        <servlet-class>servlets.LoanServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessLoginServlet</servlet-name>
         <url-pattern>/ProcessLoginServlet</url-pattern>
@@ -47,6 +55,14 @@
     <servlet-mapping>
         <servlet-name>ItemDetailsServlet</servlet-name>
         <url-pattern>/ItemDetailsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckLoanServlet</servlet-name>
+        <url-pattern>/CheckLoanServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoanServlet</servlet-name>
+        <url-pattern>/LoanServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
