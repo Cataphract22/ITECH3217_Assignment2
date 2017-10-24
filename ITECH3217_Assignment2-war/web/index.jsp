@@ -7,10 +7,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>FedUniLibrary</title>
+        <title>Federation University Library</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="/ITECH3217_Assignment2/includes/styles/index.css" rel="stylesheet" type="text/css">
+        <link href="./includes/styles/index.css" rel="stylesheet" type="text/css">
     <body>
         <div class="verticalContain">
             <div class="verticalContainMiddle">
