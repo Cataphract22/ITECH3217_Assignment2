@@ -9,7 +9,7 @@ and open the template in the editor.
 
  
 body {
-    background: url('/ITECH3217_Assignment2-war/includes/images/book.jpeg') no-repeat fixed center center;
+    background: url('../images/book.jpeg') no-repeat fixed center center;
     background-size: cover;
     font-family: sans-serif;
 }

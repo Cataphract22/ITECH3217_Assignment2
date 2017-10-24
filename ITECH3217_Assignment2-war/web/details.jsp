@@ -25,7 +25,7 @@
         <title>FedUniLibrary</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="/ITECH3217_Assignment2-war/includes/styles/details.css" rel="stylesheet" type="text/css">
+        <link href="./includes/styles/details.css" rel="stylesheet" type="text/css">
         
     <div class="header">
         <h1>Welcome to Federation University Library</h2>
@@ -67,7 +67,7 @@
                             <jsp:param name="item" value="<%=itemId%>"/>
                         </jsp:include>
                         <tr><td><p> </p></td></tr>
-                        <form action="/ITECH3217_Assignment2-war/LoanServlet?id=<%out.println(item.getItemid());%>" method="POST">
+                        <form action="./LoanServlet?id=<%out.println(item.getItemid());%>" method="POST">
                             <tr><td><input class="itemButton" type="submit" value="<%out.println(request.getAttribute("loan"));%>"></input></td></tr>
                         </form> 
                         
@@ -75,7 +75,7 @@
                         <jsp:include page="/CheckBookmarkServlet">
                             <jsp:param name="item" value="<%=itemId%>"/>
                         </jsp:include>
-                        <form action="/ITECH3217_Assignment2-war/BookmarkServlet?id=<%out.println(item.getItemid());%>" method="POST">
+                        <form action="./BookmarkServlet?id=<%out.println(item.getItemid());%>" method="POST">
                             <tr><td><input class="itemButton" type="submit" value="<%out.println(request.getAttribute("bookmark"));%>"></input></td></tr>
                         </form> 
                     </table>              

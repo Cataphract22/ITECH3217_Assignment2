@@ -31,7 +31,7 @@
                 %>
                 <div class="login-block">
                     <h1> Federation University Library </h1>
-                    <form action="/ITECH3217_Assignment2-war/ProcessLoginServlet" method="post">
+                    <form action="../ProcessLoginServlet" method="post">
                         <input type="email" name="email" value="" placeholder="Email Address" required/>
                         <input type="password" name="password" value="" placeholder="Password" required/>
                         <input class="submit" type="submit" value="Login">
