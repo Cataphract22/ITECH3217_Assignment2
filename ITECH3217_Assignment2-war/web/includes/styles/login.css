@@ -1,5 +1,7 @@
 body {
     background: url('../images/book.jpeg') no-repeat fixed center center;
+    background-size: cover;
+    font-family: sans-serif;
 }
 
 .login-block {

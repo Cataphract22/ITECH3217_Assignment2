@@ -1,8 +1,3 @@
-<%-- 
-    Document   : login
-    Author     : hoangnguyen
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -10,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../includes/styles/_main.css" rel="stylesheet" type="text/css">
         <link href="../includes/styles/login.css" rel="stylesheet" type="text/css">
-        <title>FedUni Registration</title>
+        <title>Federation University Library - Registration</title>
     </head>
     <body>
         <div class="verticalContain">

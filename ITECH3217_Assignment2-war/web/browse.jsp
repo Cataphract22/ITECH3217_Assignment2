@@ -1,8 +1,3 @@
-<%-- 
-    Document   : index
-    Author     : hoangnguyen
---%>
-
 <%@page import="entities.Ebook"%>
 <%@page import="entities.Equipment"%>
 <%@page import="entities.Book"%>
