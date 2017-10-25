@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import entities.Item;
@@ -14,10 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- *
- * @author drewm
- */
 @Stateless
 public class LoanRuleFacade extends AbstractFacade<LoanRule> implements LoanRuleFacadeLocal {
 
@@ -26,7 +17,7 @@ public class LoanRuleFacade extends AbstractFacade<LoanRule> implements LoanRule
 
     @Override
     protected EntityManager getEntityManager() {
-        return em;
+        return this.em;
     }
 
     public LoanRuleFacade() {
@@ -35,16 +26,13 @@ public class LoanRuleFacade extends AbstractFacade<LoanRule> implements LoanRule
     
     @Override
     public LoanRule findByRule(User user, Item item) {
-        
         // Get query parameters
         String userType = user.getType().getUsertype();
         String itemType = item.getItemtype().getItemtype();
-        
-        Query query = em.createNamedQuery("LoanRule.findByRule");
+        Query query = this.em.createNamedQuery("LoanRule.findByRule");
         query.setParameter("itemtype", itemType);
         query.setParameter("usertype", userType);
         List results = query.getResultList();
-        
         if (results.isEmpty()) {
             return null;
         }

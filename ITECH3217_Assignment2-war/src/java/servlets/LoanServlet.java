@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import entities.LoanRule;
@@ -11,7 +6,6 @@ import entities.Item;
 import entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import javax.ejb.EJB;
@@ -24,10 +18,6 @@ import model.ItemFacadeLocal;
 import model.LoanRuleFacadeLocal;
 import model.UserFacadeLocal;
 
-/**
- *
- * @author drewm
- */
 public class LoanServlet extends HttpServlet {
 
     @EJB
@@ -55,56 +45,42 @@ public class LoanServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
         try {
-           
-            User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
-            Item item = (Item) itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
+            User user = (User) this.userFacade.findByEmail((String)request.getSession().getAttribute("email"));
+            Item item = (Item) this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
             Loan loan;
-            
             if (item.getIsavailable() == true) {
             // If item is available for loan
                 // Set due date
-                LoanRule rule = (LoanRule) loanRuleFacade.findByRule(user, item);
+                LoanRule rule = (LoanRule) this.loanRuleFacade.findByRule(user, item);
                 int loanDays = rule.getLoantime();
                 Date loanDate = new Date();
                 Date dueDate = new Date(loanDate.getTime() + TimeUnit.DAYS.toMillis(loanDays));
-
                 // Create loan
                 loan = new Loan();
                 loan.setItemid(item);
                 loan.setUserid(user);
                 loan.setLoandate(loanDate);
                 loan.setDuedate(dueDate);
-
-                loanFacade.create(loan);
-
+                this.loanFacade.create(loan);
                 // Update item availability
                 item.setIsavailable(false);
-                itemFacade.update(item); 
-                
-                
+                this.itemFacade.update(item); 
             } else {
-                loan = loanFacade.findById(user, item);
+                loan = this.loanFacade.findById(user, item);
                 if ( loan != null) {
                     // Update loan history
                     loan.setHistory(true);
-                    loanFacade.update(loan);
-                    
+                    this.loanFacade.update(loan);
                     // Update item availability
                     item.setIsavailable(true);
-                    itemFacade.update(item);
+                    this.itemFacade.update(item);
                 }
-
             }
-           
             response.sendRedirect("ItemDetailsServlet?id=" + item.getItemid());
-            
-        } catch (Exception e) {
+        } catch (IOException | NumberFormatException e) {
             out.println(e);
         }
-        
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

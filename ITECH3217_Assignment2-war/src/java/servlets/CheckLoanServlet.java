@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import entities.Loan;
@@ -22,10 +17,6 @@ import model.ItemFacadeLocal;
 import model.LoanFacadeLocal;
 import model.UserFacadeLocal;
 
-/**
- *
- * @author drewm
- */
 public class CheckLoanServlet extends HttpServlet {
 
     @EJB
@@ -51,34 +42,28 @@ public class CheckLoanServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
-            Item item = itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
-            List list = loanFacade.findAllByUserid(user, false);
-            
+            User user = (User) this.userFacade.findByEmail((String)request.getSession().getAttribute("email"));
+            Item item = this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
+            List list = this.loanFacade.findAllByUserid(user, false);
             request.setAttribute("loan", "Request Loan");
-            
             // If user has already made a loan request                                            
             Iterator itr;
             for (itr = list.iterator(); itr.hasNext();) {
                 Loan loan = (Loan) itr.next();
-
                 // If already loaned
                 if (Objects.equals(loan.getItemid().getItemid(), item.getItemid())) {
                     request.setAttribute("loan", "Return Item");
                     break;
                 }
             }
-             
             if (request.getAttribute("loan") != "Return Item" && item.getIsavailable() == false) { // If item unavailable
                 request.setAttribute("loan", "Unavailable");
                 
             }
-  
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             //out.println(e);
         }
     }
-
         
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

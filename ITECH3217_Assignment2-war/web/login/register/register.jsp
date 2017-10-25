@@ -13,6 +13,7 @@
         <title>Federation University Libraty Registration</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../includes/styles/_main.css" rel="stylesheet" type="text/css">
         <link href="../../includes/styles/login.css" rel="stylesheet" type="text/css">
 
     </head>

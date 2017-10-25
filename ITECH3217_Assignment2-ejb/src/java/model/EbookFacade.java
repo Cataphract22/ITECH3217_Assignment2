@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import entities.Ebook;
@@ -13,10 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- *
- * @author drewm
- */
 @Stateless
 public class EbookFacade extends AbstractFacade<Ebook> implements EbookFacadeLocal {
 
@@ -25,7 +16,7 @@ public class EbookFacade extends AbstractFacade<Ebook> implements EbookFacadeLoc
 
     @Override
     protected EntityManager getEntityManager() {
-        return em;
+        return this.em;
     }
 
     public EbookFacade() {
@@ -34,13 +25,12 @@ public class EbookFacade extends AbstractFacade<Ebook> implements EbookFacadeLoc
     
     @Override
     public Ebook findByItemid(Item item) {
-        Query query = em.createNamedQuery("Ebook.findByItemid").setParameter("itemid", item.getItemid());
+        Query query = this.em.createNamedQuery("Ebook.findByItemid").setParameter("itemid", item.getItemid());
         List results = query.getResultList();
-        
         if (results.isEmpty()) {
             return null;
         }
-        return(Ebook) results.get(0);
+        return (Ebook) results.get(0);
     }
     
 }

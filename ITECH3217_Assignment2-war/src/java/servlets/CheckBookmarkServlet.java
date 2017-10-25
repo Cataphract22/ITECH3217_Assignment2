@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import entities.Bookmark;
@@ -22,10 +17,6 @@ import model.BookmarkFacadeLocal;
 import model.ItemFacadeLocal;
 import model.UserFacadeLocal;
 
-/**
- *
- * @author drewm
- */
 public class CheckBookmarkServlet extends HttpServlet {
 
     @EJB
@@ -54,11 +45,8 @@ public class CheckBookmarkServlet extends HttpServlet {
             User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
             Item item = itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
             List list = bookmarkFacade.findAllByUserid(user);
-            
             request.setAttribute("bookmark", "Bookmark");
-            
             Iterator itr;
-            
             for (itr = list.iterator(); itr.hasNext();) {
                 Bookmark bookmark = (Bookmark) itr.next();
                 if (Objects.equals(bookmark.getItemid().getItemid(), item.getItemid())) {
@@ -66,13 +54,11 @@ public class CheckBookmarkServlet extends HttpServlet {
                     break;
                 }
             }
-            
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             //out.println(e);
         }
     }
 
-        
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
