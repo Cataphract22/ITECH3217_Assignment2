@@ -1,8 +1,3 @@
-<%-- 
-    Document   : register
-    Author     : hoangnguyen
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
@@ -13,8 +8,9 @@
         <title>Federation University Libraty Registration</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../includes/styles/_main.css" rel="stylesheet" type="text/css">
         <link href="../../includes/styles/login.css" rel="stylesheet" type="text/css">
-
+        <script type="text/javascript" src="../../includes/scripts/functions.js"></script>
     </head>
     <body>
         <div class="verticalContain">
@@ -36,7 +32,7 @@
                         <input type="password" name="password" value="" placeholder="Password" required/>
                         <input class="submit" type="submit" value="Register">
                     </form>
-                    <button class="reg" onclick="location.href = '../'">Cancel</button>
+                    <button class="reg" onclick="goBackAPage()">Cancel</button>
                 </div>
             </div>
         </div>

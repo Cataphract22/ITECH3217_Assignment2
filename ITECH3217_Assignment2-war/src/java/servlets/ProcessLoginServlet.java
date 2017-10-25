@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import entities.User;
@@ -15,11 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.UserFacadeLocal;
 
-
-/**
- *
- * @author drewm
- */
 public class ProcessLoginServlet extends HttpServlet {
 
     @EJB
@@ -38,45 +28,32 @@ public class ProcessLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
         // Set default redirect
         String address = "login.jsp";
         String params = "";
         User user;
-
         try {
-
             response.setContentType("text/html;charset=UTF-8");
-            
             // Get user
-            user = userFacade.findByEmail(request.getParameter("email"));
-            
+            user = this.userFacade.findByEmail(request.getParameter("email"));
             if (user == null) {
                 address = "/login/login.jsp";
                 params = "?failed=true";
                 //request.setAttribute("failed", true);
-                
             } else if (user.getPassword().equals(request.getParameter("password"))) {
-                
                 // Set address and params
                 address = "/ListItemsServlet";
                 params = "?type=BOOK&type=EBOOK&type=EQUIPMENT";
-                
                 // Session values
                 request.getSession().setAttribute("email", user.getEmail());
                 request.getSession().setAttribute("password", user.getPassword());
                 request.getSession().setAttribute("type", user.getType().getUsertype());
-                
             } else {
                 address = "/login/login.jsp";
                 params = "?failed=true";
             }
-            
-            
             response.sendRedirect(request.getContextPath() + address + params);
-            
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             out.println(e);
         }
     }

@@ -1,27 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
-import entities.Book;
-import entities.Ebook;
-import entities.Equipment;
 import entities.Item;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.BookFacadeLocal;
-import model.EbookFacadeLocal;
-import model.EquipmentFacadeLocal;
 import model.ItemFacadeLocal;
 
 /**
@@ -29,15 +16,6 @@ import model.ItemFacadeLocal;
  * @author drewm
  */
 public class ItemDetailsServlet extends HttpServlet {
-
-    @EJB
-    private EquipmentFacadeLocal equipmentFacade;
-
-    @EJB
-    private EbookFacadeLocal ebookFacade;
-
-    @EJB
-    private BookFacadeLocal bookFacade;
 
     @EJB
     private ItemFacadeLocal itemFacade;
@@ -56,27 +34,19 @@ public class ItemDetailsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
         try {
-
-
             // Get item
-            Item item = (Item) itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
-
+            Item item = (Item) this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
             //Attach the result list to return message
             request.setAttribute("item", item);
-
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             out.println(e);
         }
-
         // Dispatch return message
         RequestDispatcher dispatcher = request.getRequestDispatcher("details.jsp");
         if (dispatcher != null) {
             dispatcher.forward(request, response);
         }
-  
-        
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

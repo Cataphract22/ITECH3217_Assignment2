@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import entities.Bookmark;
@@ -15,10 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- *
- * @author drewm
- */
 @Stateless
 public class BookmarkFacade extends AbstractFacade<Bookmark> implements BookmarkFacadeLocal {
 
@@ -27,7 +18,7 @@ public class BookmarkFacade extends AbstractFacade<Bookmark> implements Bookmark
 
     @Override
     protected EntityManager getEntityManager() {
-        return em;
+        return this.em;
     }
 
     public BookmarkFacade() {
@@ -36,23 +27,21 @@ public class BookmarkFacade extends AbstractFacade<Bookmark> implements Bookmark
     
     @Override
     public void create(Bookmark bookmark) {
-        em.persist(bookmark);
+        this.em.persist(bookmark);
     }
     
     @Override
     public void delete(Bookmark bookmark) {
-        em.remove(em.merge(bookmark));
+        this.em.remove(this.em.merge(bookmark));
     }
     
     @Override
     public List findAllByUserid(User userid) {
-        Query query = em.createNamedQuery("Bookmark.findAll");
+        Query query = this.em.createNamedQuery("Bookmark.findAll");
         List results = query.getResultList();
-        
         if (results.isEmpty()) {
             return null;
         }
-        
         for (int i = 0; i < results.size(); i++) {
             Bookmark bm = (Bookmark) results.get(i);
             if (!Objects.equals(bm.getUserid().getUserid(), userid.getUserid())) {
@@ -64,13 +53,11 @@ public class BookmarkFacade extends AbstractFacade<Bookmark> implements Bookmark
     
     @Override
     public Bookmark findById(User user, Item item) {
-        Query query = em.createNamedQuery("Bookmark.findAll");
+        Query query = this.em.createNamedQuery("Bookmark.findAll");
         List results = query.getResultList();
-        
         if (results.isEmpty()) {
             return null;
         }
-        
         for (int i = 0; i < results.size(); i++) {
             Bookmark bm = (Bookmark) results.get(i);
             if (Objects.equals(bm.getUserid().getUserid(), user.getUserid())) {

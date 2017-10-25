@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import entities.Book;
@@ -13,7 +8,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,15 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.BookFacadeLocal;
-import model.BookmarkFacadeLocal;
 import model.EbookFacadeLocal;
 import model.EquipmentFacadeLocal;
 import model.ItemFacadeLocal;
 
-/**
- *
- * @author drewm
- */
 public class ListItemsServlet extends HttpServlet {
 
     @EJB
@@ -60,57 +49,48 @@ public class ListItemsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
         try {
-
             // Get types
             String[] types = request.getParameterValues("type");
-
             // Get item list
-            results = itemFacade.findAll();
-
+            this.results = this.itemFacade.findAll();
             /***********************
             /** FILTER
             /************************
             /* Filter list by item type (display only one type of item)
             /* Add found items to temp list, then merge with results
              */
-            
             if (types != null) {
                 List filteredResults = new ArrayList();
                 for (int t = 0; t < types.length; t++) {
                     // Set attribute of checkbox to checked
                     request.setAttribute(types[t], "checked='checked'");
-
                     // Filter list
-                    for (int i = 0; i < results.size(); i++) {
-                        Item result = (Item) results.get(i);
+                    for (int i = 0; i < this.results.size(); i++) {
+                        Item result = (Item) this.results.get(i);
                         if (result.getItemtype().getItemtype().equals(types[t])) {
                             filteredResults.add(result);
                         }
                     }
                 }
-                results = filteredResults;
+                this.results = filteredResults;
             } else {
                 // Clear results if no type is selected
-                results.clear();
+                this.results.clear();
             }
 
-            
             /***********************
             /** SEARCH QUERIES
             /************************
             /* Search strings from search parameters
             /* Remove items if they don't match
              */
-            
-            for (int i = results.size() - 1; i >= 0; i--) {
-                Item result = (Item) results.get(i);
+            for (int i = this.results.size() - 1; i >= 0; i--) {
+                Item result = (Item) this.results.get(i);
                 registerSearch(result, result.getTitle(), request.getParameter("searchTitle"));
-
                 switch (result.getItemtype().getItemtype()) {
                     case "BOOK":
-                        Book book = bookFacade.findByItemid(result);
+                        Book book = this.bookFacade.findByItemid(result);
                         registerSearch(result, book.getAuthor(), request.getParameter("searchAuthor"));
                         registerSearch(result, book.getPublisher(), request.getParameter("searchPublisher"));
                         registerSearch(result, Integer.toString(book.getPublishYear()), request.getParameter("searchPublishYear"));
@@ -119,7 +99,7 @@ public class ListItemsServlet extends HttpServlet {
                         registerSearch(result, null, request.getParameter("searchSerialno"));
                         break;
                     case "EBOOK":
-                        Ebook ebook = ebookFacade.findByItemid(result);
+                        Ebook ebook = this.ebookFacade.findByItemid(result);
                         registerSearch(result, ebook.getAuthor(), request.getParameter("searchAuthor"));
                         registerSearch(result, ebook.getPublisher(), request.getParameter("searchPublisher"));
                         registerSearch(result, Integer.toString(ebook.getPublishYear()), request.getParameter("searchPublishYear"));
@@ -128,7 +108,7 @@ public class ListItemsServlet extends HttpServlet {
                         registerSearch(result, null, request.getParameter("searchSerialno"));
                         break;
                     case "EQUIPMENT":
-                        Equipment equipment = equipmentFacade.findByItemid(result);
+                        Equipment equipment = this.equipmentFacade.findByItemid(result);
                         registerSearch(result, equipment.getModel(), request.getParameter("searchModel"));
                         registerSearch(result, equipment.getSerialno(), request.getParameter("searchSerialno"));
                         registerSearch(result, null, request.getParameter("searchAuthor"));
@@ -138,36 +118,29 @@ public class ListItemsServlet extends HttpServlet {
                         break;
                 }
             }
-
-            
-            
             //Attach the result list to return message
-            request.setAttribute("list", results);
-
+            request.setAttribute("list", this.results);
         } catch (Exception e) {
             out.println(e);
         }
-
         // Dispatch return message
         RequestDispatcher dispatcher = request.getRequestDispatcher("/browse.jsp");
         if (dispatcher != null) {
             dispatcher.forward(request, response);
         }
-  
-        
     }
 
     private void registerSearch(Item result, String s1, String s2) {
         // Calls searchString, and processes the resultSet
         if (s2 != null && !s2.equals("")) {
             if (s1 == null || !searchString(s1, s2)) {
-                results.remove(result);
+                this.results.remove(result);
             }
         }
     }
     
     private boolean searchString(String s1, String s2) {
-        if (s1.toLowerCase().contains(s2.toLowerCase())) {
+        if(s1.toLowerCase().contains(s2.toLowerCase())) {
             return true;
         }
         return false;

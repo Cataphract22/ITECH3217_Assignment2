@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import entities.Book;
@@ -21,10 +16,6 @@ import model.EbookFacadeLocal;
 import model.EquipmentFacadeLocal;
 import model.ItemFacadeLocal;
 
-/**
- *
- * @author drewm
- */
 public class GetItemTypeServlet extends HttpServlet {
 
     @EJB
@@ -52,29 +43,25 @@ public class GetItemTypeServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-                
         try {
-            Item item = itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
-            
+            Item item = this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
             request.setAttribute("book", null);
             request.setAttribute("ebook", null);
             request.setAttribute("equipment", null); 
-            
             request.setAttribute("type", item.getItemtype().getItemtype());
             switch(item.getItemtype().getItemtype()) {
-                case "BOOK":        Book book = bookFacade.findByItemid(item);
+                case "BOOK":        Book book = this.bookFacade.findByItemid(item);
                                     request.setAttribute("book", book);
                                     break;
-                case "EBOOK":       Ebook ebook = ebookFacade.findByItemid(item);
+                case "EBOOK":       Ebook ebook = this.ebookFacade.findByItemid(item);
                                     request.setAttribute("ebook", ebook);
                                     request.setAttribute("test", "yay");
                                     break;
-                case "EQUIPMENT":   Equipment equipment = equipmentFacade.findByItemid(item);
+                case "EQUIPMENT":   Equipment equipment = this.equipmentFacade.findByItemid(item);
                                     request.setAttribute("equipment", equipment);
                                     break;
             }
-            
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             out.println(e);
         }
     }

@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
-import entities.Item;
 import entities.Item;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -13,10 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- *
- * @author drewm
- */
 @Stateless
 public class ItemFacade extends AbstractFacade<Item> implements ItemFacadeLocal {
 
@@ -25,18 +15,17 @@ public class ItemFacade extends AbstractFacade<Item> implements ItemFacadeLocal 
 
     @Override
     protected EntityManager getEntityManager() {
-        return em;
+        return this.em;
     }
 
     public ItemFacade() {
         super(Item.class);
     }
     
-        
     @Override
     public boolean update(Item item) {
         try {
-            em.merge(item);
+            this.em.merge(item);
             return true;
         } catch (Exception e) {
             return false;
@@ -45,13 +34,12 @@ public class ItemFacade extends AbstractFacade<Item> implements ItemFacadeLocal 
     
     @Override
     public Item findByItemid(Integer id) {
-        Query query = em.createNamedQuery("Item.findByItemid").setParameter("itemid", id);
+        Query query = this.em.createNamedQuery("Item.findByItemid").setParameter("itemid", id);
         List results = query.getResultList();
-        
         if (results.isEmpty()) {
             return null;
         }
-        return(Item) results.get(0); 
+        return (Item) results.get(0); 
     }
 
 }

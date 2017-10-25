@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import entities.UserType;
@@ -10,10 +5,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
- *
- * @author drewm
- */
 @Stateless
 public class UserTypeFacade extends AbstractFacade<UserType> implements UserTypeFacadeLocal {
 
@@ -22,7 +13,7 @@ public class UserTypeFacade extends AbstractFacade<UserType> implements UserType
 
     @Override
     protected EntityManager getEntityManager() {
-        return em;
+        return this.em;
     }
 
     public UserTypeFacade() {

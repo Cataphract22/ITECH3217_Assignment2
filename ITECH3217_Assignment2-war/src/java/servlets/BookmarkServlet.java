@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import entities.Bookmark;
@@ -20,10 +15,6 @@ import model.BookmarkFacadeLocal;
 import model.ItemFacadeLocal;
 import model.UserFacadeLocal;
 
-/**
- *
- * @author drewm
- */
 public class BookmarkServlet extends HttpServlet {
 
     @EJB
@@ -48,32 +39,24 @@ public class BookmarkServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
         try {
-           
-            User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
-            Item item = (Item) itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
+            User user = (User) this.userFacade.findByEmail((String)request.getSession().getAttribute("email"));
+            Item item = (Item) this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
             Date bookmarkDate = new Date();
-           
-            Bookmark bookmark = bookmarkFacade.findById(user, item);
+            Bookmark bookmark = this.bookmarkFacade.findById(user, item);
             if ( bookmark == null) {
                 bookmark = new Bookmark();
                 bookmark.setItemid(item);
                 bookmark.setUserid(user);
                 bookmark.setBookmarkdate(bookmarkDate);
-
-                bookmarkFacade.create(bookmark);
+                this.bookmarkFacade.create(bookmark);
             } else {
-                bookmarkFacade.delete(bookmark);
+                this.bookmarkFacade.delete(bookmark);
             }
-           
             response.sendRedirect("ItemDetailsServlet?id=" + item.getItemid());
-            
-        } catch (Exception e) {
+        } catch (IOException | NumberFormatException e) {
             out.println(e);
-        }
-        
-        
+        }   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
