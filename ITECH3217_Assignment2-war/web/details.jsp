@@ -1,3 +1,6 @@
+<%@page import="entities.Comment"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="entities.Ebook"%>
 <%@page import="entities.Equipment"%>
 <%@page import="entities.Book"%>
@@ -8,6 +11,7 @@
 <!-- Get Item and subtype -->
 <%
     Item item = (Item) request.getAttribute("item");
+    List comments = (List) request.getAttribute("comments");
     int itemId = item.getItemid();
 %>
 <jsp:include page="./GetItemTypeServlet">
@@ -56,7 +60,7 @@
                         <% } %><!--EndIf-->
 
                         <tr><td><p> </p></td></tr>
-                        <tr><TD class='description'><%out.println(item.getDescription());%></TD></tr>
+                        <tr><td class='description'><%out.println(item.getDescription());%></td></tr>
 
                         <!-- Loan -->
                         <jsp:include page="/CheckLoanServlet">
@@ -64,7 +68,7 @@
                         </jsp:include>
                         <tr><td><p> </p></td></tr>
                         <form action="./LoanServlet?id=<%out.println(item.getItemid());%>" method="POST">
-                            <tr><td><input class="itemButton" type="submit" value="<%out.println(request.getAttribute("loan"));%>"></input></td></tr>
+                            <tr><td><input class="searchButton" type="submit" value="<%out.println(request.getAttribute("loan"));%>"></input></td></tr>
                         </form> 
                         
                         <!-- Bookmark -->
@@ -72,7 +76,7 @@
                             <jsp:param name="item" value="<%=itemId%>"/>
                         </jsp:include>
                         <form action="./BookmarkServlet?id=<%out.println(item.getItemid());%>" method="POST">
-                            <tr><td><input class="itemButton" type="submit" value="<%out.println(request.getAttribute("bookmark"));%>"></input></td></tr>
+                            <tr><td><input class="searchButton" type="submit" value="<%out.println(request.getAttribute("bookmark"));%>"></input></td></tr>
                         </form> 
                     </table>              
                  
@@ -81,13 +85,38 @@
 
     <body>
         <div class="verticalContain">
-            <div class="content-block">           
-                <!-- Build HTML for each comment -->
+            <div class="content-block">
+                
+                <!-- New comment form -->
+                
+                <div class="new-comment-container"><h2>Comments</h2></div>              
+                <!-- Get comment list, build HTML for each item -->
+                <% Iterator itr; %>
+                <% if (comments != null && comments.size() > 0) { %>
                 <ul>
-                    <li class='comment-container'>
-                    </li> 
-                </ul>
+                    <!-- Build comment form -->
+                    <form action="./CommentServlet?id=<%out.println(item.getItemid());%>" method="POST" style="width: 450px; margin-left: 20px;">
+                        <li class='form-comment-container' style="margin-bottom: 0px;">
+                            <table class='form-comment-table'>
+                                <tr><td style="padding: 0px;"><h4 class='form-comment-head'>New Comment: ( Posting as <%out.println(session.getAttribute("email"));%>)</h4></td></tr>
+                                <tr><td><textarea rows="2" class="form-comment-text" name="commentText" value=""></textarea></td></tr>
+                            </table>
+                        </li>
+                        <input class="comment-button" type="submit" value="Post Comment"></input>
+                    </form> 
 
+                    <!-- Build comments -->
+                    <%  for (itr = comments.iterator(); itr.hasNext();) {
+                            Comment comment = (Comment) itr.next();
+                    %>
+                    
+                    <li class='comment-container'>
+                        <h3 class='comment-head'><%out.println(comment.getUserid().getGivenname() + " " + comment.getUserid().getFamilyname());%></h3>
+                        <p class="comment-text"><%out.println(comment.getCommenttext());%></p>           
+                    </li> 
+                    <% } %> <!--EndFor-->
+                </ul>
+                <% } %> <!--EndIf-->
             </div>
         </div>
     </body>

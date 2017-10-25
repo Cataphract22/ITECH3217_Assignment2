@@ -6,3 +6,98 @@
     background-color: darkgreen;
     cursor: default;
 }
+
+.new-comment-container {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: mediumseagreen;
+    margin-left: 60px;
+    margin-right: auto; 
+    margin-bottom: 15px;
+    color: #fff;
+    text-align: left;
+}
+
+.form-comment-container {
+    display: block;
+    width: 450px;
+    padding: 0px;
+    background: white;
+    margin-left: 0px;
+    margin-right: 0px; 
+    margin-bottom: 15px;
+    color: #fff;
+    text-align: left;
+}
+
+.form-comment-table {
+    width: 450px;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    border:1px solid #D0D0D0;
+}
+
+.form-comment-head {
+    background-color: mediumseagreen;
+    right: 5px;
+    margin: 0px;
+    padding: 5px;
+}
+
+.form-comment-text {
+    color: #000;
+    padding: 5px;
+    border: none;
+    margin: 0px;
+    width: 98%;
+    min-height: 100%;
+    resize: none;
+}
+
+.comment-container {
+    display: block;
+    width: 100%;
+    padding: 0px;
+    background: white;
+    border:1px solid #D0D0D0;
+    margin-left: 20px;
+    margin-right: 0px; 
+    margin-bottom: 15px;
+    color: #fff;
+    text-align: left;
+}
+
+.comment-head {
+    background-color: mediumseagreen;
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 5px;
+}
+
+.comment-text {
+    color: #000;
+    padding: 5px;
+    width: 100%;
+    min-height:50px;
+}
+
+.comment-button {
+    background-color: forestgreen;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    cursor: pointer;
+}
+
+.comment-button:hover {
+    background-color: lightgreen;
+}

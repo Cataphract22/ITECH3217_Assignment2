@@ -1,6 +1,8 @@
 package model;
 
 import entities.Comment;
+import entities.Item;
+import entities.User;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -20,5 +22,9 @@ public interface CommentFacadeLocal {
     List<Comment> findRange(int[] range);
 
     int count();
+
+    public List findAllByItemid(Item itemId);
+
+    public List findAllByUserid(User userId);
     
 }
