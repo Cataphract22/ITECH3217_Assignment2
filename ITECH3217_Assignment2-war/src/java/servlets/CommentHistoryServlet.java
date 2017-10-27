@@ -72,7 +72,7 @@ public class CommentHistoryServlet extends HttpServlet {
         }
 
         // Dispatch return message
-        RequestDispatcher dispatcher = request.getRequestDispatcher("./bookmarks.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("./commentHistory.jsp");
         if (dispatcher != null) {
             dispatcher.forward(request, response);
         }
