@@ -24,7 +24,7 @@
                         <a href="./UserBookmarkServlet" >Bookmarks</a>
                     </td>
                     <td>
-                        <a href="" >Comments--not implemented</a>
+                        <a href="./CommentHistoryServlet" >Comments</a>
                     </td>
                 </tr>
             </table>
