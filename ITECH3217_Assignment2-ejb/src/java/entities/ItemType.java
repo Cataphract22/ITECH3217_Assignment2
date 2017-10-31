@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -21,10 +16,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "item_type")
 @XmlRootElement
@@ -34,65 +25,68 @@ import javax.xml.bind.annotation.XmlTransient;
 public class ItemType implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "itemtype")
-    private String itemtype;
-    @OneToMany(mappedBy = "itemtype")
+    private String itemTypeString;
+    
+    @OneToMany(mappedBy = "itemType")
     private Collection<Item> itemCollection;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemType")
     private Collection<LoanRule> loanRuleCollection;
 
     public ItemType() {
     }
 
-    public ItemType(String itemtype) {
-        this.itemtype = itemtype;
+    public ItemType(String _itemTypeString) {
+        this.itemTypeString = _itemTypeString;
     }
 
-    public String getItemtype() {
-        return itemtype;
+    public String getItemTypeString() {
+        return this.itemTypeString;
     }
 
-    public void setItemtype(String itemtype) {
-        this.itemtype = itemtype;
+    public void setItemTypeString(String _itemType) {
+        this.itemTypeString = _itemType;
     }
 
     @XmlTransient
     public Collection<Item> getItemCollection() {
-        return itemCollection;
+        return this.itemCollection;
     }
 
-    public void setItemCollection(Collection<Item> itemCollection) {
-        this.itemCollection = itemCollection;
+    public void setItemCollection(Collection<Item> _itemCollection) {
+        this.itemCollection = _itemCollection;
     }
 
     @XmlTransient
     public Collection<LoanRule> getLoanRuleCollection() {
-        return loanRuleCollection;
+        return this.loanRuleCollection;
     }
 
-    public void setLoanRuleCollection(Collection<LoanRule> loanRuleCollection) {
-        this.loanRuleCollection = loanRuleCollection;
+    public void setLoanRuleCollection(Collection<LoanRule> _loanRuleCollection) {
+        this.loanRuleCollection = _loanRuleCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (itemtype != null ? itemtype.hashCode() : 0);
+        hash += (this.itemTypeString != null ? this.itemTypeString.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object _object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ItemType)) {
+        if (!(_object instanceof ItemType)) {
             return false;
         }
-        ItemType other = (ItemType) object;
-        if ((this.itemtype == null && other.itemtype != null) || (this.itemtype != null && !this.itemtype.equals(other.itemtype))) {
+        ItemType other = (ItemType) _object;
+        if ((this.itemTypeString == null && other.itemTypeString != null) || (this.itemTypeString != null && !this.itemTypeString.equals(other.itemTypeString))) {
             return false;
         }
         return true;
@@ -100,7 +94,7 @@ public class ItemType implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.ItemType[ itemtype=" + itemtype + " ]";
+        return "entities.ItemType[ itemtype=" + this.itemTypeString + " ]";
     }
     
 }

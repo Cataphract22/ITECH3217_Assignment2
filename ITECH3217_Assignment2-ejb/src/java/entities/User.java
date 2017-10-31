@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -24,10 +19,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "user")
 @XmlRootElement
@@ -43,160 +34,171 @@ import javax.xml.bind.annotation.XmlTransient;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "userid")
-    private Integer userid;
+    private Integer userID;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
+    
     @Size(max = 30)
     @Column(name = "givenname")
-    private String givenname;
+    private String givenName;
+    
     @Size(max = 30)
     @Column(name = "familyname")
-    private String familyname;
+    private String familyName;
+    
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Size(max = 10)
     @Column(name = "phone")
     private String phone;
+    
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 30)
     @Column(name = "email")
     private String email;
+    
     @Column(name = "isadmin")
-    private Short isadmin;
+    private Short isAdmin;
+    
     @OneToMany(mappedBy = "userid")
     private Collection<Bookmark> bookmarkCollection;
+    
     @OneToMany(mappedBy = "userid")
     private Collection<Loan> loanCollection;
+    
     @OneToMany(mappedBy = "userid")
     private Collection<Comment> commentCollection;
+    
     @JoinColumn(name = "type", referencedColumnName = "usertype")
     @ManyToOne
-    private UserType type;
+    private UserType userType;
 
     public User() {
     }
 
-    public User(Integer userid) {
-        this.userid = userid;
+    public User(Integer _userID) {
+        this.userID = _userID;
     }
 
-    public User(Integer userid, String password) {
-        this.userid = userid;
-        this.password = password;
+    public User(Integer _userID, String _password) {
+        this.userID = _userID;
+        this.password = _password;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getUserID() {
+        return this.userID;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserID(Integer _userID) {
+        this.userID = _userID;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String _password) {
+        this.password = _password;
     }
 
-    public String getGivenname() {
-        return givenname;
+    public String getGivenName() {
+        return this.givenName;
     }
 
-    public void setGivenname(String givenname) {
-        this.givenname = givenname;
+    public void setGivenName(String _givenName) {
+        this.givenName = _givenName;
     }
 
-    public String getFamilyname() {
-        return familyname;
+    public String getFamilyName() {
+        return this.familyName;
     }
 
-    public void setFamilyname(String familyname) {
-        this.familyname = familyname;
+    public void setFamilyName(String _familyName) {
+        this.familyName = _familyName;
     }
 
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhone(String _phone) {
+        this.phone = _phone;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String _email) {
+        this.email = _email;
     }
 
-    public Short getIsadmin() {
-        return isadmin;
+    public Short isAdmin() {
+        return this.isAdmin;
     }
 
-    public void setIsadmin(Short isadmin) {
-        this.isadmin = isadmin;
+    public void setAdmin(Short _isAdmin) {
+        this.isAdmin = _isAdmin;
     }
 
     @XmlTransient
     public Collection<Bookmark> getBookmarkCollection() {
-        return bookmarkCollection;
+        return this.bookmarkCollection;
     }
 
-    public void setBookmarkCollection(Collection<Bookmark> bookmarkCollection) {
-        this.bookmarkCollection = bookmarkCollection;
+    public void setBookmarkCollection(Collection<Bookmark> _bookmarkCollection) {
+        this.bookmarkCollection = _bookmarkCollection;
     }
 
     @XmlTransient
     public Collection<Loan> getLoanCollection() {
-        return loanCollection;
+        return this.loanCollection;
     }
 
-    public void setLoanCollection(Collection<Loan> loanCollection) {
-        this.loanCollection = loanCollection;
+    public void setLoanCollection(Collection<Loan> _loanCollection) {
+        this.loanCollection = _loanCollection;
     }
 
     @XmlTransient
     public Collection<Comment> getCommentCollection() {
-        return commentCollection;
+        return this.commentCollection;
     }
 
-    public void setCommentCollection(Collection<Comment> commentCollection) {
-        this.commentCollection = commentCollection;
+    public void setCommentCollection(Collection<Comment> _commentCollection) {
+        this.commentCollection = _commentCollection;
     }
 
-    public UserType getType() {
-        return type;
+    public UserType getUserType() {
+        return this.userType;
     }
 
-    public void setType(UserType type) {
-        this.type = type;
+    public void setUserType(UserType _userType) {
+        this.userType = _userType;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (userid != null ? userid.hashCode() : 0);
+        hash += (this.userID != null ? this.userID.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object _object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(_object instanceof User)) {
             return false;
         }
-        User other = (User) object;
-        if ((this.userid == null && other.userid != null) || (this.userid != null && !this.userid.equals(other.userid))) {
+        User other = (User) _object;
+        if ((this.userID == null && other.userID != null) || (this.userID != null && !this.userID.equals(other.userID))) {
             return false;
         }
         return true;
@@ -204,7 +206,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.User[ userid=" + userid + " ]";
+        return "entities.User[ userid=" + this.userID + " ]";
     }
     
 }

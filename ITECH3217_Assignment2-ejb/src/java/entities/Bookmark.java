@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -22,10 +17,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "bookmark")
 @XmlRootElement
@@ -36,75 +27,79 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Bookmark implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "bookmarkid")
-    private Integer bookmarkid;
+    private Integer bookmarkID;
+    
     @Column(name = "bookmarkdate")
     @Temporal(TemporalType.DATE)
-    private Date bookmarkdate;
+    private Date bookmarkDate;
+    
     @JoinColumn(name = "userid", referencedColumnName = "userid")
     @ManyToOne
-    private User userid;
+    private User user;
+    
     @JoinColumn(name = "itemid", referencedColumnName = "itemid")
     @ManyToOne
-    private Item itemid;
+    private Item item;
 
     public Bookmark() {
     }
 
-    public Bookmark(Integer bookmarkid) {
-        this.bookmarkid = bookmarkid;
+    public Bookmark(Integer _bookmarkID) {
+        this.bookmarkID = _bookmarkID;
     }
 
-    public Integer getBookmarkid() {
-        return bookmarkid;
+    public Integer getBookmarkID() {
+        return this.bookmarkID;
     }
 
-    public void setBookmarkid(Integer bookmarkid) {
-        this.bookmarkid = bookmarkid;
+    public void setBookmarkID(Integer _bookmarkID) {
+        this.bookmarkID = _bookmarkID;
     }
 
-    public Date getBookmarkdate() {
-        return bookmarkdate;
+    public Date getBookmarkDate() {
+        return this.bookmarkDate;
     }
 
-    public void setBookmarkdate(Date bookmarkdate) {
-        this.bookmarkdate = bookmarkdate;
+    public void setBookmarkDate(Date _bookmarkDate) {
+        this.bookmarkDate = _bookmarkDate;
     }
 
-    public User getUserid() {
-        return userid;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setUserid(User userid) {
-        this.userid = userid;
+    public void setUser(User _user) {
+        this.user = _user;
     }
 
-    public Item getItemid() {
-        return itemid;
+    public Item getItem() {
+        return this.item;
     }
 
-    public void setItemid(Item itemid) {
-        this.itemid = itemid;
+    public void setItem(Item _item) {
+        this.item = _item;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (bookmarkid != null ? bookmarkid.hashCode() : 0);
+        hash += (this.bookmarkID != null ? this.bookmarkID.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object _object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Bookmark)) {
+        if (!(_object instanceof Bookmark)) {
             return false;
         }
-        Bookmark other = (Bookmark) object;
-        if ((this.bookmarkid == null && other.bookmarkid != null) || (this.bookmarkid != null && !this.bookmarkid.equals(other.bookmarkid))) {
+        Bookmark other = (Bookmark) _object;
+        if ((this.bookmarkID == null && other.bookmarkID != null) || (this.bookmarkID != null && !this.bookmarkID.equals(other.bookmarkID))) {
             return false;
         }
         return true;
@@ -112,7 +107,7 @@ public class Bookmark implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Bookmark[ bookmarkid=" + bookmarkid + " ]";
+        return "entities.Bookmark[ bookmarkid=" + this.bookmarkID + " ]";
     }
     
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -26,10 +21,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "item")
 @XmlRootElement
@@ -42,150 +33,161 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "itemid")
-    private Integer itemid;
+    private Integer itemID;
+    
     @Size(max = 255)
     @Column(name = "title")
     private String title;
+    
     @Lob
     @Size(max = 65535)
     @Column(name = "description")
     private String description;
+    
     @Size(max = 100)
     @Column(name = "image")
     private String image;
+    
     @Column(name = "isavailable")
-    private boolean isavailable;
+    private boolean isAvailable;
+    
     @OneToMany(mappedBy = "itemid")
     private Collection<Bookmark> bookmarkCollection;
+    
     @JoinColumn(name = "itemtype", referencedColumnName = "itemtype")
     @ManyToOne
-    private ItemType itemtype;
+    private ItemType itemType;
+    
     @OneToMany(mappedBy = "itemid")
     private Collection<Loan> loanCollection;
+    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "item")
     private Book book;
+    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "item")
     private Equipment equipment;
+    
     @OneToMany(mappedBy = "itemid")
     private Collection<Comment> commentCollection;
 
     public Item() {
     }
 
-    public Item(Integer itemid) {
-        this.itemid = itemid;
+    public Item(Integer _itemID) {
+        this.itemID = _itemID;
     }
 
-    public Integer getItemid() {
-        return itemid;
+    public Integer getItemID() {
+        return this.itemID;
     }
 
-    public void setItemid(Integer itemid) {
-        this.itemid = itemid;
+    public void setItemID(Integer _itemID) {
+        this.itemID = _itemID;
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String _title) {
+        this.title = _title;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String _description) {
+        this.description = _description;
     }
 
     public String getImage() {
-        return image;
+        return this.image;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(String _image) {
+        this.image = _image;
     }
 
-    public boolean getIsavailable() {
-        return isavailable;
+    public boolean Available() {
+        return this.isAvailable;
     }
 
-    public void setIsavailable(boolean isavailable) {
-        this.isavailable = isavailable;
+    public void setAvailable(boolean _available) {
+        this.isAvailable = _available;
     }
 
     @XmlTransient
     public Collection<Bookmark> getBookmarkCollection() {
-        return bookmarkCollection;
+        return this.bookmarkCollection;
     }
 
-    public void setBookmarkCollection(Collection<Bookmark> bookmarkCollection) {
-        this.bookmarkCollection = bookmarkCollection;
+    public void setBookmarkCollection(Collection<Bookmark> _bookmarkCollection) {
+        this.bookmarkCollection = _bookmarkCollection;
     }
 
-    public ItemType getItemtype() {
-        return itemtype;
+    public ItemType getItemType() {
+        return this.itemType;
     }
 
-    public void setItemtype(ItemType itemtype) {
-        this.itemtype = itemtype;
+    public void setItemType(ItemType _itemtype) {
+        this.itemType = _itemtype;
     }
 
     @XmlTransient
     public Collection<Loan> getLoanCollection() {
-        return loanCollection;
+        return this.loanCollection;
     }
 
-    public void setLoanCollection(Collection<Loan> loanCollection) {
-        this.loanCollection = loanCollection;
+    public void setLoanCollection(Collection<Loan> _loanCollection) {
+        this.loanCollection = _loanCollection;
     }
 
     public Book getBook() {
-        return book;
+        return this.book;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBook(Book _book) {
+        this.book = _book;
     }
 
     public Equipment getEquipment() {
-        return equipment;
+        return this.equipment;
     }
 
-    public void setEquipment(Equipment equipment) {
-        this.equipment = equipment;
+    public void setEquipment(Equipment _equipment) {
+        this.equipment = _equipment;
     }
 
     @XmlTransient
     public Collection<Comment> getCommentCollection() {
-        return commentCollection;
+        return this.commentCollection;
     }
 
-    public void setCommentCollection(Collection<Comment> commentCollection) {
-        this.commentCollection = commentCollection;
+    public void setCommentCollection(Collection<Comment> _commentCollection) {
+        this.commentCollection = _commentCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (itemid != null ? itemid.hashCode() : 0);
+        hash += (this.itemID != null ? this.itemID.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object _object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Item)) {
+        if (!(_object instanceof Item)) {
             return false;
         }
-        Item other = (Item) object;
-        if ((this.itemid == null && other.itemid != null) || (this.itemid != null && !this.itemid.equals(other.itemid))) {
+        Item other = (Item) _object;
+        if ((this.itemID == null && other.itemID != null) || (this.itemID != null && !this.itemID.equals(other.itemID))) {
             return false;
         }
         return true;
@@ -193,7 +195,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Item[ itemid=" + itemid + " ]";
+        return "entities.Item[ itemid=" + this.itemID + " ]";
     }
     
 }

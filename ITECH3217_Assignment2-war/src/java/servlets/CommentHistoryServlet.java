@@ -41,19 +41,19 @@ public class CommentHistoryServlet extends HttpServlet {
     private UserFacadeLocal userFacade;
     List results;
     User user;
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        _response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = _response.getWriter()) {
            try {
                 //get userEmail for current session
-                String userEmail = request.getSession().getAttribute("email").toString();
+                String userEmail = _request.getSession().getAttribute("email").toString();
                 
                 //get user from userEmail
-                user = userFacade.findByEmail(userEmail);
+                this.user = this.userFacade.findByEmail(userEmail);
                 
                 // Get comment list
-                results = commentFacade.findAllByUserid(user);
+                this.results = this.commentFacade.findAllByUserID(user);
 
          
                 //Get Item details for description?
@@ -65,16 +65,16 @@ public class CommentHistoryServlet extends HttpServlet {
             
             
             //Attach the result list to return message
-            request.setAttribute("list", results);
+            _request.setAttribute("list", results);
 
         } catch (Exception e) {
             out.println(e);
         }
 
         // Dispatch return message
-        RequestDispatcher dispatcher = request.getRequestDispatcher("./commentHistory.jsp");
+        RequestDispatcher dispatcher = _request.getRequestDispatcher("./commentHistory.jsp");
         if (dispatcher != null) {
-            dispatcher.forward(request, response);
+            dispatcher.forward(_request, _response);
         }
         }
     }

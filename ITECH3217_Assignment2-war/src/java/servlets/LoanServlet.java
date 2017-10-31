@@ -36,48 +36,48 @@ public class LoanServlet extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param _request servlet request
+     * @param _response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) 
+    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response) 
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        _response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = _response.getWriter();
         try {
-            User user = (User) this.userFacade.findByEmail((String)request.getSession().getAttribute("email"));
-            Item item = (Item) this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
+            User user = (User) this.userFacade.findByEmail((String)_request.getSession().getAttribute("email"));
+            Item item = (Item) this.itemFacade.findByItemID(Integer.parseInt(_request.getParameter("id")));
             Loan loan;
-            if (item.getIsavailable() == true) {
+            if (item.Available() == true) {
             // If item is available for loan
                 // Set due date
                 LoanRule rule = (LoanRule) this.loanRuleFacade.findByRule(user, item);
-                int loanDays = rule.getLoantime();
+                int loanDays = rule.getLoanTime();
                 Date loanDate = new Date();
                 Date dueDate = new Date(loanDate.getTime() + TimeUnit.DAYS.toMillis(loanDays));
                 // Create loan
                 loan = new Loan();
-                loan.setItemid(item);
-                loan.setUserid(user);
-                loan.setLoandate(loanDate);
-                loan.setDuedate(dueDate);
+                loan.setItem(item);
+                loan.setUser(user);
+                loan.setLoanDate(loanDate);
+                loan.setDueDate(dueDate);
                 this.loanFacade.create(loan);
                 // Update item availability
-                item.setIsavailable(false);
+                item.setAvailable(false);
                 this.itemFacade.update(item); 
             } else {
-                loan = this.loanFacade.findById(user, item);
+                loan = this.loanFacade.findByID(user, item);
                 if ( loan != null) {
                     // Update loan history
                     loan.setHistory(true);
                     this.loanFacade.update(loan);
                     // Update item availability
-                    item.setIsavailable(true);
+                    item.setAvailable(true);
                     this.itemFacade.update(item);
                 }
             }
-            response.sendRedirect("ItemDetailsServlet?id=" + item.getItemid());
+            _response.sendRedirect("ItemDetailsServlet?id=" + item.getItemID());
         } catch (IOException | NumberFormatException e) {
             out.println(e);
         }

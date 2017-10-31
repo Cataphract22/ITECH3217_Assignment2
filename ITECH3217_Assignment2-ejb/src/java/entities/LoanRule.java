@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -16,10 +11,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "loan_rule")
 @XmlRootElement
@@ -33,15 +24,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class LoanRule implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected LoanRulePK loanRulePK;
+    
     @Column(name = "loantime")
-    private Short loantime;
+    private Short loanTime;
+    
     @Column(name = "renewals")
     private Short renewals;
+    
     @JoinColumn(name = "itemtype", referencedColumnName = "itemtype", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private ItemType itemType;
+    
     @JoinColumn(name = "usertype", referencedColumnName = "usertype", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private UserType userType;
@@ -49,68 +45,68 @@ public class LoanRule implements Serializable {
     public LoanRule() {
     }
 
-    public LoanRule(LoanRulePK loanRulePK) {
-        this.loanRulePK = loanRulePK;
+    public LoanRule(LoanRulePK _loanRulePK) {
+        this.loanRulePK = _loanRulePK;
     }
 
-    public LoanRule(String itemtype, String usertype) {
-        this.loanRulePK = new LoanRulePK(itemtype, usertype);
+    public LoanRule(String _itemType, String _userType) {
+        this.loanRulePK = new LoanRulePK(_itemType, _userType);
     }
 
     public LoanRulePK getLoanRulePK() {
-        return loanRulePK;
+        return this.loanRulePK;
     }
 
-    public void setLoanRulePK(LoanRulePK loanRulePK) {
-        this.loanRulePK = loanRulePK;
+    public void setLoanRulePK(LoanRulePK _loanRulePK) {
+        this.loanRulePK = _loanRulePK;
     }
 
-    public Short getLoantime() {
-        return loantime;
+    public Short getLoanTime() {
+        return this.loanTime;
     }
 
-    public void setLoantime(Short loantime) {
-        this.loantime = loantime;
+    public void setLoanTime(Short _loanTime) {
+        this.loanTime = _loanTime;
     }
 
     public Short getRenewals() {
-        return renewals;
+        return this.renewals;
     }
 
-    public void setRenewals(Short renewals) {
-        this.renewals = renewals;
+    public void setRenewals(Short _renewals) {
+        this.renewals = _renewals;
     }
 
     public ItemType getItemType() {
-        return itemType;
+        return this.itemType;
     }
 
-    public void setItemType(ItemType itemType) {
-        this.itemType = itemType;
+    public void setItemType(ItemType _itemType) {
+        this.itemType = _itemType;
     }
 
     public UserType getUserType() {
-        return userType;
+        return this.userType;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setUserType(UserType _userType) {
+        this.userType = _userType;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (loanRulePK != null ? loanRulePK.hashCode() : 0);
+        hash += (this.loanRulePK != null ? this.loanRulePK.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object _object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LoanRule)) {
+        if (!(_object instanceof LoanRule)) {
             return false;
         }
-        LoanRule other = (LoanRule) object;
+        LoanRule other = (LoanRule) _object;
         if ((this.loanRulePK == null && other.loanRulePK != null) || (this.loanRulePK != null && !this.loanRulePK.equals(other.loanRulePK))) {
             return false;
         }
@@ -119,7 +115,7 @@ public class LoanRule implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.LoanRule[ loanRulePK=" + loanRulePK + " ]";
+        return "entities.LoanRule[ loanRulePK=" + this.loanRulePK + " ]";
     }
     
 }

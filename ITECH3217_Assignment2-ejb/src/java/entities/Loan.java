@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -22,10 +17,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "loan")
 @XmlRootElement
@@ -38,96 +29,102 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Loan implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "loanid")
-    private Integer loanid;
+    private Integer loanID;
+    
     @Column(name = "loandate")
     @Temporal(TemporalType.DATE)
-    private Date loandate;
+    private Date loanDate;
+    
     @Column(name = "duedate")
     @Temporal(TemporalType.DATE)
-    private Date duedate;
+    private Date dueDate;
+    
     @Column(name = "history")
     private Boolean history;
+    
     @JoinColumn(name = "userid", referencedColumnName = "userid")
     @ManyToOne
-    private User userid;
+    private User user;
+    
     @JoinColumn(name = "itemid", referencedColumnName = "itemid")
     @ManyToOne
-    private Item itemid;
+    private Item item;
 
     public Loan() {
     }
 
-    public Loan(Integer loanid) {
-        this.loanid = loanid;
+    public Loan(Integer _loanID) {
+        this.loanID = _loanID;
     }
 
-    public Integer getLoanid() {
-        return loanid;
+    public Integer getLoanID() {
+        return this.loanID;
     }
 
-    public void setLoanid(Integer loanid) {
-        this.loanid = loanid;
+    public void setLoanID(Integer _loanID) {
+        this.loanID = _loanID;
     }
 
-    public Date getLoandate() {
-        return loandate;
+    public Date getLoanDate() {
+        return this.loanDate;
     }
 
-    public void setLoandate(Date loandate) {
-        this.loandate = loandate;
+    public void setLoanDate(Date _loanDate) {
+        this.loanDate = _loanDate;
     }
 
-    public Date getDuedate() {
-        return duedate;
+    public Date getDueDate() {
+        return this.dueDate;
     }
 
-    public void setDuedate(Date duedate) {
-        this.duedate = duedate;
+    public void setDueDate(Date _dueDate) {
+        this.dueDate = _dueDate;
     }
 
     public Boolean getHistory() {
-        return history;
+        return this.history;
     }
 
-    public void setHistory(Boolean history) {
-        this.history = history;
+    public void setHistory(Boolean _history) {
+        this.history = _history;
     }
 
-    public User getUserid() {
-        return userid;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setUserid(User userid) {
-        this.userid = userid;
+    public void setUser(User _user) {
+        this.user = _user;
     }
 
-    public Item getItemid() {
-        return itemid;
+    public Item getItem() {
+        return this.item;
     }
 
-    public void setItemid(Item itemid) {
-        this.itemid = itemid;
+    public void setItem(Item _item) {
+        this.item = _item;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (loanid != null ? loanid.hashCode() : 0);
+        hash += (this.loanID != null ? this.loanID.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object _object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Loan)) {
+        if (!(_object instanceof Loan)) {
             return false;
         }
-        Loan other = (Loan) object;
-        if ((this.loanid == null && other.loanid != null) || (this.loanid != null && !this.loanid.equals(other.loanid))) {
+        Loan other = (Loan) _object;
+        if ((this.loanID == null && other.loanID != null) || (this.loanID != null && !this.loanID.equals(other.loanID))) {
             return false;
         }
         return true;
@@ -135,7 +132,7 @@ public class Loan implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Loan[ loanid=" + loanid + " ]";
+        return "entities.Loan[ loanid=" + this.loanID + " ]";
     }
     
 }

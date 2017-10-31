@@ -32,36 +32,36 @@ public class CheckLoanServlet extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param _request servlet request
+     * @param _response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        _response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = _response.getWriter();
         try {
-            User user = (User) this.userFacade.findByEmail((String)request.getSession().getAttribute("email"));
-            Item item = this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
-            List list = this.loanFacade.findAllByUserid(user, false);
-            request.setAttribute("loan", "Request Loan");
+            User user = (User) this.userFacade.findByEmail((String)_request.getSession().getAttribute("email"));
+            Item item = this.itemFacade.findByItemID(Integer.parseInt(_request.getParameter("item")));
+            List list = this.loanFacade.findAllByUserID(user, false);
+            _request.setAttribute("loan", "Request Loan");
             // If user has already made a loan request                                            
             Iterator itr;
             for (itr = list.iterator(); itr.hasNext();) {
                 Loan loan = (Loan) itr.next();
                 // If already loaned
-                if (Objects.equals(loan.getItemid().getItemid(), item.getItemid())) {
-                    request.setAttribute("loan", "Return Item");
+                if (Objects.equals(loan.getItem().getItemID(), item.getItemID())) {
+                    _request.setAttribute("loan", "Return Item");
                     break;
                 }
             }
-            if (request.getAttribute("loan") != "Return Item" && item.getIsavailable() == false) { // If item unavailable
-                request.setAttribute("loan", "Unavailable");
+            if (_request.getAttribute("loan") != "Return Item" && item.Available() == false) { // If item unavailable
+                _request.setAttribute("loan", "Unavailable");
                 
             }
         } catch (NumberFormatException e) {
-            //out.println(e);
+            out.println(e);
         }
     }
         

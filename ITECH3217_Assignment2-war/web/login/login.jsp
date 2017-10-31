@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../includes/styles/_main.css" rel="stylesheet" type="text/css">
         <link href="../includes/styles/login.css" rel="stylesheet" type="text/css">
-        <title>Federation University Library - Registration</title>
+        <title>Federation University Library - Login</title>
     </head>
     <body>
         <div class="verticalContain">

@@ -45,13 +45,13 @@ public class ListItemsServlet extends HttpServlet {
     
     List results;
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        _response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = _response.getWriter();
         try {
             // Get types
-            String[] types = request.getParameterValues("type");
+            String[] types = _request.getParameterValues("type");
             // Get item list
             this.results = this.itemFacade.findAll();
             /***********************
@@ -64,11 +64,11 @@ public class ListItemsServlet extends HttpServlet {
                 List filteredResults = new ArrayList();
                 for (int t = 0; t < types.length; t++) {
                     // Set attribute of checkbox to checked
-                    request.setAttribute(types[t], "checked='checked'");
+                    _request.setAttribute(types[t], "checked='checked'");
                     // Filter list
                     for (int i = 0; i < this.results.size(); i++) {
                         Item result = (Item) this.results.get(i);
-                        if (result.getItemtype().getItemtype().equals(types[t])) {
+                        if (result.getItemType().getItemTypeString().equals(types[t])) {
                             filteredResults.add(result);
                         }
                     }
@@ -87,60 +87,60 @@ public class ListItemsServlet extends HttpServlet {
              */
             for (int i = this.results.size() - 1; i >= 0; i--) {
                 Item result = (Item) this.results.get(i);
-                registerSearch(result, result.getTitle(), request.getParameter("searchTitle"));
-                switch (result.getItemtype().getItemtype()) {
+                registerSearch(result, result.getTitle(), _request.getParameter("searchTitle"));
+                switch (result.getItemType().getItemTypeString()) {
                     case "BOOK":
-                        Book book = this.bookFacade.findByItemid(result);
-                        registerSearch(result, book.getAuthor(), request.getParameter("searchAuthor"));
-                        registerSearch(result, book.getPublisher(), request.getParameter("searchPublisher"));
-                        registerSearch(result, Integer.toString(book.getPublishYear()), request.getParameter("searchPublishYear"));
-                        registerSearch(result, book.getIsbn(), request.getParameter("searchIsbn"));
-                        registerSearch(result, null, request.getParameter("searchModel"));
-                        registerSearch(result, null, request.getParameter("searchSerialno"));
+                        Book book = this.bookFacade.findByItemID(result);
+                        registerSearch(result, book.getAuthor(), _request.getParameter("searchAuthor"));
+                        registerSearch(result, book.getPublisher(), _request.getParameter("searchPublisher"));
+                        registerSearch(result, Integer.toString(book.getPublishYear()), _request.getParameter("searchPublishYear"));
+                        registerSearch(result, book.getISBN(), _request.getParameter("searchIsbn"));
+                        registerSearch(result, null, _request.getParameter("searchModel"));
+                        registerSearch(result, null, _request.getParameter("searchSerialno"));
                         break;
                     case "EBOOK":
-                        Ebook ebook = this.ebookFacade.findByItemid(result);
-                        registerSearch(result, ebook.getAuthor(), request.getParameter("searchAuthor"));
-                        registerSearch(result, ebook.getPublisher(), request.getParameter("searchPublisher"));
-                        registerSearch(result, Integer.toString(ebook.getPublishYear()), request.getParameter("searchPublishYear"));
-                        registerSearch(result, ebook.getIsbn(), request.getParameter("searchIsbn"));
-                        registerSearch(result, null, request.getParameter("searchModel"));
-                        registerSearch(result, null, request.getParameter("searchSerialno"));
+                        Ebook ebook = this.ebookFacade.findByItemID(result);
+                        registerSearch(result, ebook.getAuthor(), _request.getParameter("searchAuthor"));
+                        registerSearch(result, ebook.getPublisher(), _request.getParameter("searchPublisher"));
+                        registerSearch(result, Integer.toString(ebook.getPublishYear()), _request.getParameter("searchPublishYear"));
+                        registerSearch(result, ebook.getISBN(), _request.getParameter("searchIsbn"));
+                        registerSearch(result, null, _request.getParameter("searchModel"));
+                        registerSearch(result, null, _request.getParameter("searchSerialno"));
                         break;
                     case "EQUIPMENT":
-                        Equipment equipment = this.equipmentFacade.findByItemid(result);
-                        registerSearch(result, equipment.getModel(), request.getParameter("searchModel"));
-                        registerSearch(result, equipment.getSerialno(), request.getParameter("searchSerialno"));
-                        registerSearch(result, null, request.getParameter("searchAuthor"));
-                        registerSearch(result, null, request.getParameter("searchPublisher"));
-                        registerSearch(result, null, request.getParameter("searchPublishYear"));
-                        registerSearch(result, null, request.getParameter("searchIsbn"));
+                        Equipment equipment = this.equipmentFacade.findByItemID(result);
+                        registerSearch(result, equipment.getModel(), _request.getParameter("searchModel"));
+                        registerSearch(result, equipment.getSerialNo(), _request.getParameter("searchSerialno"));
+                        registerSearch(result, null, _request.getParameter("searchAuthor"));
+                        registerSearch(result, null, _request.getParameter("searchPublisher"));
+                        registerSearch(result, null, _request.getParameter("searchPublishYear"));
+                        registerSearch(result, null, _request.getParameter("searchIsbn"));
                         break;
                 }
             }
             //Attach the result list to return message
-            request.setAttribute("list", this.results);
+            _request.setAttribute("list", this.results);
         } catch (Exception e) {
             out.println(e);
         }
         // Dispatch return message
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/browse.jsp");
+        RequestDispatcher dispatcher = _request.getRequestDispatcher("/browse.jsp");
         if (dispatcher != null) {
-            dispatcher.forward(request, response);
+            dispatcher.forward(_request, _response);
         }
     }
 
-    private void registerSearch(Item result, String s1, String s2) {
+    private void registerSearch(Item _item, String _string1, String _string2) {
         // Calls searchString, and processes the resultSet
-        if (s2 != null && !s2.equals("")) {
-            if (s1 == null || !searchString(s1, s2)) {
-                this.results.remove(result);
+        if (_string2 != null && !_string2.equals("")) {
+            if (_string1 == null || !searchString(_string1, _string2)) {
+                this.results.remove(_item);
             }
         }
     }
     
-    private boolean searchString(String s1, String s2) {
-        if(s1.toLowerCase().contains(s2.toLowerCase())) {
+    private boolean searchString(String _string1, String _string2) {
+        if(_string1.toLowerCase().contains(_string2.toLowerCase())) {
             return true;
         }
         return false;

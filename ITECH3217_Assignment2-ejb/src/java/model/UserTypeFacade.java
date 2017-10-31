@@ -9,11 +9,11 @@ import javax.persistence.PersistenceContext;
 public class UserTypeFacade extends AbstractFacade<UserType> implements UserTypeFacadeLocal {
 
     @PersistenceContext(unitName = "ITECH3217_Assignment2-ejbPU")
-    private EntityManager em;
+    private EntityManager entityManager;
 
     @Override
     protected EntityManager getEntityManager() {
-        return this.em;
+        return this.entityManager;
     }
 
     public UserTypeFacade() {

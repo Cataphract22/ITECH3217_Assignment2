@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -21,10 +16,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "user_type")
 @XmlRootElement
@@ -35,75 +26,79 @@ import javax.xml.bind.annotation.XmlTransient;
 public class UserType implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "usertype")
-    private String usertype;
+    private String userTypeString;
+    
     @Column(name = "maxloans")
-    private Short maxloans;
+    private Short maxLoans;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userType")
     private Collection<LoanRule> loanRuleCollection;
+    
     @OneToMany(mappedBy = "type")
     private Collection<User> userCollection;
 
     public UserType() {
     }
 
-    public UserType(String usertype) {
-        this.usertype = usertype;
+    public UserType(String _userTypeString) {
+        this.userTypeString = _userTypeString;
     }
 
-    public String getUsertype() {
-        return usertype;
+    public String getUserTypeString() {
+        return this.userTypeString;
     }
 
-    public void setUsertype(String usertype) {
-        this.usertype = usertype;
+    public void setUserTypeString(String _userType) {
+        this.userTypeString = _userType;
     }
 
-    public Short getMaxloans() {
-        return maxloans;
+    public Short getMaxLoans() {
+        return this.maxLoans;
     }
 
-    public void setMaxloans(Short maxloans) {
-        this.maxloans = maxloans;
+    public void setMaxLoans(Short _maxLoans) {
+        this.maxLoans = _maxLoans;
     }
 
     @XmlTransient
     public Collection<LoanRule> getLoanRuleCollection() {
-        return loanRuleCollection;
+        return this.loanRuleCollection;
     }
 
-    public void setLoanRuleCollection(Collection<LoanRule> loanRuleCollection) {
-        this.loanRuleCollection = loanRuleCollection;
+    public void setLoanRuleCollection(Collection<LoanRule> _loanRuleCollection) {
+        this.loanRuleCollection = _loanRuleCollection;
     }
 
     @XmlTransient
     public Collection<User> getUserCollection() {
-        return userCollection;
+        return this.userCollection;
     }
 
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
+    public void setUserCollection(Collection<User> _userCollection) {
+        this.userCollection = _userCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (usertype != null ? usertype.hashCode() : 0);
+        hash += (this.userTypeString != null ? userTypeString.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object _object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserType)) {
+        if (!(_object instanceof UserType)) {
             return false;
         }
-        UserType other = (UserType) object;
-        if ((this.usertype == null && other.usertype != null) || (this.usertype != null && !this.usertype.equals(other.usertype))) {
+        UserType other = (UserType) _object;
+        if ((this.userTypeString == null && other.userTypeString != null) || (this.userTypeString != null && !this.userTypeString.equals(other.userTypeString))) {
             return false;
         }
         return true;
@@ -111,7 +106,7 @@ public class UserType implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.UserType[ usertype=" + usertype + " ]";
+        return "entities.UserType[ usertype=" + this.userTypeString + " ]";
     }
     
 }

@@ -11,11 +11,11 @@ import javax.persistence.Query;
 public class ItemFacade extends AbstractFacade<Item> implements ItemFacadeLocal {
 
     @PersistenceContext(unitName = "ITECH3217_Assignment2-ejbPU")
-    private EntityManager em;
+    private EntityManager entityManager;
 
     @Override
     protected EntityManager getEntityManager() {
-        return this.em;
+        return this.entityManager;
     }
 
     public ItemFacade() {
@@ -23,9 +23,9 @@ public class ItemFacade extends AbstractFacade<Item> implements ItemFacadeLocal 
     }
     
     @Override
-    public boolean update(Item item) {
+    public boolean update(Item _item) {
         try {
-            this.em.merge(item);
+            this.entityManager.merge(_item);
             return true;
         } catch (Exception e) {
             return false;
@@ -33,8 +33,8 @@ public class ItemFacade extends AbstractFacade<Item> implements ItemFacadeLocal 
     }
     
     @Override
-    public Item findByItemid(Integer id) {
-        Query query = this.em.createNamedQuery("Item.findByItemid").setParameter("itemid", id);
+    public Item findByItemID(Integer _itemID) {
+        Query query = this.entityManager.createNamedQuery("Item.findByItemid").setParameter("itemid", _itemID);
         List results = query.getResultList();
         if (results.isEmpty()) {
             return null;

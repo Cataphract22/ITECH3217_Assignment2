@@ -11,11 +11,11 @@ import javax.persistence.Query;
 public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal {
 
     @PersistenceContext(unitName = "ITECH3217_Assignment2-ejbPU")
-    private EntityManager em;
+    private EntityManager entityManager;
 
     @Override
     protected EntityManager getEntityManager() {
-        return this.em;
+        return this.entityManager;
     }
 
     public UserFacade() {
@@ -23,8 +23,8 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
     }
     
     @Override
-    public User findByEmail(String email) {
-        Query query = this.em.createNamedQuery("User.findByEmail").setParameter("email", email);
+    public User findByEmail(String _email) {
+        Query query = this.entityManager.createNamedQuery("User.findByEmail").setParameter("email", _email);
         List results = query.getResultList();
         if (results.isEmpty()) {
             return null;

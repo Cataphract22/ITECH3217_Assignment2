@@ -11,22 +11,22 @@ import javax.ejb.Local;
 @Local
 public interface ItemFacadeLocal {
 
-    void create(Item item);
+    void create(Item _item);
 
-    void edit(Item item);
+    void edit(Item _item);
 
-    void remove(Item item);
+    void remove(Item _item);
 
-    Item find(Object id);
+    Item find(Object _object);
     
-    Item findByItemid(Integer id);
+    Item findByItemID(Integer _itemID);
 
     List<Item> findAll();
 
-    List<Item> findRange(int[] range);
+    List<Item> findRange(int[] _range);
 
     int count();
 
-    public boolean update(Item item);
+    public boolean update(Item _item);
     
 }

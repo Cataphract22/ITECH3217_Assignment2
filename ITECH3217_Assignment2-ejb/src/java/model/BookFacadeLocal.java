@@ -8,20 +8,20 @@ import javax.ejb.Local;
 @Local
 public interface BookFacadeLocal {
 
-    void create(Book book);
+    void create(Book _book);
 
-    void edit(Book book);
+    void edit(Book _book);
 
-    void remove(Book book);
+    void remove(Book _book);
 
-    Book find(Object id);
+    Book find(Object _object);
 
     List<Book> findAll();
 
-    List<Book> findRange(int[] range);
+    List<Book> findRange(int[] _range);
 
     int count();
 
-    public Book findByItemid(Item item);
+    public Book findByItemID(Item _item);
     
 }

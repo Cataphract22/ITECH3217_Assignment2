@@ -9,20 +9,20 @@ import javax.ejb.Local;
 @Local
 public interface LoanRuleFacadeLocal {
 
-    void create(LoanRule loanRule);
+    void create(LoanRule _loanRule);
 
-    void edit(LoanRule loanRule);
+    void edit(LoanRule _loanRule);
 
-    void remove(LoanRule loanRule);
+    void remove(LoanRule _loanRule);
 
-    LoanRule find(Object id);
+    LoanRule find(Object _object);
 
     List<LoanRule> findAll();
 
-    List<LoanRule> findRange(int[] range);
+    List<LoanRule> findRange(int[] _range);
 
     int count();
 
-    public LoanRule findByRule(User user, Item item);
+    public LoanRule findByRule(User _user, Item _item);
     
 }

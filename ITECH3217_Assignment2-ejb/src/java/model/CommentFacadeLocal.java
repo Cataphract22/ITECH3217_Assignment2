@@ -9,22 +9,22 @@ import javax.ejb.Local;
 @Local
 public interface CommentFacadeLocal {
 
-    void create(Comment comment);
+    void create(Comment _comment);
 
-    void edit(Comment comment);
+    void edit(Comment _comment);
 
-    void remove(Comment comment);
+    void remove(Comment _comment);
 
-    Comment find(Object id);
+    Comment find(Object _object);
 
     List<Comment> findAll();
 
-    List<Comment> findRange(int[] range);
+    List<Comment> findRange(int[] _range);
 
     int count();
 
-    public List findAllByItemid(Item itemId);
+    public List findAllByItemID(Item _item);
 
-    public List findAllByUserid(User userId);
+    public List findAllByUserID(User _user);
     
 }

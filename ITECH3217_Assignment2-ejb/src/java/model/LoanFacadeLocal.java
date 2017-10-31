@@ -9,27 +9,27 @@ import javax.ejb.Local;
 @Local
 public interface LoanFacadeLocal {
 
-    void create(Loan loan);
+    void create(Loan _loan);
 
-    void edit(Loan loan);
+    void edit(Loan _loan);
 
-    void remove(Loan loan);
+    void remove(Loan _loan);
 
-    Loan find(Object id);
+    Loan find(Object _object);
 
     List<Loan> findAll();
 
-    List<Loan> findRange(int[] range);
+    List<Loan> findRange(int[] _range);
 
     int count();
 
-    public Loan findById(User user, Item item);
+    public Loan findByID(User _user, Item _item);
 
-    public void delete(Loan loan);
+    public void delete(Loan _loan);
 
 
-    public List findAllByUserid(User userid, boolean history);
+    public List findAllByUserID(User _user, boolean _history);
 
-    public boolean update(Loan loan);
+    public boolean update(Loan _loan);
     
 }
