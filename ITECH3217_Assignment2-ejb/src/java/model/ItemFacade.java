@@ -33,7 +33,7 @@ public class ItemFacade extends AbstractFacade<Item> implements ItemFacadeLocal 
     }
     
     @Override
-    public Item findByItemid(Integer id) {
+    public Item findByItemID(Integer id) {
         Query query = this.em.createNamedQuery("Item.findByItemid").setParameter("itemid", id);
         List results = query.getResultList();
         if (results.isEmpty()) {

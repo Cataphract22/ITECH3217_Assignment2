@@ -25,10 +25,10 @@ public class LoanRuleFacade extends AbstractFacade<LoanRule> implements LoanRule
     }
     
     @Override
-    public LoanRule findByRule(User user, Item item) {
+    public LoanRule findByUser(User user, Item item) {
         // Get query parameters
-        String userType = user.getType().getUsertype();
-        String itemType = item.getItemtype().getItemtype();
+        String userType = user.getUserType().getUserTypeString();
+        String itemType = item.getItemType().getItemtypeString();
         Query query = this.em.createNamedQuery("LoanRule.findByRule");
         query.setParameter("itemtype", itemType);
         query.setParameter("usertype", userType);

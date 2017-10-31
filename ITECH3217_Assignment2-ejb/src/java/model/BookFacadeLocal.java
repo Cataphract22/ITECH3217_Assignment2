@@ -22,6 +22,6 @@ public interface BookFacadeLocal {
 
     int count();
 
-    public Book findByItemid(Item item);
+    public Book findByItem(Item item);
     
 }

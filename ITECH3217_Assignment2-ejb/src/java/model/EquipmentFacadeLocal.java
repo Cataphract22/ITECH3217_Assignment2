@@ -22,6 +22,6 @@ public interface EquipmentFacadeLocal {
 
     int count();
 
-    public Equipment findByItemid(Item item);
+    public Equipment findByItem(Item item);
     
 }

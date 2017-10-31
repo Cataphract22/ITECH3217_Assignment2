@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -19,10 +14,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "book")
 @XmlRootElement
@@ -42,20 +33,26 @@ public class Book implements Serializable {
     @NotNull
     @Column(name = "itemid")
     private Integer itemid;
+    
     @Size(max = 60)
     @Column(name = "author")
     private String author;
+    
     @Size(max = 40)
     @Column(name = "publisher")
     private String publisher;
+    
     @Column(name = "publishYear")
     private Integer publishYear;
+    
     @Size(max = 13)
     @Column(name = "isbn")
     private String isbn;
+    
     @Size(max = 8)
     @Column(name = "format")
     private String format;
+    
     @JoinColumn(name = "itemid", referencedColumnName = "itemid", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Item item;
@@ -67,11 +64,11 @@ public class Book implements Serializable {
         this.itemid = itemid;
     }
 
-    public Integer getItemid() {
+    public Integer getItemID() {
         return itemid;
     }
 
-    public void setItemid(Integer itemid) {
+    public void setItemID(Integer itemid) {
         this.itemid = itemid;
     }
 
@@ -99,11 +96,11 @@ public class Book implements Serializable {
         this.publishYear = publishYear;
     }
 
-    public String getIsbn() {
+    public String getISBN() {
         return isbn;
     }
 
-    public void setIsbn(String isbn) {
+    public void setISBN(String isbn) {
         this.isbn = isbn;
     }
 

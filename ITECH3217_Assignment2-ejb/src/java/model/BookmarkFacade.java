@@ -36,7 +36,7 @@ public class BookmarkFacade extends AbstractFacade<Bookmark> implements Bookmark
     }
     
     @Override
-    public List findAllByUserid(User userid) {
+    public List findAllByUser(User userid) {
         Query query = this.em.createNamedQuery("Bookmark.findAll");
         List results = query.getResultList();
         if (results.isEmpty()) {
@@ -44,7 +44,7 @@ public class BookmarkFacade extends AbstractFacade<Bookmark> implements Bookmark
         }
         for (int i = 0; i < results.size(); i++) {
             Bookmark bm = (Bookmark) results.get(i);
-            if (!Objects.equals(bm.getUserid().getUserid(), userid.getUserid())) {
+            if (!Objects.equals(bm.getUser().getUserID(), userid.getUserID())) {
                 results.remove(i);
             }
         }
@@ -52,7 +52,7 @@ public class BookmarkFacade extends AbstractFacade<Bookmark> implements Bookmark
     }
     
     @Override
-    public Bookmark findById(User user, Item item) {
+    public Bookmark findByUser(User user, Item item) {
         Query query = this.em.createNamedQuery("Bookmark.findAll");
         List results = query.getResultList();
         if (results.isEmpty()) {
@@ -60,8 +60,8 @@ public class BookmarkFacade extends AbstractFacade<Bookmark> implements Bookmark
         }
         for (int i = 0; i < results.size(); i++) {
             Bookmark bm = (Bookmark) results.get(i);
-            if (Objects.equals(bm.getUserid().getUserid(), user.getUserid())) {
-                if (Objects.equals(bm.getItemid().getItemid(), item.getItemid())) {
+            if (Objects.equals(bm.getUser().getUserID(), user.getUserID())) {
+                if (Objects.equals(bm.getItem().getItemID(), item.getItemID())) {
                     return (Bookmark) results.get(i);
                 }
             }

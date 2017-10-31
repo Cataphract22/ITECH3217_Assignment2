@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -19,10 +14,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "equipment")
 @XmlRootElement
@@ -39,12 +30,15 @@ public class Equipment implements Serializable {
     @NotNull
     @Column(name = "itemid")
     private Integer itemid;
+    
     @Size(max = 40)
     @Column(name = "model")
     private String model;
+    
     @Size(max = 80)
     @Column(name = "serialno")
     private String serialno;
+    
     @JoinColumn(name = "itemid", referencedColumnName = "itemid", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Item item;
@@ -56,11 +50,11 @@ public class Equipment implements Serializable {
         this.itemid = itemid;
     }
 
-    public Integer getItemid() {
+    public Integer getItemID() {
         return itemid;
     }
 
-    public void setItemid(Integer itemid) {
+    public void setItemID(Integer itemid) {
         this.itemid = itemid;
     }
 
@@ -72,11 +66,11 @@ public class Equipment implements Serializable {
         this.model = model;
     }
 
-    public String getSerialno() {
+    public String getSerialNo() {
         return serialno;
     }
 
-    public void setSerialno(String serialno) {
+    public void setSerialNo(String serialno) {
         this.serialno = serialno;
     }
 

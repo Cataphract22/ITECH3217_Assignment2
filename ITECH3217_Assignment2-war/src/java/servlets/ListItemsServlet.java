@@ -68,7 +68,7 @@ public class ListItemsServlet extends HttpServlet {
                     // Filter list
                     for (int i = 0; i < this.results.size(); i++) {
                         Item result = (Item) this.results.get(i);
-                        if (result.getItemtype().getItemtype().equals(types[t])) {
+                        if (result.getItemType().getItemtypeString().equals(types[t])) {
                             filteredResults.add(result);
                         }
                     }
@@ -88,29 +88,29 @@ public class ListItemsServlet extends HttpServlet {
             for (int i = this.results.size() - 1; i >= 0; i--) {
                 Item result = (Item) this.results.get(i);
                 registerSearch(result, result.getTitle(), request.getParameter("searchTitle"));
-                switch (result.getItemtype().getItemtype()) {
+                switch (result.getItemType().getItemtypeString()) {
                     case "BOOK":
-                        Book book = this.bookFacade.findByItemid(result);
+                        Book book = this.bookFacade.findByItem(result);
                         registerSearch(result, book.getAuthor(), request.getParameter("searchAuthor"));
                         registerSearch(result, book.getPublisher(), request.getParameter("searchPublisher"));
                         registerSearch(result, Integer.toString(book.getPublishYear()), request.getParameter("searchPublishYear"));
-                        registerSearch(result, book.getIsbn(), request.getParameter("searchIsbn"));
+                        registerSearch(result, book.getISBN(), request.getParameter("searchIsbn"));
                         registerSearch(result, null, request.getParameter("searchModel"));
                         registerSearch(result, null, request.getParameter("searchSerialno"));
                         break;
                     case "EBOOK":
-                        Ebook ebook = this.ebookFacade.findByItemid(result);
+                        Ebook ebook = this.ebookFacade.findByItem(result);
                         registerSearch(result, ebook.getAuthor(), request.getParameter("searchAuthor"));
                         registerSearch(result, ebook.getPublisher(), request.getParameter("searchPublisher"));
                         registerSearch(result, Integer.toString(ebook.getPublishYear()), request.getParameter("searchPublishYear"));
-                        registerSearch(result, ebook.getIsbn(), request.getParameter("searchIsbn"));
+                        registerSearch(result, ebook.getISBN(), request.getParameter("searchIsbn"));
                         registerSearch(result, null, request.getParameter("searchModel"));
                         registerSearch(result, null, request.getParameter("searchSerialno"));
                         break;
                     case "EQUIPMENT":
-                        Equipment equipment = this.equipmentFacade.findByItemid(result);
+                        Equipment equipment = this.equipmentFacade.findByItem(result);
                         registerSearch(result, equipment.getModel(), request.getParameter("searchModel"));
-                        registerSearch(result, equipment.getSerialno(), request.getParameter("searchSerialno"));
+                        registerSearch(result, equipment.getSerialNo(), request.getParameter("searchSerialno"));
                         registerSearch(result, null, request.getParameter("searchAuthor"));
                         registerSearch(result, null, request.getParameter("searchPublisher"));
                         registerSearch(result, null, request.getParameter("searchPublishYear"));

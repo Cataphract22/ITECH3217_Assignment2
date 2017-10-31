@@ -23,10 +23,10 @@ public interface BookmarkFacadeLocal {
 
     int count();
 
-    public List findAllByUserid(User userid);
+    public List findAllByUser(User userid);
 
     public void delete(Bookmark bookmark);
 
-    public Bookmark findById(User user, Item item);
+    public Bookmark findByUser(User user, Item item);
     
 }

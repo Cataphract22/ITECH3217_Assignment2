@@ -23,12 +23,11 @@ public interface LoanFacadeLocal {
 
     int count();
 
-    public Loan findById(User user, Item item);
+    public Loan findByUser(User user, Item item);
 
     public void delete(Loan loan);
 
-
-    public List findAllByUserid(User userid, boolean history);
+    public List findAllByUser(User userid, boolean history);
 
     public boolean update(Loan loan);
     

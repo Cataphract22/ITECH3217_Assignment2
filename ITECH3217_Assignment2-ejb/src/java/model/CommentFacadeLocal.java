@@ -23,8 +23,8 @@ public interface CommentFacadeLocal {
 
     int count();
 
-    public List findAllByItemid(Item itemId);
+    public List findAllByItem(Item itemId);
 
-    public List findAllByUserid(User userId);
+    public List findAllByUser(User userId);
     
 }

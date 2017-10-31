@@ -23,6 +23,6 @@ public interface LoanRuleFacadeLocal {
 
     int count();
 
-    public LoanRule findByRule(User user, Item item);
+    public LoanRule findByUser(User user, Item item);
     
 }

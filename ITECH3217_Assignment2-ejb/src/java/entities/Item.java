@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -26,10 +21,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "item")
 @XmlRootElement
@@ -47,29 +38,39 @@ public class Item implements Serializable {
     @Basic(optional = false)
     @Column(name = "itemid")
     private Integer itemid;
+    
     @Size(max = 255)
     @Column(name = "title")
     private String title;
+    
     @Lob
     @Size(max = 65535)
     @Column(name = "description")
     private String description;
+    
     @Size(max = 100)
     @Column(name = "image")
     private String image;
+    
     @Column(name = "isavailable")
     private boolean isavailable;
+    
     @OneToMany(mappedBy = "itemid")
     private Collection<Bookmark> bookmarkCollection;
+    
     @JoinColumn(name = "itemtype", referencedColumnName = "itemtype")
     @ManyToOne
     private ItemType itemtype;
+    
     @OneToMany(mappedBy = "itemid")
     private Collection<Loan> loanCollection;
+    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "item")
     private Book book;
+    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "item")
     private Equipment equipment;
+    
     @OneToMany(mappedBy = "itemid")
     private Collection<Comment> commentCollection;
 
@@ -80,11 +81,11 @@ public class Item implements Serializable {
         this.itemid = itemid;
     }
 
-    public Integer getItemid() {
+    public Integer getItemID() {
         return itemid;
     }
 
-    public void setItemid(Integer itemid) {
+    public void setItemID(Integer itemid) {
         this.itemid = itemid;
     }
 
@@ -112,11 +113,11 @@ public class Item implements Serializable {
         this.image = image;
     }
 
-    public boolean getIsavailable() {
+    public boolean Available() {
         return isavailable;
     }
 
-    public void setIsavailable(boolean isavailable) {
+    public void setAvailable(boolean isavailable) {
         this.isavailable = isavailable;
     }
 
@@ -129,11 +130,11 @@ public class Item implements Serializable {
         this.bookmarkCollection = bookmarkCollection;
     }
 
-    public ItemType getItemtype() {
+    public ItemType getItemType() {
         return itemtype;
     }
 
-    public void setItemtype(ItemType itemtype) {
+    public void setItemType(ItemType itemtype) {
         this.itemtype = itemtype;
     }
 

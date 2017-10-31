@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -21,10 +16,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "item_type")
 @XmlRootElement
@@ -40,8 +31,10 @@ public class ItemType implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "itemtype")
     private String itemtype;
+    
     @OneToMany(mappedBy = "itemtype")
     private Collection<Item> itemCollection;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemType")
     private Collection<LoanRule> loanRuleCollection;
 
@@ -52,11 +45,11 @@ public class ItemType implements Serializable {
         this.itemtype = itemtype;
     }
 
-    public String getItemtype() {
+    public String getItemtypeString() {
         return itemtype;
     }
 
-    public void setItemtype(String itemtype) {
+    public void setItemTypeString(String itemtype) {
         this.itemtype = itemtype;
     }
 

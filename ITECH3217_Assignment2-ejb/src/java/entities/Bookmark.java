@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -22,10 +17,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "bookmark")
 @XmlRootElement
@@ -36,17 +27,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Bookmark implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "bookmarkid")
     private Integer bookmarkid;
+    
     @Column(name = "bookmarkdate")
     @Temporal(TemporalType.DATE)
     private Date bookmarkdate;
+    
     @JoinColumn(name = "userid", referencedColumnName = "userid")
     @ManyToOne
     private User userid;
+    
     @JoinColumn(name = "itemid", referencedColumnName = "itemid")
     @ManyToOne
     private Item itemid;
@@ -58,35 +53,35 @@ public class Bookmark implements Serializable {
         this.bookmarkid = bookmarkid;
     }
 
-    public Integer getBookmarkid() {
+    public Integer getBookmarkID() {
         return bookmarkid;
     }
 
-    public void setBookmarkid(Integer bookmarkid) {
+    public void setBookmarkID(Integer bookmarkid) {
         this.bookmarkid = bookmarkid;
     }
 
-    public Date getBookmarkdate() {
+    public Date getBookmarkDate() {
         return bookmarkdate;
     }
 
-    public void setBookmarkdate(Date bookmarkdate) {
+    public void setBookmarkDate(Date bookmarkdate) {
         this.bookmarkdate = bookmarkdate;
     }
 
-    public User getUserid() {
+    public User getUser() {
         return userid;
     }
 
-    public void setUserid(User userid) {
+    public void setUser(User userid) {
         this.userid = userid;
     }
 
-    public Item getItemid() {
+    public Item getItem() {
         return itemid;
     }
 
-    public void setItemid(Item itemid) {
+    public void setItem(Item itemid) {
         this.itemid = itemid;
     }
 

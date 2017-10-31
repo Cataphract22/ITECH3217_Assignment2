@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -21,10 +16,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "user_type")
 @XmlRootElement
@@ -41,10 +32,13 @@ public class UserType implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "usertype")
     private String usertype;
+    
     @Column(name = "maxloans")
     private Short maxloans;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userType")
     private Collection<LoanRule> loanRuleCollection;
+    
     @OneToMany(mappedBy = "type")
     private Collection<User> userCollection;
 
@@ -55,19 +49,19 @@ public class UserType implements Serializable {
         this.usertype = usertype;
     }
 
-    public String getUsertype() {
+    public String getUserTypeString() {
         return usertype;
     }
 
-    public void setUsertype(String usertype) {
+    public void setUserTypeString(String usertype) {
         this.usertype = usertype;
     }
 
-    public Short getMaxloans() {
+    public Short getMaxLoans() {
         return maxloans;
     }
 
-    public void setMaxloans(Short maxloans) {
+    public void setMaxLoans(Short maxloans) {
         this.maxloans = maxloans;
     }
 

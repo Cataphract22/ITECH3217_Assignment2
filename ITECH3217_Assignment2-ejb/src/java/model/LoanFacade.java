@@ -47,7 +47,7 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
     }
 
     @Override
-    public List findAllByUserid(User userid, boolean history) {
+    public List findAllByUser(User userid, boolean history) {
         Query query = this.em.createNamedQuery("Loan.findAll");
         List results = query.getResultList();
         Loan loan;
@@ -66,7 +66,7 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
         // Remove non-matching loans
         for (int i = results.size()-1; i >= 0; i--) {
             loan = (Loan) results.get(i);
-            if (!Objects.equals(loan.getUserid().getUserid(), userid.getUserid())) {
+            if (!Objects.equals(loan.getUser().getUserID(), userid.getUserID())) {
                 results.remove(i);
             }
         }
@@ -75,7 +75,7 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
     }
     
     @Override
-    public Loan findById(User user, Item item) {
+    public Loan findByUser(User user, Item item) {
         Query query = this.em.createNamedQuery("Loan.findAll");
         List results = query.getResultList();
         Loan loan;
@@ -92,8 +92,8 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
         // Return matching loan
         for (Object result : results) {
             loan = (Loan) result;
-            if (Objects.equals(loan.getUserid().getUserid(), user.getUserid())) {
-                if (Objects.equals(loan.getItemid().getItemid(), item.getItemid())) {
+            if (Objects.equals(loan.getUser().getUserID(), user.getUserID())) {
+                if (Objects.equals(loan.getItem().getItemID(), item.getItemID())) {
                     return loan;
                 }
             }

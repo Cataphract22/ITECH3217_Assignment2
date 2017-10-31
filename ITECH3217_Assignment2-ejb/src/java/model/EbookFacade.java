@@ -24,8 +24,8 @@ public class EbookFacade extends AbstractFacade<Ebook> implements EbookFacadeLoc
     }
     
     @Override
-    public Ebook findByItemid(Item item) {
-        Query query = this.em.createNamedQuery("Ebook.findByItemid").setParameter("itemid", item.getItemid());
+    public Ebook findByItem(Item item) {
+        Query query = this.em.createNamedQuery("Ebook.findByItemid").setParameter("itemid", item.getItemID());
         List results = query.getResultList();
         if (results.isEmpty()) {
             return null;

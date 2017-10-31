@@ -47,37 +47,37 @@ public class LoanServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             User user = (User) this.userFacade.findByEmail((String)request.getSession().getAttribute("email"));
-            Item item = (Item) this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
+            Item item = (Item) this.itemFacade.findByItemID(Integer.parseInt(request.getParameter("id")));
             Loan loan;
-            if (item.getIsavailable() == true) {
+            if (item.Available() == true) {
             // If item is available for loan
                 // Set due date
-                LoanRule rule = (LoanRule) this.loanRuleFacade.findByRule(user, item);
-                int loanDays = rule.getLoantime();
+                LoanRule rule = (LoanRule) this.loanRuleFacade.findByUser(user, item);
+                int loanDays = rule.getLoanTime();
                 Date loanDate = new Date();
                 Date dueDate = new Date(loanDate.getTime() + TimeUnit.DAYS.toMillis(loanDays));
                 // Create loan
                 loan = new Loan();
-                loan.setItemid(item);
-                loan.setUserid(user);
-                loan.setLoandate(loanDate);
-                loan.setDuedate(dueDate);
+                loan.setItem(item);
+                loan.setUser(user);
+                loan.setLoanDate(loanDate);
+                loan.setDueDate(dueDate);
                 this.loanFacade.create(loan);
                 // Update item availability
-                item.setIsavailable(false);
+                item.setAvailable(false);
                 this.itemFacade.update(item); 
             } else {
-                loan = this.loanFacade.findById(user, item);
+                loan = this.loanFacade.findByUser(user, item);
                 if ( loan != null) {
                     // Update loan history
                     loan.setHistory(true);
                     this.loanFacade.update(loan);
                     // Update item availability
-                    item.setIsavailable(true);
+                    item.setAvailable(true);
                     this.itemFacade.update(item);
                 }
             }
-            response.sendRedirect("ItemDetailsServlet?id=" + item.getItemid());
+            response.sendRedirect("ItemDetailsServlet?id=" + item.getItemID());
         } catch (IOException | NumberFormatException e) {
             out.println(e);
         }

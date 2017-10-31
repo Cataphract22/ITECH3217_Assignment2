@@ -53,7 +53,7 @@ public class CommentHistoryServlet extends HttpServlet {
                 user = userFacade.findByEmail(userEmail);
                 
                 // Get comment list
-                results = commentFacade.findAllByUserid(user);
+                results = commentFacade.findAllByUser(user);
 
          
                 //Get Item details for description?

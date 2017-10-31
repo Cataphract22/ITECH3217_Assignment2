@@ -24,8 +24,8 @@ public class EquipmentFacade extends AbstractFacade<Equipment> implements Equipm
     }
     
     @Override
-    public Equipment findByItemid(Item item) {
-        Query query = this.em.createNamedQuery("Equipment.findByItemid").setParameter("itemid", item.getItemid());
+    public Equipment findByItem(Item item) {
+        Query query = this.em.createNamedQuery("Equipment.findByItemid").setParameter("itemid", item.getItemID());
         List results = query.getResultList();
         if (results.isEmpty()) {
             return null;

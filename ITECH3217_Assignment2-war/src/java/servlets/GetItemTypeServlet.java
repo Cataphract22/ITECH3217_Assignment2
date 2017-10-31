@@ -44,20 +44,20 @@ public class GetItemTypeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            Item item = this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
+            Item item = this.itemFacade.findByItemID(Integer.parseInt(request.getParameter("item")));
             request.setAttribute("book", null);
             request.setAttribute("ebook", null);
             request.setAttribute("equipment", null); 
-            request.setAttribute("type", item.getItemtype().getItemtype());
-            switch(item.getItemtype().getItemtype()) {
-                case "BOOK":        Book book = this.bookFacade.findByItemid(item);
+            request.setAttribute("type", item.getItemType().getItemtypeString());
+            switch(item.getItemType().getItemtypeString()) {
+                case "BOOK":        Book book = this.bookFacade.findByItem(item);
                                     request.setAttribute("book", book);
                                     break;
-                case "EBOOK":       Ebook ebook = this.ebookFacade.findByItemid(item);
+                case "EBOOK":       Ebook ebook = this.ebookFacade.findByItem(item);
                                     request.setAttribute("ebook", ebook);
                                     request.setAttribute("test", "yay");
                                     break;
-                case "EQUIPMENT":   Equipment equipment = this.equipmentFacade.findByItemid(item);
+                case "EQUIPMENT":   Equipment equipment = this.equipmentFacade.findByItem(item);
                                     request.setAttribute("equipment", equipment);
                                     break;
             }

@@ -41,19 +41,19 @@ public class BookmarkServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             User user = (User) this.userFacade.findByEmail((String)request.getSession().getAttribute("email"));
-            Item item = (Item) this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
+            Item item = (Item) this.itemFacade.findByItemID(Integer.parseInt(request.getParameter("id")));
             Date bookmarkDate = new Date();
-            Bookmark bookmark = this.bookmarkFacade.findById(user, item);
+            Bookmark bookmark = this.bookmarkFacade.findByUser(user, item);
             if ( bookmark == null) {
                 bookmark = new Bookmark();
-                bookmark.setItemid(item);
-                bookmark.setUserid(user);
-                bookmark.setBookmarkdate(bookmarkDate);
+                bookmark.setItem(item);
+                bookmark.setUser(user);
+                bookmark.setBookmarkDate(bookmarkDate);
                 this.bookmarkFacade.create(bookmark);
             } else {
                 this.bookmarkFacade.delete(bookmark);
             }
-            response.sendRedirect("ItemDetailsServlet?id=" + item.getItemid());
+            response.sendRedirect("ItemDetailsServlet?id=" + item.getItemID());
         } catch (IOException | NumberFormatException e) {
             out.println(e);
         }   

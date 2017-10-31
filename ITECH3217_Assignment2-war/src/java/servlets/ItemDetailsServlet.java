@@ -41,12 +41,12 @@ public class ItemDetailsServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             // Get item
-            Item item = (Item) itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
+            Item item = (Item) itemFacade.findByItemID(Integer.parseInt(request.getParameter("id")));
             
             //Attach the result list to return message
   
             // Get comment list
-            List comments = commentFacade.findAllByItemid(item);
+            List comments = commentFacade.findAllByItem(item);
     
             //Attach the item and comments to return message
             request.setAttribute("item", item);

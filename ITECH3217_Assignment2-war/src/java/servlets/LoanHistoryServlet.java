@@ -57,7 +57,7 @@ public class LoanHistoryServlet extends HttpServlet {
                 user = userFacade.findByEmail(userEmail);
                 
                 // Get loan list
-                results = loanFacade.findAllByUserid(user, true);
+                results = loanFacade.findAllByUser(user, true);
 
          
                 //Get Item details for description?

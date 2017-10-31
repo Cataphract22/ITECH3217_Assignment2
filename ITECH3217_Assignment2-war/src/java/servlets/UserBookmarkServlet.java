@@ -57,7 +57,7 @@ public class UserBookmarkServlet extends HttpServlet {
                 user = userFacade.findByEmail(userEmail);
                 
                 // Get bookmark list
-                results = bookmarkFacade.findAllByUserid(user);
+                results = bookmarkFacade.findAllByUser(user);
 
          
                 //Get Item details for description?

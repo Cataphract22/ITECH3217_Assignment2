@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -22,10 +17,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "loan")
 @XmlRootElement
@@ -43,17 +34,22 @@ public class Loan implements Serializable {
     @Basic(optional = false)
     @Column(name = "loanid")
     private Integer loanid;
+    
     @Column(name = "loandate")
     @Temporal(TemporalType.DATE)
     private Date loandate;
+    
     @Column(name = "duedate")
     @Temporal(TemporalType.DATE)
     private Date duedate;
+    
     @Column(name = "history")
     private Boolean history;
+    
     @JoinColumn(name = "userid", referencedColumnName = "userid")
     @ManyToOne
     private User userid;
+    
     @JoinColumn(name = "itemid", referencedColumnName = "itemid")
     @ManyToOne
     private Item itemid;
@@ -65,27 +61,27 @@ public class Loan implements Serializable {
         this.loanid = loanid;
     }
 
-    public Integer getLoanid() {
+    public Integer getLoanID() {
         return loanid;
     }
 
-    public void setLoanid(Integer loanid) {
+    public void setLoanID(Integer loanid) {
         this.loanid = loanid;
     }
 
-    public Date getLoandate() {
+    public Date getLoanDate() {
         return loandate;
     }
 
-    public void setLoandate(Date loandate) {
+    public void setLoanDate(Date loandate) {
         this.loandate = loandate;
     }
 
-    public Date getDuedate() {
+    public Date getDueDate() {
         return duedate;
     }
 
-    public void setDuedate(Date duedate) {
+    public void setDueDate(Date duedate) {
         this.duedate = duedate;
     }
 
@@ -97,19 +93,19 @@ public class Loan implements Serializable {
         this.history = history;
     }
 
-    public User getUserid() {
+    public User getUser() {
         return userid;
     }
 
-    public void setUserid(User userid) {
+    public void setUser(User userid) {
         this.userid = userid;
     }
 
-    public Item getItemid() {
+    public Item getItem() {
         return itemid;
     }
 
-    public void setItemid(Item itemid) {
+    public void setItem(Item itemid) {
         this.itemid = itemid;
     }
 

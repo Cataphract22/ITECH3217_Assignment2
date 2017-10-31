@@ -43,13 +43,13 @@ public class CheckBookmarkServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
-            Item item = itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
-            List list = bookmarkFacade.findAllByUserid(user);
+            Item item = itemFacade.findByItemID(Integer.parseInt(request.getParameter("item")));
+            List list = bookmarkFacade.findAllByUser(user);
             request.setAttribute("bookmark", "Bookmark");
             Iterator itr;
             for (itr = list.iterator(); itr.hasNext();) {
                 Bookmark bookmark = (Bookmark) itr.next();
-                if (Objects.equals(bookmark.getItemid().getItemid(), item.getItemid())) {
+                if (Objects.equals(bookmark.getItem().getItemID(), item.getItemID())) {
                     request.setAttribute("bookmark", "Remove Bookmark");
                     break;
                 }

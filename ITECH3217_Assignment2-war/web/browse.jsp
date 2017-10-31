@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Federation University Library</title>
+        <title>Federation University Library - Browse</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./includes/styles/_main.css" rel="stylesheet" type="text/css">
@@ -97,7 +97,7 @@
                 <ul>
                     <%  for (itr = list.iterator(); itr.hasNext();) {
                             Item item = (Item) itr.next();
-                            int itemId = item.getItemid();
+                            int itemId = item.getItemID();
                     %>
                     
                     
@@ -105,7 +105,7 @@
                         <jsp:param name="item" value="<%=itemId%>"/>
                     </jsp:include>
                     <li class='item-container'>
-                        <form action="ItemDetailsServlet?id=<%out.println(item.getItemid());%>" method="POST">
+                        <form action="ItemDetailsServlet?id=<%out.println(item.getItemID());%>" method="POST">
                             <img class='coverImage' src='<%out.println(item.getImage());%>' width="120"</img>
                             <table>
                                 <tr><td><h3 class='title'><%out.println(item.getTitle());%></h3></td></tr>
@@ -115,7 +115,7 @@
                                 <% Book book = (Book) request.getAttribute("book"); %>
                                 <tr><td class="author"><%out.println(book.getAuthor());%></td></tr>
                                 <tr><td class="publisher">Published by: <%out.println(book.getPublisher());%>, <%out.println(book.getPublishYear());%></td></tr>
-                                <tr><td class='isbn'>ISBN-13: <%out.println(book.getIsbn());%></td></tr>
+                                <tr><td class='isbn'>ISBN-13: <%out.println(book.getISBN());%></td></tr>
                                 <% } %><!--EndIf-->
 
                                 <!-- EBOOK -->
@@ -123,14 +123,14 @@
                                 <% Ebook ebook = (Ebook) request.getAttribute("ebook"); %>
                                 <tr><td class='author'><%out.println(ebook.getAuthor());%></td></tr>
                                 <tr><td class="publisher">Published by: <%out.println(ebook.getPublisher());%>, <%out.println(ebook.getPublishYear());%></td></tr>
-                                <tr><td class='isbn'>ISBN-13: <%out.println(ebook.getIsbn());%></td></tr>
+                                <tr><td class='isbn'>ISBN-13: <%out.println(ebook.getISBN());%></td></tr>
                                 <% } %><!--EndIf-->
 
                                 <!-- EQUIPMENT -->
                                 <% if (request.getAttribute("equipment") != null) { %>
                                 <% Equipment equipment = (Equipment) request.getAttribute("equipment"); %>
                                 <tr><td class='model'>Model: <%out.println(equipment.getModel());%></td></tr>
-                                <tr><td class='serialno'>Serial#: <%out.println(equipment.getSerialno());%></td></tr>
+                                <tr><td class='serialno'>Serial#: <%out.println(equipment.getSerialNo());%></td></tr>
                                 <% } %><!--EndIf-->
 
                                 <tr><td><p> </p></td></tr>

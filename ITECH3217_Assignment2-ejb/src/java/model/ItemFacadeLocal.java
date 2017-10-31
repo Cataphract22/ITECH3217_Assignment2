@@ -19,7 +19,7 @@ public interface ItemFacadeLocal {
 
     Item find(Object id);
     
-    Item findByItemid(Integer id);
+    Item findByItemID(Integer id);
 
     List<Item> findAll();
 

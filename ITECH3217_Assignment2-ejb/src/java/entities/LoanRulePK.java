@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -12,10 +7,6 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author drewm
- */
 @Embeddable
 public class LoanRulePK implements Serializable {
 
@@ -24,6 +15,7 @@ public class LoanRulePK implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "itemtype")
     private String itemtype;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
@@ -38,19 +30,19 @@ public class LoanRulePK implements Serializable {
         this.usertype = usertype;
     }
 
-    public String getItemtype() {
+    public String getItemTypeString() {
         return itemtype;
     }
 
-    public void setItemtype(String itemtype) {
+    public void setItemTypeString(String itemtype) {
         this.itemtype = itemtype;
     }
 
-    public String getUsertype() {
+    public String getUserType() {
         return usertype;
     }
 
-    public void setUsertype(String usertype) {
+    public void setUserType(String usertype) {
         this.usertype = usertype;
     }
 

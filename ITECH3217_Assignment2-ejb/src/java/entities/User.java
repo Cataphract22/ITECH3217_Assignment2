@@ -48,33 +48,43 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "userid")
     private Integer userid;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
+    
     @Size(max = 30)
     @Column(name = "givenname")
     private String givenname;
+    
     @Size(max = 30)
     @Column(name = "familyname")
     private String familyname;
+    
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Size(max = 10)
     @Column(name = "phone")
     private String phone;
+    
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 30)
     @Column(name = "email")
     private String email;
+    
     @Column(name = "isadmin")
     private Short isadmin;
+    
     @OneToMany(mappedBy = "userid")
     private Collection<Bookmark> bookmarkCollection;
+    
     @OneToMany(mappedBy = "userid")
     private Collection<Loan> loanCollection;
+    
     @OneToMany(mappedBy = "userid")
     private Collection<Comment> commentCollection;
+    
     @JoinColumn(name = "type", referencedColumnName = "usertype")
     @ManyToOne
     private UserType type;
@@ -91,11 +101,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Integer getUserid() {
+    public Integer getUserID() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserID(Integer userid) {
         this.userid = userid;
     }
 
@@ -107,19 +117,19 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getGivenname() {
+    public String getGivenName() {
         return givenname;
     }
 
-    public void setGivenname(String givenname) {
+    public void setGivenName(String givenname) {
         this.givenname = givenname;
     }
 
-    public String getFamilyname() {
+    public String getFamilyName() {
         return familyname;
     }
 
-    public void setFamilyname(String familyname) {
+    public void setFamilyName(String familyname) {
         this.familyname = familyname;
     }
 
@@ -139,11 +149,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Short getIsadmin() {
+    public Short isAdmin() {
         return isadmin;
     }
 
-    public void setIsadmin(Short isadmin) {
+    public void setIsAdmin(Short isadmin) {
         this.isadmin = isadmin;
     }
 
@@ -174,11 +184,11 @@ public class User implements Serializable {
         this.commentCollection = commentCollection;
     }
 
-    public UserType getType() {
+    public UserType getUserType() {
         return type;
     }
 
-    public void setType(UserType type) {
+    public void setUserType(UserType type) {
         this.type = type;
     }
 

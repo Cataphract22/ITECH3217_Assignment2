@@ -31,8 +31,8 @@ public class CommentFacade extends AbstractFacade<Comment> implements CommentFac
     }
     
     @Override
-    public List findAllByItemid(Item itemId) {
-        Query query = this.em.createNamedQuery("Comment.findByItemid").setParameter("itemid", itemId);
+    public List findAllByItem(Item item) {
+        Query query = this.em.createNamedQuery("Comment.findByItemid").setParameter("itemid", item);
         List results = query.getResultList();
         
         // Return null if there are no comments
@@ -45,8 +45,8 @@ public class CommentFacade extends AbstractFacade<Comment> implements CommentFac
     }
     
     @Override
-    public List findAllByUserid(User userId) {
-        Query query = this.em.createNamedQuery("Comment.findByUserid").setParameter("userid", userId);
+    public List findAllByUser(User user) {
+        Query query = this.em.createNamedQuery("Comment.findByUserid").setParameter("userid", user);
         List results = query.getResultList();
         
         // Return null if there are no comments

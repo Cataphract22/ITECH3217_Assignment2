@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -16,10 +11,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author drewm
- */
 @Entity
 @Table(name = "loan_rule")
 @XmlRootElement
@@ -35,13 +26,17 @@ public class LoanRule implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected LoanRulePK loanRulePK;
+    
     @Column(name = "loantime")
     private Short loantime;
+    
     @Column(name = "renewals")
     private Short renewals;
+    
     @JoinColumn(name = "itemtype", referencedColumnName = "itemtype", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private ItemType itemType;
+    
     @JoinColumn(name = "usertype", referencedColumnName = "usertype", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private UserType userType;
@@ -65,11 +60,11 @@ public class LoanRule implements Serializable {
         this.loanRulePK = loanRulePK;
     }
 
-    public Short getLoantime() {
+    public Short getLoanTime() {
         return loantime;
     }
 
-    public void setLoantime(Short loantime) {
+    public void setLoanTime(Short loantime) {
         this.loantime = loantime;
     }
 

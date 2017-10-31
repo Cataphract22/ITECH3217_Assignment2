@@ -40,17 +40,17 @@ public class CommentServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
-            Item item = (Item) itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
+            Item item = (Item) itemFacade.findByItemID(Integer.parseInt(request.getParameter("id")));
             String commentText = request.getParameter("commentText");
             
             Comment comment = new Comment();
-            comment.setItemid(item);
-            comment.setUserid(user);
-            comment.setCommenttext(commentText);
+            comment.setItem(item);
+            comment.setUser(user);
+            comment.setCommentText(commentText);
             
             commentFacade.create(comment);
 
-            response.sendRedirect("ItemDetailsServlet?id=" + item.getItemid());
+            response.sendRedirect("ItemDetailsServlet?id=" + item.getItemID());
         } catch (IOException | NumberFormatException e) {
             out.println(e);
         }   
