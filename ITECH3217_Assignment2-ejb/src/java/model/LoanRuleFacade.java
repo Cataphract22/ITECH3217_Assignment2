@@ -13,11 +13,11 @@ import javax.persistence.Query;
 public class LoanRuleFacade extends AbstractFacade<LoanRule> implements LoanRuleFacadeLocal {
 
     @PersistenceContext(unitName = "ITECH3217_Assignment2-ejbPU")
-    private EntityManager entityManager;
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
-        return this.entityManager;
+        return this.em;
     }
 
     public LoanRuleFacade() {
@@ -25,11 +25,11 @@ public class LoanRuleFacade extends AbstractFacade<LoanRule> implements LoanRule
     }
     
     @Override
-    public LoanRule findByRule(User _user, Item _item) {
+    public LoanRule findByRule(User user, Item item) {
         // Get query parameters
-        String userType = _user.getUserType().getUserTypeString();
-        String itemType = _item.getItemType().getItemTypeString();
-        Query query = this.entityManager.createNamedQuery("LoanRule.findByRule");
+        String userType = user.getType().getUsertype();
+        String itemType = item.getItemtype().getItemtype();
+        Query query = this.em.createNamedQuery("LoanRule.findByRule");
         query.setParameter("itemtype", itemType);
         query.setParameter("usertype", userType);
         List results = query.getResultList();

@@ -14,11 +14,11 @@ import javax.persistence.Query;
 public class BookmarkFacade extends AbstractFacade<Bookmark> implements BookmarkFacadeLocal {
 
     @PersistenceContext(unitName = "ITECH3217_Assignment2-ejbPU")
-    private EntityManager entityManager;
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
-        return this.entityManager;
+        return this.em;
     }
 
     public BookmarkFacade() {
@@ -26,25 +26,25 @@ public class BookmarkFacade extends AbstractFacade<Bookmark> implements Bookmark
     }
     
     @Override
-    public void create(Bookmark _bookmark) {
-        this.entityManager.persist(_bookmark);
+    public void create(Bookmark bookmark) {
+        this.em.persist(bookmark);
     }
     
     @Override
-    public void delete(Bookmark _bookmark) {
-        this.entityManager.remove(this.entityManager.merge(_bookmark));
+    public void delete(Bookmark bookmark) {
+        this.em.remove(this.em.merge(bookmark));
     }
     
     @Override
-    public List findAllByUserID(User _user) {
-        Query query = this.entityManager.createNamedQuery("Bookmark.findAll");
+    public List findAllByUserid(User userid) {
+        Query query = this.em.createNamedQuery("Bookmark.findAll");
         List results = query.getResultList();
         if (results.isEmpty()) {
             return null;
         }
         for (int i = 0; i < results.size(); i++) {
             Bookmark bm = (Bookmark) results.get(i);
-            if (!Objects.equals(bm.getUser().getUserID(), _user.getUserID())) {
+            if (!Objects.equals(bm.getUserid().getUserid(), userid.getUserid())) {
                 results.remove(i);
             }
         }
@@ -52,16 +52,16 @@ public class BookmarkFacade extends AbstractFacade<Bookmark> implements Bookmark
     }
     
     @Override
-    public Bookmark findByID(User _user, Item _item) {
-        Query query = this.entityManager.createNamedQuery("Bookmark.findAll");
+    public Bookmark findById(User user, Item item) {
+        Query query = this.em.createNamedQuery("Bookmark.findAll");
         List results = query.getResultList();
         if (results.isEmpty()) {
             return null;
         }
         for (int i = 0; i < results.size(); i++) {
             Bookmark bm = (Bookmark) results.get(i);
-            if (Objects.equals(bm.getUser().getUserID(), _user.getUserID())) {
-                if (Objects.equals(bm.getItem().getItemID(), _item.getItemID())) {
+            if (Objects.equals(bm.getUserid().getUserid(), user.getUserid())) {
+                if (Objects.equals(bm.getItemid().getItemid(), item.getItemid())) {
                     return (Bookmark) results.get(i);
                 }
             }

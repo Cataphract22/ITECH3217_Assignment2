@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package entities;
 
 import java.io.Serializable;
@@ -16,6 +21,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author drewm
+ */
 @Entity
 @Table(name = "comment")
 @XmlRootElement
@@ -27,63 +36,59 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "commentid")
     private Integer commentid;
-    
     @Lob
     @Size(max = 65535)
     @Column(name = "commenttext")
     private String commenttext;
-    
     @JoinColumn(name = "userid", referencedColumnName = "userid")
     @ManyToOne
-    private User user;
-    
+    private User userid;
     @JoinColumn(name = "itemid", referencedColumnName = "itemid")
     @ManyToOne
-    private Item item;
+    private Item itemid;
 
     public Comment() {
     }
 
-    public Comment(Integer _commentID) {
-        this.commentid = _commentID;
+    public Comment(Integer commentid) {
+        this.commentid = commentid;
     }
 
-    public Integer getCommentID() {
-        return this.commentid;
+    public Integer getCommentid() {
+        return commentid;
     }
 
-    public void setCommentID(Integer _commentID) {
-        this.commentid = _commentID;
+    public void setCommentid(Integer commentid) {
+        this.commentid = commentid;
     }
 
-    public String getCommentText() {
-        return this.commenttext;
+    public String getCommenttext() {
+        return commenttext;
     }
 
-    public void setCommentText(String _commentText) {
-        this.commenttext = _commentText;
+    public void setCommenttext(String commenttext) {
+        this.commenttext = commenttext;
     }
 
-    public User getUser() {
-        return this.user;
+    public User getUserid() {
+        return userid;
     }
 
-    public void setUser(User _user) {
-        this.user = _user;
+    public void setUserid(User userid) {
+        this.userid = userid;
     }
 
-    public Item getItem() {
-        return this.item;
+    public Item getItemid() {
+        return itemid;
     }
 
-    public void setItem(Item _item) {
-        this.item = _item;
+    public void setItemid(Item itemid) {
+        this.itemid = itemid;
     }
 
     @Override
@@ -94,12 +99,12 @@ public class Comment implements Serializable {
     }
 
     @Override
-    public boolean equals(Object _object) {
+    public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(_object instanceof Comment)) {
+        if (!(object instanceof Comment)) {
             return false;
         }
-        Comment other = (Comment) _object;
+        Comment other = (Comment) object;
         if ((this.commentid == null && other.commentid != null) || (this.commentid != null && !this.commentid.equals(other.commentid))) {
             return false;
         }
@@ -108,7 +113,7 @@ public class Comment implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Comment[ commentid=" + this.commentid + " ]";
+        return "entities.Comment[ commentid=" + commentid + " ]";
     }
     
 }

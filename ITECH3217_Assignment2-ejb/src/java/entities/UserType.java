@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package entities;
 
 import java.io.Serializable;
@@ -16,6 +21,10 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ *
+ * @author drewm
+ */
 @Entity
 @Table(name = "user_type")
 @XmlRootElement
@@ -26,79 +35,75 @@ import javax.xml.bind.annotation.XmlTransient;
 public class UserType implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "usertype")
-    private String userTypeString;
-    
+    private String usertype;
     @Column(name = "maxloans")
-    private Short maxLoans;
-    
+    private Short maxloans;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userType")
     private Collection<LoanRule> loanRuleCollection;
-    
     @OneToMany(mappedBy = "type")
     private Collection<User> userCollection;
 
     public UserType() {
     }
 
-    public UserType(String _userTypeString) {
-        this.userTypeString = _userTypeString;
+    public UserType(String usertype) {
+        this.usertype = usertype;
     }
 
-    public String getUserTypeString() {
-        return this.userTypeString;
+    public String getUsertype() {
+        return usertype;
     }
 
-    public void setUserTypeString(String _userType) {
-        this.userTypeString = _userType;
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
     }
 
-    public Short getMaxLoans() {
-        return this.maxLoans;
+    public Short getMaxloans() {
+        return maxloans;
     }
 
-    public void setMaxLoans(Short _maxLoans) {
-        this.maxLoans = _maxLoans;
+    public void setMaxloans(Short maxloans) {
+        this.maxloans = maxloans;
     }
 
     @XmlTransient
     public Collection<LoanRule> getLoanRuleCollection() {
-        return this.loanRuleCollection;
+        return loanRuleCollection;
     }
 
-    public void setLoanRuleCollection(Collection<LoanRule> _loanRuleCollection) {
-        this.loanRuleCollection = _loanRuleCollection;
+    public void setLoanRuleCollection(Collection<LoanRule> loanRuleCollection) {
+        this.loanRuleCollection = loanRuleCollection;
     }
 
     @XmlTransient
     public Collection<User> getUserCollection() {
-        return this.userCollection;
+        return userCollection;
     }
 
-    public void setUserCollection(Collection<User> _userCollection) {
-        this.userCollection = _userCollection;
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (this.userTypeString != null ? userTypeString.hashCode() : 0);
+        hash += (usertype != null ? usertype.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object _object) {
+    public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(_object instanceof UserType)) {
+        if (!(object instanceof UserType)) {
             return false;
         }
-        UserType other = (UserType) _object;
-        if ((this.userTypeString == null && other.userTypeString != null) || (this.userTypeString != null && !this.userTypeString.equals(other.userTypeString))) {
+        UserType other = (UserType) object;
+        if ((this.usertype == null && other.usertype != null) || (this.usertype != null && !this.usertype.equals(other.usertype))) {
             return false;
         }
         return true;
@@ -106,7 +111,7 @@ public class UserType implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.UserType[ usertype=" + this.userTypeString + " ]";
+        return "entities.UserType[ usertype=" + usertype + " ]";
     }
     
 }

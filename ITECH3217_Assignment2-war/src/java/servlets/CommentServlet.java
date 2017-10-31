@@ -29,28 +29,28 @@ public class CommentServlet extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param _request servlet request
-     * @param _response servlet response
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        _response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = _response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-            User user = (User) this.userFacade.findByEmail((String)_request.getSession().getAttribute("email"));
-            Item item = (Item) this.itemFacade.findByItemID(Integer.parseInt(_request.getParameter("id")));
-            String commentText = _request.getParameter("commentText");
+            User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
+            Item item = (Item) itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
+            String commentText = request.getParameter("commentText");
             
             Comment comment = new Comment();
-            comment.setItem(item);
-            comment.setUser(user);
-            comment.setCommentText(commentText);
+            comment.setItemid(item);
+            comment.setUserid(user);
+            comment.setCommenttext(commentText);
             
-            this.commentFacade.create(comment);
+            commentFacade.create(comment);
 
-            _response.sendRedirect("ItemDetailsServlet?id=" + item.getItemID());
+            response.sendRedirect("ItemDetailsServlet?id=" + item.getItemid());
         } catch (IOException | NumberFormatException e) {
             out.println(e);
         }   

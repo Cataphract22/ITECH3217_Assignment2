@@ -8,20 +8,20 @@ import javax.ejb.Local;
 @Local
 public interface EquipmentFacadeLocal {
 
-    void create(Equipment _equipment);
+    void create(Equipment equipment);
 
-    void edit(Equipment _equipment);
+    void edit(Equipment equipment);
 
-    void remove(Equipment _equipment);
+    void remove(Equipment equipment);
 
-    Equipment find(Object _object);
+    Equipment find(Object id);
 
     List<Equipment> findAll();
 
-    List<Equipment> findRange(int[] _range);
+    List<Equipment> findRange(int[] range);
 
     int count();
 
-    public Equipment findByItemID(Item _item);
+    public Equipment findByItemid(Item item);
     
 }

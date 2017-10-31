@@ -12,11 +12,11 @@ import javax.persistence.Query;
 public class EquipmentFacade extends AbstractFacade<Equipment> implements EquipmentFacadeLocal {
 
     @PersistenceContext(unitName = "ITECH3217_Assignment2-ejbPU")
-    private EntityManager entityManager;
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
-        return this.entityManager;
+        return this.em;
     }
 
     public EquipmentFacade() {
@@ -24,8 +24,8 @@ public class EquipmentFacade extends AbstractFacade<Equipment> implements Equipm
     }
     
     @Override
-    public Equipment findByItemID(Item _item) {
-        Query query = this.entityManager.createNamedQuery("Equipment.findByItemid").setParameter("itemid", _item.getItemID());
+    public Equipment findByItemid(Item item) {
+        Query query = this.em.createNamedQuery("Equipment.findByItemid").setParameter("itemid", item.getItemid());
         List results = query.getResultList();
         if (results.isEmpty()) {
             return null;

@@ -1,4 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package servlets;
+
 
 import entities.User;
 import java.io.IOException;
@@ -14,6 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 import model.BookmarkFacadeLocal;
 import model.UserFacadeLocal;
 
+
+/**
+ *
+ * @author CMD
+ */
 @WebServlet(name = "UserBookmarkServlet", urlPatterns = {"/UserBookmarkServlet"})
 public class UserBookmarkServlet extends HttpServlet {
 
@@ -33,20 +44,20 @@ public class UserBookmarkServlet extends HttpServlet {
     
     List results;
     User user;
-    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        _response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = _response.getWriter()) {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             try {
                 //get userEmail for current session
-                String userEmail = _request.getSession().getAttribute("email").toString();
+                String userEmail = request.getSession().getAttribute("email").toString();
                 
                 //get user from userEmail
-                this.user = this.userFacade.findByEmail(userEmail);
+                user = userFacade.findByEmail(userEmail);
                 
                 // Get bookmark list
-                this.results = this.bookmarkFacade.findAllByUserID(user);
+                results = bookmarkFacade.findAllByUserid(user);
 
          
                 //Get Item details for description?
@@ -58,16 +69,16 @@ public class UserBookmarkServlet extends HttpServlet {
             
             
             //Attach the result list to return message
-            _request.setAttribute("list", this.results);
+            request.setAttribute("list", results);
 
         } catch (Exception e) {
             out.println(e);
         }
 
         // Dispatch return message
-        RequestDispatcher dispatcher = _request.getRequestDispatcher("./bookmarks.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("./bookmarks.jsp");
         if (dispatcher != null) {
-            dispatcher.forward(_request, _response);
+            dispatcher.forward(request, response);
         }
         }
     }

@@ -12,11 +12,11 @@ import javax.persistence.Query;
 public class EbookFacade extends AbstractFacade<Ebook> implements EbookFacadeLocal {
 
     @PersistenceContext(unitName = "ITECH3217_Assignment2-ejbPU")
-    private EntityManager entityManager;
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
-        return this.entityManager;
+        return this.em;
     }
 
     public EbookFacade() {
@@ -24,8 +24,8 @@ public class EbookFacade extends AbstractFacade<Ebook> implements EbookFacadeLoc
     }
     
     @Override
-    public Ebook findByItemID(Item _item) {
-        Query query = this.entityManager.createNamedQuery("Ebook.findByItemid").setParameter("itemid", _item.getItemID());
+    public Ebook findByItemid(Item item) {
+        Query query = this.em.createNamedQuery("Ebook.findByItemid").setParameter("itemid", item.getItemid());
         List results = query.getResultList();
         if (results.isEmpty()) {
             return null;

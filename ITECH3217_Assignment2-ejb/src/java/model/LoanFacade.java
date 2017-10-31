@@ -14,11 +14,11 @@ import javax.persistence.Query;
 public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal {
 
     @PersistenceContext(unitName = "ITECH3217_Assignment2-ejbPU")
-    private EntityManager entityManager;
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
-        return this.entityManager;
+        return this.em;
     }
 
     public LoanFacade() {
@@ -26,20 +26,20 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
     }
     
     @Override
-    public void create(Loan _loan) {
-        _loan.setHistory(false);
-        this.entityManager.persist(_loan);
+    public void create(Loan loan) {
+        loan.setHistory(false);
+        this.em.persist(loan);
     }
     
     @Override
-    public void delete(Loan _loan) {
-        this.entityManager.remove(this.entityManager.merge(_loan));
+    public void delete(Loan loan) {
+        this.em.remove(this.em.merge(loan));
     }
     
     @Override
-    public boolean update(Loan _loan) {
+    public boolean update(Loan loan) {
         try {
-            this.entityManager.merge(_loan);
+            this.em.merge(loan);
             return true;
         } catch (Exception e) {
             return false;
@@ -47,15 +47,15 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
     }
 
     @Override
-    public List findAllByUserID(User _user, boolean _history) {
-        Query query = this.entityManager.createNamedQuery("Loan.findAll");
+    public List findAllByUserid(User userid, boolean history) {
+        Query query = this.em.createNamedQuery("Loan.findAll");
         List results = query.getResultList();
         Loan loan;
         if (results.isEmpty()) {
             return null;
         }
         // Toggle historical results
-        if (_history == false) {
+        if (history == false) {
             for (int i = results.size()-1; i >= 0; i--) {
                 loan = (Loan) results.get(i);
                 if (loan.getHistory() == true) {
@@ -66,7 +66,7 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
         // Remove non-matching loans
         for (int i = results.size()-1; i >= 0; i--) {
             loan = (Loan) results.get(i);
-            if (!Objects.equals(loan.getUser().getUserID(), _user.getUserID())) {
+            if (!Objects.equals(loan.getUserid().getUserid(), userid.getUserid())) {
                 results.remove(i);
             }
         }
@@ -75,8 +75,8 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
     }
     
     @Override
-    public Loan findByID(User _user, Item _item) {
-        Query query = this.entityManager.createNamedQuery("Loan.findAll");
+    public Loan findById(User user, Item item) {
+        Query query = this.em.createNamedQuery("Loan.findAll");
         List results = query.getResultList();
         Loan loan;
         if (results.isEmpty()) {
@@ -92,8 +92,8 @@ public class LoanFacade extends AbstractFacade<Loan> implements LoanFacadeLocal 
         // Return matching loan
         for (Object result : results) {
             loan = (Loan) result;
-            if (Objects.equals(loan.getUser().getUserID(), _user.getUserID())) {
-                if (Objects.equals(loan.getItem().getItemID(), _item.getItemID())) {
+            if (Objects.equals(loan.getUserid().getUserid(), user.getUserid())) {
+                if (Objects.equals(loan.getItemid().getItemid(), item.getItemid())) {
                     return loan;
                 }
             }

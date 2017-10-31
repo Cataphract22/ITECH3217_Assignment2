@@ -34,31 +34,31 @@ public class GetItemTypeServlet extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param _request servlet request
-     * @param _response servlet response
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        _response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = _response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-            Item item = this.itemFacade.findByItemID(Integer.parseInt(_request.getParameter("item")));
-            _request.setAttribute("book", null);
-            _request.setAttribute("ebook", null);
-            _request.setAttribute("equipment", null); 
-            _request.setAttribute("type", item.getItemType().getItemTypeString());
-            switch(item.getItemType().getItemTypeString()) {
-                case "BOOK":        Book book = this.bookFacade.findByItemID(item);
-                                    _request.setAttribute("book", book);
+            Item item = this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
+            request.setAttribute("book", null);
+            request.setAttribute("ebook", null);
+            request.setAttribute("equipment", null); 
+            request.setAttribute("type", item.getItemtype().getItemtype());
+            switch(item.getItemtype().getItemtype()) {
+                case "BOOK":        Book book = this.bookFacade.findByItemid(item);
+                                    request.setAttribute("book", book);
                                     break;
-                case "EBOOK":       Ebook ebook = this.ebookFacade.findByItemID(item);
-                                    _request.setAttribute("ebook", ebook);
-                                    _request.setAttribute("test", "yay");
+                case "EBOOK":       Ebook ebook = this.ebookFacade.findByItemid(item);
+                                    request.setAttribute("ebook", ebook);
+                                    request.setAttribute("test", "yay");
                                     break;
-                case "EQUIPMENT":   Equipment equipment = this.equipmentFacade.findByItemID(item);
-                                    _request.setAttribute("equipment", equipment);
+                case "EQUIPMENT":   Equipment equipment = this.equipmentFacade.findByItemid(item);
+                                    request.setAttribute("equipment", equipment);
                                     break;
             }
         } catch (NumberFormatException e) {

@@ -10,26 +10,26 @@ public abstract class AbstractFacade<T> {
 
     private final Class<T> entityClass;
 
-    public AbstractFacade(Class<T> _entityClass) {
-        this.entityClass = _entityClass;
+    public AbstractFacade(Class<T> entityClass) {
+        this.entityClass = entityClass;
     }
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T _entity) {
-        getEntityManager().persist(_entity);
+    public void create(T entity) {
+        getEntityManager().persist(entity);
     }
 
-    public void edit(T _entity) {
-        getEntityManager().merge(_entity);
+    public void edit(T entity) {
+        getEntityManager().merge(entity);
     }
 
-    public void remove(T _entity) {
-        getEntityManager().remove(getEntityManager().merge(_entity));
+    public void remove(T entity) {
+        getEntityManager().remove(getEntityManager().merge(entity));
     }
 
-    public T find(Object _object) {
-        return getEntityManager().find(this.entityClass, _object);
+    public T find(Object id) {
+        return getEntityManager().find(this.entityClass, id);
     }
 
     public List<T> findAll() {
@@ -38,12 +38,12 @@ public abstract class AbstractFacade<T> {
         return (List<T>) getEntityManager().createQuery(cq).getResultList();
     }
 
-    public List<T> findRange(int[] _range) {
+    public List<T> findRange(int[] range) {
         CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(this.entityClass));
         Query q = getEntityManager().createQuery(cq);
-        q.setMaxResults(_range[1] - _range[0] + 1);
-        q.setFirstResult(_range[0]);
+        q.setMaxResults(range[1] - range[0] + 1);
+        q.setFirstResult(range[0]);
         return (List<T>) q.getResultList();
     }
 

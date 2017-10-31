@@ -9,24 +9,24 @@ import javax.ejb.Local;
 @Local
 public interface BookmarkFacadeLocal {
 
-    void create(Bookmark _bookmark);
+    void create(Bookmark bookmark);
 
-    void edit(Bookmark _bookmark);
+    void edit(Bookmark bookmark);
 
-    void remove(Bookmark _bookmark);
+    void remove(Bookmark bookmark);
 
-    Bookmark find(Object _object);
+    Bookmark find(Object id);
 
     List<Bookmark> findAll();
 
-    List<Bookmark> findRange(int[] _range);
+    List<Bookmark> findRange(int[] range);
 
     int count();
 
-    public List findAllByUserID(User _user);
+    public List findAllByUserid(User userid);
 
-    public void delete(Bookmark _bookmark);
+    public void delete(Bookmark bookmark);
 
-    public Bookmark findByID(User _user, Item _item);
+    public Bookmark findById(User user, Item item);
     
 }

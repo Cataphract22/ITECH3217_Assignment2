@@ -1,3 +1,9 @@
+<%-- 
+    Document   : commentHistory
+    Created on : 27/10/2017, 11:41:31 AM
+    Author     : CMD
+--%>
+
 <%@page import="entities.Comment"%>
 <%@page import="java.util.List"%>
 <%@page import="entities.Item"%>
@@ -7,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Federation University Library - Comment Overview</title>
+        <title>Comment Overview</title>
     </head>
     <body>
         <h1>My Comments</h1>
@@ -32,7 +38,7 @@
                 <ul>
                     <%  for (itr = list.iterator(); itr.hasNext();) {
                             Comment comment = (Comment) itr.next();
-                            item = comment.getItem();
+                            item = comment.getItemid();
                             
 
                     %>
@@ -42,7 +48,7 @@
                             <% out.println(item.getTitle()); %>
                         </td>
                         <td>
-                            <% out.println(comment.getCommentText()); %>
+                            <% out.println(comment.getCommenttext()); %>
                         </td>
                         
                     </tr>

@@ -44,20 +44,20 @@ public class LoanHistoryServlet extends HttpServlet {
     List results;
     String userEmail;
     User user;
-    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        _response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = _response.getWriter()) {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             try {
                 //get userEmail for current session
-                this.userEmail = _request.getSession().getAttribute("email").toString();
+                userEmail = request.getSession().getAttribute("email").toString();
                 
                 //get user from userEmail
-                this.user = this.userFacade.findByEmail(this.userEmail);
+                user = userFacade.findByEmail(userEmail);
                 
                 // Get loan list
-                this.results = this.loanFacade.findAllByUserID(this.user, true);
+                results = loanFacade.findAllByUserid(user, true);
 
          
                 //Get Item details for description?
@@ -69,16 +69,16 @@ public class LoanHistoryServlet extends HttpServlet {
             
             
             //Attach the result list to return message
-            _request.setAttribute("list", this.results);
+            request.setAttribute("list", results);
 
         } catch (Exception e) {
             out.println(e);
         }
 
         // Dispatch return message
-        RequestDispatcher dispatcher = _request.getRequestDispatcher("./loanHistory.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("./loanHistory.jsp");
         if (dispatcher != null) {
-            dispatcher.forward(_request, _response);
+            dispatcher.forward(request, response);
         }
         }
     }

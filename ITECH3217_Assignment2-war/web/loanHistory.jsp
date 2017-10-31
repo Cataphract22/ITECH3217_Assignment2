@@ -1,3 +1,9 @@
+<%-- 
+    Document   : loanHistory
+    Created on : 26/10/2017, 10:43:09 PM
+    Author     : CMD
+--%>
+
 <%@page import="entities.Item"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
@@ -9,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Federation University Library - User Loan History</title>
+        <title>User Loan History</title>
     </head>
     <body>
         <h1>Loan History</h1>
@@ -35,8 +41,8 @@
                 <ul>
                     <%  for (itr = list.iterator(); itr.hasNext();) {
                             Loan loan = (Loan) itr.next();
-                            int loanId = loan.getLoanID();
-                            item = loan.getItem();
+                            int loanId = loan.getLoanid();
+                            item =loan.getItemid();
 
                     %>
                     <tr>
@@ -45,10 +51,10 @@
                             <% out.println(item.getTitle()); %>
                         </td>
                         <td>
-                        <% out.println(formatter.format(loan.getLoanDate())); %>
+                        <% out.println(formatter.format(loan.getLoandate())); %>
                         </td>
                         <td>
-                            <% out.println(formatter.format(loan.getDueDate())); %>
+                            <% out.println(formatter.format(loan.getDuedate())); %>
                         </td>
                         
                     </tr>

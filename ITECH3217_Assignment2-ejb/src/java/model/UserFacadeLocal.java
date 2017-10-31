@@ -7,19 +7,19 @@ import javax.ejb.Local;
 @Local
 public interface UserFacadeLocal {
 
-    void create(User _user);
+    void create(User user);
 
-    void edit(User _user);
+    void edit(User user);
 
-    void remove(User _user);
+    void remove(User user);
 
-    User find(Object _object);
+    User find(Object id);
     
-    User findByEmail(String _email);
+    User findByEmail(String email);
 
     List<User> findAll();
 
-    List<User> findRange(int[] _range);
+    List<User> findRange(int[] range);
 
     int count();
     

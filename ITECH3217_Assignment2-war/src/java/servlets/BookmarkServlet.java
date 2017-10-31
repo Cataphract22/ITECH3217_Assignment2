@@ -30,30 +30,30 @@ public class BookmarkServlet extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param _request servlet request
-     * @param _response servlet response
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        _response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = _response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-            User user = (User) this.userFacade.findByEmail((String)_request.getSession().getAttribute("email"));
-            Item item = (Item) this.itemFacade.findByItemID(Integer.parseInt(_request.getParameter("id")));
+            User user = (User) this.userFacade.findByEmail((String)request.getSession().getAttribute("email"));
+            Item item = (Item) this.itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
             Date bookmarkDate = new Date();
-            Bookmark bookmark = this.bookmarkFacade.findByID(user, item);
+            Bookmark bookmark = this.bookmarkFacade.findById(user, item);
             if ( bookmark == null) {
                 bookmark = new Bookmark();
-                bookmark.setItem(item);
-                bookmark.setUser(user);
-                bookmark.setBookmarkDate(bookmarkDate);
+                bookmark.setItemid(item);
+                bookmark.setUserid(user);
+                bookmark.setBookmarkdate(bookmarkDate);
                 this.bookmarkFacade.create(bookmark);
             } else {
                 this.bookmarkFacade.delete(bookmark);
             }
-            _response.sendRedirect("ItemDetailsServlet?id=" + item.getItemID());
+            response.sendRedirect("ItemDetailsServlet?id=" + item.getItemid());
         } catch (IOException | NumberFormatException e) {
             out.println(e);
         }   

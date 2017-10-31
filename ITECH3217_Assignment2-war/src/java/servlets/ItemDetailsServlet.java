@@ -29,36 +29,36 @@ public class ItemDetailsServlet extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param _request servlet request
-     * @param _response servlet response
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
        
-    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        _response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = _response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
             // Get item
-            Item item = (Item) this.itemFacade.findByItemID(Integer.parseInt(_request.getParameter("id")));
+            Item item = (Item) itemFacade.findByItemid(Integer.parseInt(request.getParameter("id")));
             
             //Attach the result list to return message
   
             // Get comment list
-            List comments = this.commentFacade.findAllByItemID(item);
+            List comments = commentFacade.findAllByItemid(item);
     
             //Attach the item and comments to return message
-            _request.setAttribute("item", item);
-            _request.setAttribute("comments", comments);
+            request.setAttribute("item", item);
+            request.setAttribute("comments", comments);
             
         } catch (NumberFormatException e) {
             out.println(e);
         }
         // Dispatch return message
-        RequestDispatcher dispatcher = _request.getRequestDispatcher("details.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("details.jsp");
         if (dispatcher != null) {
-            dispatcher.forward(_request, _response);
+            dispatcher.forward(request, response);
         }
     }
     

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package entities;
 
 import java.io.Serializable;
@@ -7,6 +12,10 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author drewm
+ */
 @Embeddable
 public class LoanRulePK implements Serializable {
 
@@ -14,57 +23,56 @@ public class LoanRulePK implements Serializable {
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "itemtype")
-    private String itemType;
-    
+    private String itemtype;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "usertype")
-    private String userType;
+    private String usertype;
 
     public LoanRulePK() {
     }
 
-    public LoanRulePK(String _itemType, String _userType) {
-        this.itemType = _itemType;
-        this.userType = _userType;
+    public LoanRulePK(String itemtype, String usertype) {
+        this.itemtype = itemtype;
+        this.usertype = usertype;
     }
 
-    public String getItemType() {
-        return this.itemType;
+    public String getItemtype() {
+        return itemtype;
     }
 
-    public void setItemType(String _itemType) {
-        this.itemType = _itemType;
+    public void setItemtype(String itemtype) {
+        this.itemtype = itemtype;
     }
 
-    public String getUserType() {
-        return this.userType;
+    public String getUsertype() {
+        return usertype;
     }
 
-    public void setUserType(String _userType) {
-        this.userType = _userType;
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (this.itemType != null ? this.itemType.hashCode() : 0);
-        hash += (this.userType != null ? this.userType.hashCode() : 0);
+        hash += (itemtype != null ? itemtype.hashCode() : 0);
+        hash += (usertype != null ? usertype.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object _object) {
+    public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(_object instanceof LoanRulePK)) {
+        if (!(object instanceof LoanRulePK)) {
             return false;
         }
-        LoanRulePK other = (LoanRulePK) _object;
-        if ((this.itemType == null && other.itemType != null) || (this.itemType != null && !this.itemType.equals(other.itemType))) {
+        LoanRulePK other = (LoanRulePK) object;
+        if ((this.itemtype == null && other.itemtype != null) || (this.itemtype != null && !this.itemtype.equals(other.itemtype))) {
             return false;
         }
-        if ((this.userType == null && other.userType != null) || (this.userType != null && !this.userType.equals(other.userType))) {
+        if ((this.usertype == null && other.usertype != null) || (this.usertype != null && !this.usertype.equals(other.usertype))) {
             return false;
         }
         return true;
@@ -72,7 +80,7 @@ public class LoanRulePK implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.LoanRulePK[ itemtype=" + this.itemType + ", usertype=" + this.userType + " ]";
+        return "entities.LoanRulePK[ itemtype=" + itemtype + ", usertype=" + usertype + " ]";
     }
     
 }

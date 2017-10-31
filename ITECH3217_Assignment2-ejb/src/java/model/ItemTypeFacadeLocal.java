@@ -7,17 +7,17 @@ import javax.ejb.Local;
 @Local
 public interface ItemTypeFacadeLocal {
 
-    void create(ItemType _itemType);
+    void create(ItemType itemType);
 
-    void edit(ItemType _itemType);
+    void edit(ItemType itemType);
 
-    void remove(ItemType _itemType);
+    void remove(ItemType itemType);
 
-    ItemType find(Object _object);
+    ItemType find(Object id);
 
     List<ItemType> findAll();
 
-    List<ItemType> findRange(int[] _range);
+    List<ItemType> findRange(int[] range);
 
     int count();
     

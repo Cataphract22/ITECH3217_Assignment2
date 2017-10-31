@@ -4,6 +4,7 @@ import entities.Comment;
 import entities.Item;
 import entities.User;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,11 +14,11 @@ import javax.persistence.Query;
 public class CommentFacade extends AbstractFacade<Comment> implements CommentFacadeLocal {
 
     @PersistenceContext(unitName = "ITECH3217_Assignment2-ejbPU")
-    private EntityManager entityManager;
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
-        return this.entityManager;
+        return this.em;
     }
 
     public CommentFacade() {
@@ -25,13 +26,13 @@ public class CommentFacade extends AbstractFacade<Comment> implements CommentFac
     }
     
     @Override
-    public void create(Comment _comment) {
-        this.entityManager.persist(_comment);
+    public void create(Comment comment) {
+        this.em.persist(comment);
     }
     
     @Override
-    public List findAllByItemID(Item _item) {
-        Query query = this.entityManager.createNamedQuery("Comment.findByItemid").setParameter("itemid", _item);
+    public List findAllByItemid(Item itemId) {
+        Query query = this.em.createNamedQuery("Comment.findByItemid").setParameter("itemid", itemId);
         List results = query.getResultList();
         
         // Return null if there are no comments
@@ -44,8 +45,8 @@ public class CommentFacade extends AbstractFacade<Comment> implements CommentFac
     }
     
     @Override
-    public List findAllByUserID(User _user) {
-        Query query = this.entityManager.createNamedQuery("Comment.findByUserid").setParameter("userid", _user);
+    public List findAllByUserid(User userId) {
+        Query query = this.em.createNamedQuery("Comment.findByUserid").setParameter("userid", userId);
         List results = query.getResultList();
         
         // Return null if there are no comments

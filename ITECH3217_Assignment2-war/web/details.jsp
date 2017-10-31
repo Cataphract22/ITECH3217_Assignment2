@@ -12,7 +12,7 @@
 <%
     Item item = (Item) request.getAttribute("item");
     List comments = (List) request.getAttribute("comments");
-    int itemId = item.getItemID();
+    int itemId = item.getItemid();
 %>
 <jsp:include page="./GetItemTypeServlet">
     <jsp:param name="item" value="<%=itemId%>"/>
@@ -21,7 +21,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Federation University Library - Details</title>
+        <title>FedUniLibrary</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./includes/styles/_main.css" rel="stylesheet" type="text/css">
@@ -41,7 +41,7 @@
                         <% Book book = (Book) request.getAttribute("book"); %>
                         <tr><td class="author"><%out.println(book.getAuthor());%></td></tr>
                         <tr><td class="publisher">Published by: <%out.println(book.getPublisher());%>, <%out.println(book.getPublishYear());%></td></tr>
-                        <tr><td class='isbn'>ISBN-13: <%out.println(book.getISBN());%></td></tr>
+                        <tr><td class='isbn'>ISBN-13: <%out.println(book.getIsbn());%></td></tr>
                         <% } %><!--EndIf-->
 
                         <!-- EBOOK -->
@@ -49,14 +49,14 @@
                         <% Ebook ebook = (Ebook) request.getAttribute("ebook"); %>
                         <tr><td class='author'><%out.println(ebook.getAuthor());%></td></tr>
                         <tr><td class="publisher">Published by: <%out.println(ebook.getPublisher());%>, <%out.println(ebook.getPublishYear());%></td></tr>
-                        <tr><td class='isbn'>ISBN-13: <%out.println(ebook.getISBN());%></td></tr>
+                        <tr><td class='isbn'>ISBN-13: <%out.println(ebook.getIsbn());%></td></tr>
                         <% } %><!--EndIf-->
 
                         <!-- EQUIPMENT -->
                         <% if (request.getAttribute("equipment") != null) { %>
                         <% Equipment equipment = (Equipment) request.getAttribute("equipment"); %>
                         <tr><td class='model'>Model: <%out.println(equipment.getModel());%></td></tr>
-                        <tr><td class='serialno'>Serial#: <%out.println(equipment.getSerialNo());%></td></tr>
+                        <tr><td class='serialno'>Serial#: <%out.println(equipment.getSerialno());%></td></tr>
                         <% } %><!--EndIf-->
 
                         <tr><td><p> </p></td></tr>
@@ -67,7 +67,7 @@
                             <jsp:param name="item" value="<%=itemId%>"/>
                         </jsp:include>
                         <tr><td><p> </p></td></tr>
-                        <form action="./LoanServlet?id=<%out.println(item.getItemID());%>" method="POST">
+                        <form action="./LoanServlet?id=<%out.println(item.getItemid());%>" method="POST">
                             <tr><td><input class="searchButton" type="submit" value="<%out.println(request.getAttribute("loan"));%>"></input></td></tr>
                         </form> 
                         
@@ -75,7 +75,7 @@
                         <jsp:include page="/CheckBookmarkServlet">
                             <jsp:param name="item" value="<%=itemId%>"/>
                         </jsp:include>
-                        <form action="./BookmarkServlet?id=<%out.println(item.getItemID());%>" method="POST">
+                        <form action="./BookmarkServlet?id=<%out.println(item.getItemid());%>" method="POST">
                             <tr><td><input class="searchButton" type="submit" value="<%out.println(request.getAttribute("bookmark"));%>"></input></td></tr>
                         </form> 
                     </table>              
@@ -95,7 +95,7 @@
                 <% if (comments != null && comments.size() > 0) { %>
                 <ul>
                     <!-- Build comment form -->
-                    <form action="./CommentServlet?id=<%out.println(item.getItemID());%>" method="POST" style="width: 450px; margin-left: 20px;">
+                    <form action="./CommentServlet?id=<%out.println(item.getItemid());%>" method="POST" style="width: 450px; margin-left: 20px;">
                         <li class='form-comment-container' style="margin-bottom: 0px;">
                             <table class='form-comment-table'>
                                 <tr><td style="padding: 0px;"><h4 class='form-comment-head'>New Comment: ( Posting as <%out.println(session.getAttribute("email"));%>)</h4></td></tr>
@@ -111,8 +111,8 @@
                     %>
                     
                     <li class='comment-container'>
-                        <h3 class='comment-head'><%out.println(comment.getUser().getGivenName() + " " + comment.getUser().getFamilyName());%></h3>
-                        <p class="comment-text"><%out.println(comment.getCommentText());%></p>           
+                        <h3 class='comment-head'><%out.println(comment.getUserid().getGivenname() + " " + comment.getUserid().getFamilyname());%></h3>
+                        <p class="comment-text"><%out.println(comment.getCommenttext());%></p>           
                     </li> 
                     <% } %> <!--EndFor-->
                 </ul>

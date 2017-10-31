@@ -32,30 +32,30 @@ public class CheckBookmarkServlet extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param _request servlet request
-     * @param _response servlet response
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        _response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = _response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-            User user = (User) this.userFacade.findByEmail((String)_request.getSession().getAttribute("email"));
-            Item item = this.itemFacade.findByItemID(Integer.parseInt(_request.getParameter("item")));
-            List list = this.bookmarkFacade.findAllByUserID(user);
-            _request.setAttribute("bookmark", "Bookmark");
+            User user = (User) userFacade.findByEmail((String)request.getSession().getAttribute("email"));
+            Item item = itemFacade.findByItemid(Integer.parseInt(request.getParameter("item")));
+            List list = bookmarkFacade.findAllByUserid(user);
+            request.setAttribute("bookmark", "Bookmark");
             Iterator itr;
             for (itr = list.iterator(); itr.hasNext();) {
                 Bookmark bookmark = (Bookmark) itr.next();
-                if (Objects.equals(bookmark.getItem().getItemID(), item.getItemID())) {
-                    _request.setAttribute("bookmark", "Remove Bookmark");
+                if (Objects.equals(bookmark.getItemid().getItemid(), item.getItemid())) {
+                    request.setAttribute("bookmark", "Remove Bookmark");
                     break;
                 }
             }
         } catch (NumberFormatException e) {
-            out.println(e);
+            //out.println(e);
         }
     }
 

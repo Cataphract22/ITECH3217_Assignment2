@@ -1,3 +1,8 @@
+<%-- 
+    Document   : profile
+    Created on : 25/10/2017, 9:39:38 PM
+    Author     : CMD
+--%>
 <%@page import="entities.Item"%>
 <%@page import="entities.Loan"%>
 <%@page import="java.util.Iterator"%>
@@ -7,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Federation University Library - User Profile</title>
+        <title>User Profile</title>
     <div class="header">
         <h1>User Profile</h1>
         <div class="user-options">

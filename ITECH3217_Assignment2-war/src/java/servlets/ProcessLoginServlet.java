@@ -19,41 +19,41 @@ public class ProcessLoginServlet extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param _request servlet request
-     * @param _response servlet response
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest _request, HttpServletResponse _response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        _response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = _response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         // Set default redirect
         String address = "login.jsp";
         String params = "";
         User user;
         try {
-            _response.setContentType("text/html;charset=UTF-8");
+            response.setContentType("text/html;charset=UTF-8");
             // Get user
-            user = this.userFacade.findByEmail(_request.getParameter("email"));
+            user = this.userFacade.findByEmail(request.getParameter("email"));
             if (user == null) {
                 address = "/login/login.jsp";
                 params = "?failed=true";
                 //request.setAttribute("failed", true);
-            } else if (user.getPassword().equals(_request.getParameter("password"))) {
+            } else if (user.getPassword().equals(request.getParameter("password"))) {
                 // Set address and params
                 address = "/ListItemsServlet";
                 params = "?type=BOOK&type=EBOOK&type=EQUIPMENT";
                 // Session values
-                _request.getSession().setAttribute("email", user.getEmail());
-                _request.getSession().setAttribute("password", user.getPassword());
-                _request.getSession().setAttribute("type", user.getUserType().getUserTypeString());
-                _request.getSession().setAttribute("admin", user.isAdmin());
+                request.getSession().setAttribute("email", user.getEmail());
+                request.getSession().setAttribute("password", user.getPassword());
+                request.getSession().setAttribute("type", user.getType().getUsertype());
+                request.getSession().setAttribute("admin", user.getIsadmin());
             } else {
                 address = "/login/login.jsp";
                 params = "?failed=true";
             }
-            _response.sendRedirect(_request.getContextPath() + address + params);
+            response.sendRedirect(request.getContextPath() + address + params);
         } catch (IOException e) {
             out.println(e);
         }
