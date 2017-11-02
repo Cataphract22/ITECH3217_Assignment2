@@ -89,7 +89,7 @@ public class UserRegistrationServlet extends HttpServlet {
           String password = request.getParameter("password"); 
           
           Class.forName(driver);
-          con = DriverManager.getConnection(url + databaseName, "root", "kronos1995");                  
+          con = DriverManager.getConnection(url + databaseName, "admin", "password");                  
           query = ("INSERT INTO User (Password, GivenName, FamilyName, Phone, Email, Type, Admin)" +
 " VALUES ('" + password + "','" + firstName + "','" + lastName + "','" + phone + "','" + email + "','UNDERGRAD' ,false)");
 
@@ -101,8 +101,7 @@ public class UserRegistrationServlet extends HttpServlet {
           if (i!=0) {
               address = "/login/login.jsp";
               params = "?newuser=true";
-          }
-          else {
+          } else {
               address = "/login/login.jsp";
               params = "?failed";
           }
