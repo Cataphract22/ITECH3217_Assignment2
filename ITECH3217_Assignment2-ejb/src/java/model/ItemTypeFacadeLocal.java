@@ -15,9 +15,9 @@ public interface ItemTypeFacadeLocal {
 
     ItemType find(Object id);
 
-    List<ItemType> findAll();
+    List<ItemType> findAllUsers();
 
-    List<ItemType> findRange(int[] range);
+    List<ItemType> findUsersInRange(int[] range);
 
     int count();
     
