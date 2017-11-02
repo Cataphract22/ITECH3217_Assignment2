@@ -17,9 +17,9 @@ public interface LoanFacadeLocal {
 
     Loan find(Object id);
 
-    List<Loan> findAll();
+    List<Loan> findAllUsers();
 
-    List<Loan> findRange(int[] range);
+    List<Loan> findUsersInRange(int[] range);
 
     int count();
 
