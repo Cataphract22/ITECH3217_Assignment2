@@ -90,8 +90,8 @@ public class UserRegistrationServlet extends HttpServlet {
           
           Class.forName(driver);
           con = DriverManager.getConnection(url + databaseName, "root", "kronos1995");                  
-          query = ("INSERT INTO User (Password, GivenName, FamilyName, Phone, Email, Type, IsAdmin)" +
-" VALUES ('" + password + "','" + firstName + "','" + lastName + "','" + phone + "','" + email + "','UNDERGRAD' ,0)");
+          query = ("INSERT INTO User (Password, GivenName, FamilyName, Phone, Email, Type, Admin)" +
+" VALUES ('" + password + "','" + firstName + "','" + lastName + "','" + phone + "','" + email + "','UNDERGRAD' ,false)");
 
           Statement st = con.createStatement();
           
