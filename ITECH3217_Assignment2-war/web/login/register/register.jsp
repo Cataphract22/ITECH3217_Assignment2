@@ -24,7 +24,7 @@
                 %>
                 <div class="login-block">
                     <h1>Federation University Library Registration</h1>
-                    <form action="registration/" method="post">
+                    <form name="registrationform" action="/ITECH3217_Assignment2-war/UserRegistrationServlet" method="post">
                         <input type="text" name="firstName" value="" placeholder="First Name" required/>
                         <input type="text" name="lastName" value="" placeholder="Last Name" required/>
                         <input type="email" name="email" value="" placeholder="Email Address" required/>
