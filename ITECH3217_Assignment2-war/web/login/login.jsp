@@ -22,7 +22,7 @@
                         out.write("<div class=\"message\">Successfully Registered</div>");
                     }
                     if (request.getParameter("needlogin") != null) {
-                        out.write("<div class=\"message\">You must login to access that feature</div>");
+                        out.write("<div class=\"message\">You must login to use feature</div>");
                     }
                 %>
                 <div class="login-block">
