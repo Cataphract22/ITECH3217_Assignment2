@@ -53,7 +53,7 @@ public class ListItemsServlet extends HttpServlet {
             // Get types
             String[] types = request.getParameterValues("type");
             // Get item list
-            this.results = this.itemFacade.findAll();
+            this.results = this.itemFacade.findAllUsers();
             /***********************
             /** FILTER
             /************************
@@ -69,7 +69,7 @@ public class ListItemsServlet extends HttpServlet {
                     for (int i = 0; i < this.results.size(); i++) {
                         Item result = (Item) this.results.get(i);
                         if (result.getItemType().getItemtypeString().equals(types[t])) {
-                            filteredResults.add(result);
+                            filteredResults.add((Item)result);
                         }
                     }
                 }
