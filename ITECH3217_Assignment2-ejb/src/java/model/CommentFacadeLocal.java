@@ -17,9 +17,9 @@ public interface CommentFacadeLocal {
 
     Comment find(Object id);
 
-    List<Comment> findAllUsers();
+    List<Comment> findAll();
 
-    List<Comment> findUsersInRange(int[] range);
+    List<Comment> findInRange(int[] range);
 
     int count();
 

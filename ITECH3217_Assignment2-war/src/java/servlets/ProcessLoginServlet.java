@@ -49,7 +49,7 @@ public class ProcessLoginServlet extends HttpServlet {
                 request.getSession().setAttribute("password", user.getPassword());
                 request.getSession().setAttribute("type", user.getUserType().getUserTypeString());
                 
-                request.getSession().setAttribute("admin", "" + user.Admin());
+                request.getSession().setAttribute("admin", "" + user.getAdmin());
                 request.getSession().setAttribute("loggedIn", "true");
             } else {
                 address = "/login/login.jsp";

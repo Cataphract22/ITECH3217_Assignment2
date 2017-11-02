@@ -16,9 +16,9 @@ public interface EquipmentFacadeLocal {
 
     Equipment find(Object id);
 
-    List<Equipment> findAllUsers();
+    List<Equipment> findAll();
 
-    List<Equipment> findUsersInRange(int[] range);
+    List<Equipment> findInRange(int[] range);
 
     int count();
 

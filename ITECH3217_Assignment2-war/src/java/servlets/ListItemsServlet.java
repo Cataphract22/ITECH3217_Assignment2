@@ -53,7 +53,7 @@ public class ListItemsServlet extends HttpServlet {
             // Get types
             String[] types = request.getParameterValues("type");
             // Get item list
-            this.results = this.itemFacade.findAllUsers();
+            this.results = this.itemFacade.findAll();
             /***********************
             /** FILTER
             /************************

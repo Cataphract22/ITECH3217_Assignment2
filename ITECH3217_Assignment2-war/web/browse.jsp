@@ -14,6 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./includes/styles/_main.css" rel="stylesheet" type="text/css">
         <link href="./includes/styles/browse.css" rel="stylesheet" type="text/css">
+        <link href="./includes/styles/navigation.css" rel="stylesheet" type="text/css">
     </head>
     <body>
     <navigation>

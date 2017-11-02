@@ -32,13 +32,13 @@ public abstract class AbstractFacade<T> {
         return getEntityManager().find(this.entityClass, id);
     }
 
-    public List<T> findAllUsers() {
+    public List<T> findAll() {
         CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(this.entityClass));
         return (List<T>) getEntityManager().createQuery(cq).getResultList();
     }
 
-    public List<T> findUsersInRange(int[] range) {
+    public List<T> findInRange(int[] range) {
         CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(this.entityClass));
         Query q = getEntityManager().createQuery(cq);

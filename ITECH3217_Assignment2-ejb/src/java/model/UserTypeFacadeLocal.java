@@ -15,9 +15,9 @@ public interface UserTypeFacadeLocal {
 
     UserType find(Object id);
 
-    List<UserType> findAllUsers();
+    List<UserType> findAll();
 
-    List<UserType> findUsersInRange(int[] range);
+    List<UserType> findInRange(int[] range);
 
     int count();
     

@@ -17,9 +17,9 @@ public interface LoanRuleFacadeLocal {
 
     LoanRule find(Object id);
 
-    List<LoanRule> findAllUsers();
+    List<LoanRule> findAll();
 
-    List<LoanRule> findUsersInRange(int[] range);
+    List<LoanRule> findInRange(int[] range);
 
     int count();
 

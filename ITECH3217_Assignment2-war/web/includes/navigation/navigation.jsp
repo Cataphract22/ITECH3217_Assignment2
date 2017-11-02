@@ -20,7 +20,7 @@
         <% if(pageContext.getAttribute("callingFilename").equals("browse.jsp")) { %>
             <li><a class="active">Search</a></li>
         <% } else { %>
-            <li><a href="./ListItemsServlet?type=BOOK&type=EBOOK&type=EQUIPMENT.jsp">Search</a></li>
+            <li><a href="./ListItemsServlet?type=BOOK&type=EBOOK&type=EQUIPMENT">Search</a></li>
         <% } %>
         
         <% if(request.getSession().getAttribute("admin").equals("true")) { // user is admin%>
@@ -35,7 +35,5 @@
         
     <% } else { %>
         <li><a href="./login/login.jsp">Log In / Register</a></li>
-    <% } %>
-            
     <% } %>
 </ul>

@@ -16,9 +16,9 @@ public interface EbookFacadeLocal {
 
     Ebook find(Object id);
 
-    List<Ebook> findAllUsers();
+    List<Ebook> findAll();
 
-    List<Ebook> findUsersInRange(int[] range);
+    List<Ebook> findInRange(int[] range);
 
     int count();
 

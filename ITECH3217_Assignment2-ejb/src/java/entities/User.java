@@ -149,7 +149,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Boolean Admin() {
+    public Boolean getAdmin() {
         return admin;
     }
 

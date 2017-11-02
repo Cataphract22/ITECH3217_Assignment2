@@ -17,9 +17,9 @@ public interface BookmarkFacadeLocal {
 
     Bookmark find(Object id);
 
-    List<Bookmark> findAllUsers();
+    List<Bookmark> findAll();
 
-    List<Bookmark> findUsersInRange(int[] range);
+    List<Bookmark> findInRange(int[] range);
 
     int count();
 
