@@ -41,8 +41,8 @@
         <servlet-class>servlets.CommentServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AdministrateLibraryDataServlet</servlet-name>
-        <servlet-class>servlets.AdministrateLibraryDataServlet</servlet-class>
+        <servlet-name>UserRegistrationServlet</servlet-name>
+        <servlet-class>servlets.UserRegistrationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProcessLoginServlet</servlet-name>
@@ -85,8 +85,8 @@
         <url-pattern>/CommentServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AdministrateLibraryDataServlet</servlet-name>
-        <url-pattern>/AdministrateLibraryDataServlet</url-pattern>
+        <servlet-name>UserRegistrationServlet</servlet-name>
+        <url-pattern>/UserRegistrationServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
