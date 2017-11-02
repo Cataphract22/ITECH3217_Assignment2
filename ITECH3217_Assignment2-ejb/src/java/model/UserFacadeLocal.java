@@ -17,9 +17,9 @@ public interface UserFacadeLocal {
     
     User findByEmail(String email);
 
-    List<User> findAll();
+    List<User> findAllUsers();
 
-    List<User> findRange(int[] range);
+    List<User> findUsersInRange(int[] range);
 
     int count();
     
