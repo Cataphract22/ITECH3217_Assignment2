@@ -98,9 +98,8 @@
                 
                 <div class="new-comment-container"><h2>Comments</h2></div>              
                 <!-- Get comment list, build HTML for each item -->
-                <% Iterator itr; %>
-                <% if (comments != null && comments.size() > 0) { %>
                 <ul>
+                    
                     <!-- Build comment form -->
                     <form action="./CommentServlet?id=<%out.println(item.getItemID());%>" method="POST" style="width: 450px; margin-left: 20px;">
                         <li class='form-comment-container' style="margin-bottom: 0px;">
@@ -111,16 +110,19 @@
                         </li>
                         <input class="comment-button" type="submit" value="Post Comment"></input>
                     </form> 
-
-                    <!-- Build comments -->
-                    <%  for (itr = comments.iterator(); itr.hasNext();) {
-                            Comment comment = (Comment) itr.next();
-                    %>
                     
-                    <li class='comment-container'>
-                        <h3 class='comment-head'><%out.println(comment.getUser().getGivenName() + " " + comment.getUser().getFamilyName());%></h3>
-                        <p class="comment-text"><%out.println(comment.getCommentText());%></p>           
-                    </li> 
+                    <% Iterator itr; %>
+                    <% if (comments != null && comments.size() > 0) { %>
+                    
+                    <!-- Build comments -->
+                        <%  for (itr = comments.iterator(); itr.hasNext();) {
+                                Comment comment = (Comment) itr.next();
+                        %>
+
+                        <li class='comment-container'>
+                            <h3 class='comment-head'><%out.println(comment.getUser().getGivenName() + " " + comment.getUser().getFamilyName());%></h3>
+                            <p class="comment-text"><%out.println(comment.getCommentText());%></p>           
+                        </li> 
                     <% } %> <!--EndFor-->
                 </ul>
                 <% } %> <!--EndIf-->
