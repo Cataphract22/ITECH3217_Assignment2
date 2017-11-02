@@ -8,8 +8,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Federation University Library - Comment Overview</title>
+        <link href="./includes/styles/_main.css" rel="stylesheet" type="text/css">
+        <link href="./includes/styles/commentHistory.css" rel="stylesheet" type="text/css">
+        <link href="./includes/styles/navigation.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        
+        <navigation>
+            <%@include file="./includes/navigation/navigation.jsp" %>
+        </navigation>
+    
         <h1>My Comments</h1>
         <div class="verticalContainer">
             <div class="content-block">           

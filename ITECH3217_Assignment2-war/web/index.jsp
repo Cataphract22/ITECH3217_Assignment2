@@ -9,6 +9,7 @@
         <link href="./includes/styles/_main.css" rel="stylesheet" type="text/css">
         <link href="./includes/styles/index.css" rel="stylesheet" type="text/css">
         <link href="./includes/styles/navigation.css" rel="stylesheet" type="text/css">
+    </head>
     <body>
         
         <navigation>

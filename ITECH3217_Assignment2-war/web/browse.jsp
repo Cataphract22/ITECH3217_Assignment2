@@ -17,13 +17,14 @@
         <link href="./includes/styles/navigation.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        
     <navigation>
             <%@include file="./includes/navigation/navigation.jsp" %>
     </navigation>
+    
     <div class="header">
         <h1>Welcome to Federation University Library</h2>
             <h1>Browse Items</h1>
-            <a href="./profile.jsp">Profile</a>
             <div class="search-container">
                 <table>    
                     <form action="ListItemsServlet" method="Post">

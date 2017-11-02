@@ -20,8 +20,14 @@ if(request.getSession().getAttribute("admin").equals("false")) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./includes/styles/_main.css" rel="stylesheet" type="text/css">
         <link href="./includes/styles/admin.css" rel="stylesheet" type="text/css">
+        <link href="./includes/styles/navigation.css" rel="stylesheet" type="text/css">
     </head>
-<body>
+    <body>
+        
+        <navigation>
+            <%@include file="./includes/navigation/navigation.jsp" %>
+        </navigation>
+    
     <div class="verticalContain">
         <div class="content-block">
             <h1></h1>
