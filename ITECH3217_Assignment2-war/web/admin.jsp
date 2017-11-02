@@ -6,11 +6,10 @@ NOTE: if changes made will need to iterate through database updating all tables 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    // check if admin user - if not: redirect to login.jsp
-//    if(!request.getSession().getAttribute("admin").equals("1")) {
-//        response.sendRedirect(request.getContextPath() + "/login/login.jsp");
-        System.out.println("TESTING ADMIN PAGE - USER IS NOT ADMIN - UNCOMMENT CODE ABOVE FOR REDIRECTION");
-//    }
+if(request.getSession().getAttribute("admin").equals("false")) {
+    // not admin - redirect
+    response.sendRedirect(request.getContextPath() + "/login/login.jsp");
+}
 %>
 
 <!DOCTYPE html>

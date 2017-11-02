@@ -73,8 +73,8 @@ public class User implements Serializable {
     @Column(name = "email")
     private String email;
     
-    @Column(name = "isadmin")
-    private Short isadmin;
+    @Column(name = "admin")
+    private Boolean admin;
     
     @OneToMany(mappedBy = "userid")
     private Collection<Bookmark> bookmarkCollection;
@@ -149,12 +149,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Short isAdmin() {
-        return isadmin;
+    public Boolean Admin() {
+        return admin;
     }
 
-    public void setIsAdmin(Short isadmin) {
-        this.isadmin = isadmin;
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
     @XmlTransient

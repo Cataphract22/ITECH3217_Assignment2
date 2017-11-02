@@ -33,7 +33,7 @@
                         <input class="submit" type="submit" value="Login">
                     </form>
                     <button class="reg" onclick="location.href = '../login/register/register.jsp'">Registration</button>
-                    <button class="guest" onclick="location.href = '../index.jsp'">Access as a Guest</button>
+                    <button class="guest" onclick="location.href = '../includes/scripts/accessAsGuest.jsp'">Access as a Guest</button>
                 </div>
             </div>
         </div>
