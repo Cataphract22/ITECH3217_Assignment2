@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import entities.User;
@@ -19,10 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.CommentFacadeLocal;
 import model.UserFacadeLocal;
 
-/**
- *
- * @author CMD
- */
 @WebServlet(name = "CommentHistoryServlet", urlPatterns = {"/CommentHistoryServlet"})
 public class CommentHistoryServlet extends HttpServlet {
 
@@ -41,32 +32,23 @@ public class CommentHistoryServlet extends HttpServlet {
     private UserFacadeLocal userFacade;
     List results;
     User user;
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-           try {
-                //get userEmail for current session
-                String userEmail = request.getSession().getAttribute("email").toString();
+        PrintWriter out = response.getWriter();
+        try {
+            //get userEmail for current session
+            String userEmail = request.getSession().getAttribute("email").toString();
                 
-                //get user from userEmail
-                user = userFacade.findByEmail(userEmail);
+            //get user from userEmail
+            user = userFacade.findByEmail(userEmail);
                 
-                // Get comment list
-                results = commentFacade.findAllByUser(user);
+            // Get comment list
+            results = commentFacade.findAllByUser(user);
 
-         
-                //Get Item details for description?
+            //Get Item details for description?
                 
-                
-            
-          
-
-            
-            
             //Attach the result list to return message
             request.setAttribute("list", results);
-
         } catch (Exception e) {
             out.println(e);
         }
@@ -75,7 +57,6 @@ public class CommentHistoryServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("./commentHistory.jsp");
         if (dispatcher != null) {
             dispatcher.forward(request, response);
-        }
         }
     }
 

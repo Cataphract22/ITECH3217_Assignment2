@@ -14,7 +14,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./includes/styles/_main.css" rel="stylesheet" type="text/css">
         <link href="./includes/styles/browse.css" rel="stylesheet" type="text/css">
-
+    </head>
+    <body>
+    <navigation>
+            <%@include file="./includes/navigation/navigation.jsp" %>
+    </navigation>
     <div class="header">
         <h1>Welcome to Federation University Library</h2>
             <h1>Browse Items</h1>
@@ -85,9 +89,7 @@
 
             </div>
     </div>
-
-    <body>
-        <div class="verticalContain">
+       <div class="verticalContain">
             <div class="content-block">           
                 <!-- Iterate through item list, build HTML for each item -->
 

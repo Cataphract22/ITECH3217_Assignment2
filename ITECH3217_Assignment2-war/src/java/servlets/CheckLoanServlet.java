@@ -58,7 +58,6 @@ public class CheckLoanServlet extends HttpServlet {
             }
             if (request.getAttribute("loan") != "Return Item" && item.Available() == false) { // If item unavailable
                 request.setAttribute("loan", "Unavailable");
-                
             }
         } catch (NumberFormatException e) {
             //out.println(e);

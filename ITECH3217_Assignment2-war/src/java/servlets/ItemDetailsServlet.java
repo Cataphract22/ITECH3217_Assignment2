@@ -13,10 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.CommentFacadeLocal;
 import model.ItemFacadeLocal;
 
-/**
- *
- * @author drewm
- */
 public class ItemDetailsServlet extends HttpServlet {
 
     @EJB

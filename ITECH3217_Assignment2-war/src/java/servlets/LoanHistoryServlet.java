@@ -38,30 +38,23 @@ public class LoanHistoryServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            try {
-                //get userEmail for current session
-                userEmail = request.getSession().getAttribute("email").toString();
+        PrintWriter out = response.getWriter();
+        /* TODO output your page here. You may use following sample code. */
+        try {
+            //get userEmail for current session
+            userEmail = request.getSession().getAttribute("email").toString();
                 
-                //get user from userEmail
-                user = userFacade.findByEmail(userEmail);
+            //get user from userEmail
+            user = userFacade.findByEmail(userEmail);
                 
-                // Get loan list
-                results = loanFacade.findAllByUser(user, true);
+            // Get loan list
+            results = loanFacade.findAllByUser(user, true);
 
          
-                //Get Item details for description?
-                
-                
-            
-          
+            //Get Item details for description?
 
-            
-            
             //Attach the result list to return message
             request.setAttribute("list", results);
-
         } catch (Exception e) {
             out.println(e);
         }
@@ -70,7 +63,6 @@ public class LoanHistoryServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("./loanHistory.jsp");
         if (dispatcher != null) {
             dispatcher.forward(request, response);
-        }
         }
     }
 
