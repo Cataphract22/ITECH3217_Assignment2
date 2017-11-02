@@ -40,6 +40,10 @@
         <servlet-name>CommentServlet</servlet-name>
         <servlet-class>servlets.CommentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdministrateLibraryDataServlet</servlet-name>
+        <servlet-class>servlets.AdministrateLibraryDataServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessLoginServlet</servlet-name>
         <url-pattern>/ProcessLoginServlet</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>CommentServlet</servlet-name>
         <url-pattern>/CommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdministrateLibraryDataServlet</servlet-name>
+        <url-pattern>/AdministrateLibraryDataServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
