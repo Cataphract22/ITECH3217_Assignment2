@@ -27,7 +27,8 @@
 
                 <% Iterator itr; %>
                 <% List list = (List) request.getAttribute("list"); %>
-                <% Item item = new Item(); %>
+                <% Item item = new Item();
+                 String returnStatus;%>
                 
                 <% DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); %>
                 
@@ -38,6 +39,7 @@
                         <td>Item</td>
                         <td>Loan Start Date</td>
                         <td>Loan End Date</td>
+                        <td>Returned</td>
                         
                     </tr>
                 <ul>
@@ -46,6 +48,13 @@
                             int loanId = loan.getLoanID();
                             item = loan.getItem();
 
+                            if (loan.getHistory()==true){
+                                returnStatus = "Yes";
+                            }
+                            else{
+                                returnStatus = "No";
+                            }
+                            
                     %>
                     <tr>
                         <td>
@@ -58,7 +67,9 @@
                         <td>
                             <% out.println(formatter.format(loan.getDueDate())); %>
                         </td>
-                        
+                        <td>
+                            <% out.println(returnStatus);%>
+                        </td>
                     </tr>
                     <% } %> <!--EndFor-->
                     </li> 
