@@ -102,15 +102,13 @@ public class UserRegistrationServlet extends HttpServlet {
 
             address = "/login/login.jsp";
             params = "?newuser=true";
-
         } catch(Exception ex) {
             address = "/login/login.jsp";
             params = "?failed";
-            
+            out.println(ex.getMessage());
         } finally {
             response.sendRedirect(request.getContextPath() + address + params);
         }
-        
     }
 
     /**

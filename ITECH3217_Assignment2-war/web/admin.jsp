@@ -1,3 +1,6 @@
+<%@page import="entities.User"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
 <!-- ADD: ability to Create, Edit and Delete ITEM records
 ASSIGNMENT READS: "which can manage all data contained within the application"
 NOTE: if changes made will need to iterate through database updating all tables affected -->
@@ -6,10 +9,10 @@ NOTE: if changes made will need to iterate through database updating all tables 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-if(request.getSession().getAttribute("admin").equals("false")) {
-    // not admin - redirect
-    response.sendRedirect(request.getContextPath() + "/login/login.jsp");
-}
+    if (request.getSession().getAttribute("admin").equals("false")) {
+        // not admin - redirect
+        response.sendRedirect(request.getContextPath() + "/login/login.jsp");
+    }
 %>
 
 <!DOCTYPE html>
@@ -23,16 +26,19 @@ if(request.getSession().getAttribute("admin").equals("false")) {
         <link href="./includes/styles/navigation.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        
-        <navigation>
-            <%@include file="./includes/navigation/navigation.jsp" %>
-        </navigation>
-    
+
+    <navigation>
+        <%@include file="./includes/navigation/navigation.jsp" %>
+    </navigation>
+
     <div class="verticalContain">
         <div class="content-block">
             <h1></h1>
-            
+
             <div id="divAdministrateUsers" name="divAdministrateUsers" style="border:2px solid black;">
+                <div id="divAdministrateUsers_Controls" name="divAdministrateUsers_Controls" style="border:1px solid black;">
+                    <h1>Users</h1>
+                </div>
                 <div id="divAdministrateUsers_Controls" name="divAdministrateUsers_Controls" style="border:1px solid black;">
                     Data Controls: 
                     <button id="addNewUser">Add New User</button>
@@ -40,7 +46,49 @@ if(request.getSession().getAttribute("admin").equals("false")) {
                     <button id="deleteUser">Delete User</button>
                 </div>
                 <div id="divAdministrateUsers_Content" name="divAdministrateUsers_Content" style="border:1px solid black;">
-                    administrate (USERS: add, update, delete) (Tables: USER) in this cell
+
+
+                    <div class="verticalContainer">
+                        <div class="content-block">           
+
+                            <% Iterator itr; %>
+                            <% List userList = (List) request.getAttribute("userList"); %>
+                            <% if (userList != null && userList.size() > 0) { %>
+
+                            <table>
+                                <tr>
+                                    <th>User ID:</th>
+                                    <th>First:</th>
+                                    <th>Last:</th>
+                                    <th>Phone</th>
+                                    <th>Email:</th>
+                                    <th>Admin:</th>
+                                </tr>
+
+                                <%  for (itr = userList.iterator(); itr.hasNext();) {
+                                        User user = (User) itr.next();
+                                %>
+                                <form>
+                                    <tr>
+                                        <td><input type="text" id="userID" disabled><% out.println(user.getUserID()); %></input></td>
+                                        <td><input type="text" id="userFirstName" disabled><% out.println(user.getGivenName()); %></input></td>
+                                        <td><input type="text" id="userLastName" disabled><% out.println(user.getFamilyName()); %></input></td>
+                                        <td><input type="text" id="userPhone" disabled><% out.println(user.getPhone()); %></input></td>
+                                        <td><input type="text" id="userEmail" disabled><% out.println(user.getEmail()); %></input></td>
+                                        <td><input type="text" id="userAdmin" disabled><% out.println(user.getAdmin()); %></input></td>
+                                    </tr>
+                                </form>
+                                <% } %> <!--EndIf-->
+                            </table>
+                            <% } else { %> <!--EndIf-->
+<!--                                No users found!--> <!-- getting error here, should be a list of Users to be displayed for Administrating -->
+                            <% }%> <!--EndFor--> 
+                        </div>
+                    </div>
+
+
+
+
                 </div>
             </div>
             <br>
@@ -67,7 +115,7 @@ if(request.getSession().getAttribute("admin").equals("false")) {
                     administrate (TYPES: add, update, delete) (Tables: USER_TYPE, ITEM_TYPE, LOAN_TYPE) in this cell
                 </div>
             </div>
-            
+
         </div>
     </body>
 </html>

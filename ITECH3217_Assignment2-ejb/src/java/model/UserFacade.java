@@ -29,7 +29,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         if (results.isEmpty()) {
             return null;
         }
-        return(User) results.get(0);
+        return (User) results.get(0);
     }
     
 }

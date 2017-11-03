@@ -28,6 +28,7 @@
             <% if(pageContext.getAttribute("callingFilename").equals("admin.jsp")) { %>    
                 <li class="nav_li" style="float:right"><a class="nav_active">Administrate Library Data</a></li>
             <% } else { %>
+                <!--<li class="nav_li" style="float:right"><a class="nav_inactive" href="/AdministrateLibraryDataServlet">Administrate Library Data</a></li>-->
                 <li class="nav_li" style="float:right"><a class="nav_inactive" href="./admin.jsp">Administrate Library Data</a></li>
             <% } %>
         <% } %>    
