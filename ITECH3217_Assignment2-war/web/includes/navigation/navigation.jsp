@@ -1,7 +1,8 @@
 <ul class="nav_ul">
+    
+    <!-- Nav code created by following guide: https://www.w3schools.com/css/css_navbar.asp -->
 
     <% pageContext.setAttribute("callingFilename", this.getClass().getSimpleName().replaceAll("_jsp", ".jsp")); %>
-
 
     <% if (pageContext.getAttribute("callingFilename").equals("index.jsp")) { %>
     <li class="nav_li"><a class="nav_active">Home</a></li>
