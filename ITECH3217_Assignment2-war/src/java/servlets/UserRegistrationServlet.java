@@ -1,19 +1,25 @@
 package servlets;
 
+import entities.User;
+import entities.UserType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.UserFacadeLocal;
+import model.UserTypeFacadeLocal;
 
 public class UserRegistrationServlet extends HttpServlet {
+
+    @EJB
+    private UserTypeFacadeLocal userTypeFacade;
+
+    @EJB
+    private UserFacadeLocal userFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -71,46 +77,40 @@ public class UserRegistrationServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Connection con = null;
         
         String address = "login.jsp";
         String params = "";
         
-        String url="jdbc:mysql://localhost/";
-        String databaseName = "ITECH3217_LMS";
-        String driver = "com.mysql.jdbc.Driver";
-        String query="";
-        
         try {
-          String email = request.getParameter("email");
-          String firstName = request.getParameter("firstName");
-          String lastName = request.getParameter("lastName");
-          String phone = request.getParameter("phone");
-          String password = request.getParameter("password"); 
-          
-          Class.forName(driver);
-          con = DriverManager.getConnection(url + databaseName, "root", "kronos1995");                  
-          query = ("INSERT INTO User (Password, GivenName, FamilyName, Phone, Email, Type, Admin)" +
-" VALUES ('" + password + "','" + firstName + "','" + lastName + "','" + phone + "','" + email + "','UNDERGRAD' ,false)");
+            String email = request.getParameter("email");
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            String phone = request.getParameter("phone");
+            String password = request.getParameter("password"); 
+            UserType type = userTypeFacade.find("UNDERGRAD");
 
-          Statement st = con.createStatement();
+            User user = new User();
+            user.setEmail(email);
+            user.setGivenName(firstName);
+            user.setFamilyName(lastName);
+            user.setPhone(phone);
+            user.setPassword(password);
+            user.setUserType(type);
+            user.setAdmin(Boolean.FALSE);
           
-          st.executeUpdate(query);
+            this.userFacade.create(user);
 
-          int i = st.executeUpdate(query);
-          if (i!=0) {
-              address = "/login/login.jsp";
-              params = "?newuser=true";
-          }
-          else {
-              address = "/login/login.jsp";
-              params = "?failed";
-          }
-        response.sendRedirect(request.getContextPath() + address + params);
-        st.close();
+            address = "/login/login.jsp";
+            params = "?newuser=true";
+
         } catch(Exception ex) {
-            out.println(ex);
-        } 
+            address = "/login/login.jsp";
+            params = "?failed";
+            
+        } finally {
+            response.sendRedirect(request.getContextPath() + address + params);
+        }
+        
     }
 
     /**
