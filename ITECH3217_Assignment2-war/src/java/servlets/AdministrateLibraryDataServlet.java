@@ -5,17 +5,30 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.BookmarkFacadeLocal;
+import model.ItemFacadeLocal;
+import model.ItemTypeFacadeLocal;
 import model.UserFacadeLocal;
+import model.UserTypeFacadeLocal;
 
-@WebServlet(name = "UserBookmarkServlet", urlPatterns = {"/UserBookmarkServlet"})
-public class UserBookmarkServlet extends HttpServlet {
+//@WebServlet(name = "AdministrateLibraryDataervlet", urlPatterns = {"/AdministrateLibraryDataServlet"})
+public class AdministrateLibraryDataServlet extends HttpServlet {
+    
+    @EJB
+    private UserFacadeLocal userFacade;
+    
+    @EJB
+    private ItemFacadeLocal itemFacade;
+    
+    @EJB
+    private UserTypeFacadeLocal userTypeFacade;
+    
+    @EJB
+    private ItemTypeFacadeLocal itemTypeFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -26,40 +39,31 @@ public class UserBookmarkServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @EJB
-    private BookmarkFacadeLocal bookmarkFacade;
-    @EJB
-    private UserFacadeLocal userFacade;
+    List userList;
+    List itemList;
     
-    List results;
-    User user;
+    List userTypeList;
+    List itemTypeList;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        /* TODO output your page here. You may use following sample code. */
         try {
-            //get userEmail for current session
-            String userEmail = request.getSession().getAttribute("email").toString();
-                
-            //get user from userEmail
-            user = userFacade.findByEmail(userEmail);
-                
-            // Get bookmark list
-            results = bookmarkFacade.findAllByUser(user);
-
-            //Get Item details for description?
-                
-            //Attach the result list to return message
-            request.setAttribute("list", results);
-        } catch (Exception e) {
-            out.println(e);
-        }
-
-        // Dispatch return message
-        RequestDispatcher dispatcher = request.getRequestDispatcher("./bookmarks.jsp");
-        if (dispatcher != null) {
-            dispatcher.forward(request, response);
+            
+            userList = userFacade.findAll();
+            request.setAttribute("userList", userList);
+            
+            itemList = itemFacade.findAll();
+            request.setAttribute("itemList", itemList);
+            
+            userTypeList = userTypeFacade.findAll();
+            request.setAttribute("userTypeList", userTypeList);
+            
+            itemTypeList = itemTypeFacade.findAll();
+            request.setAttribute("itemTypeList", itemTypeList);
+            
+        } catch (Exception exception) {
+            out.println(exception.getMessage());
         }
     }
 

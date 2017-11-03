@@ -1,7 +1,5 @@
- table {
-    border-collapse: collapse;
-}
-
-table, th, td {
-    border: 1px solid black;
+body {
+    background: url('../images/loginBook.jpg') no-repeat fixed center center;
+    background-size: cover;
+    font-family: sans-serif;
 }

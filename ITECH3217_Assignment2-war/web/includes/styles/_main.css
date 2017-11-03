@@ -3,6 +3,12 @@ body {
     font-family: sans-serif;
 }
 
+body {
+    background: url('../images/loginBook.jpg') no-repeat fixed center center;
+    background-size: cover;
+    font-family: sans-serif;
+}
+
 .search-container {
     display: table;
     width: 99%;
